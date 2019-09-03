@@ -14,16 +14,15 @@ class ProductPortionRepositoryImpl @Inject constructor(private val menuInfo: Men
 
 
     override fun getStartInquirerInfo(): Single<StartInquirerInfo> {
-        return Single.just( menuInfo.startInquirerInfo ?: StartInquirerInfo(
+        return Single.just(menuInfo.startInquirerInfo ?: StartInquirerInfo(
             "No name",
             1,
             1,
             0,
             Date(),
             TypeOfMeal.BREAKFAST,
-            menuInfo.defaultProductPortionList
-        )
-        )
+            menuInfo.defaultProductPortionList.toMutableList()
+        ))
     }
 
     override fun setStartInquirerInfo(startInquirerInfo: StartInquirerInfo) {

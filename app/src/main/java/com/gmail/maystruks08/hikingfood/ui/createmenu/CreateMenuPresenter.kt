@@ -59,11 +59,12 @@ class CreateMenuPresenter @Inject constructor(
         compositeDisposable.add(
             interactor.clearStartInquirerData().subscribe({
                 Log.d(CreateMenuPresenter::class.java.name,"Clear start inquirer data success" )
+                super.end()
             }, {
                 it.printStackTrace()
+                super.end()
             })
         )
-        super.end()
     }
 
 }

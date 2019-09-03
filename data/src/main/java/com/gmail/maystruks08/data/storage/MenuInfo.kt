@@ -31,7 +31,7 @@ class MenuInfo @Inject constructor() {
         add(Product(19, "Хлеб(в мокром виде)", 200))
         add(Product(20, "Сладкое на обед", 75))
         add(Product(21, "Привальные", 40))
-    }
+    }.toList()
 
     var startInquirerInfo: StartInquirerInfo? = null
 

@@ -25,8 +25,9 @@ class ProductPortionInteractorImpl @Inject constructor(
         return repository.getStartInquirerInfo().flatMapCompletable { startInquirerInfo ->
             Completable.fromAction {
                 startInquirerInfo.portionForOnePeople.find { it.name == productName }?.let {
+                    val position = startInquirerInfo.portionForOnePeople.indexOf(it)
                     startInquirerInfo.portionForOnePeople.remove(it)
-                    startInquirerInfo.portionForOnePeople.add(Product(it.id, productName, newValue))
+                    startInquirerInfo.portionForOnePeople.add(position, Product(it.id, productName, newValue))
                 }
                 repository.setStartInquirerInfo(startInquirerInfo)
             }

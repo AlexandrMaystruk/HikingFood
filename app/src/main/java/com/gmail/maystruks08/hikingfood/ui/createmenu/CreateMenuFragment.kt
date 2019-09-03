@@ -104,9 +104,9 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
         presenter.end()
+        super.onDestroy()
     }
 
     override fun showLoading() {
