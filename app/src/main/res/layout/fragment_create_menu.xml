@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_m"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etMenuName"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_l"
+            android:hint="Название раскладки"
+            android:inputType="text"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorGrey_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCountOfRelaxDay"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_s"
+            android:gravity="center_vertical"
+            android:text="Количество дневок:"
+            android:textSize="@dimen/text_m"
+            app:layout_constraintStart_toStartOf="@+id/etMenuName"
+            app:layout_constraintTop_toBottomOf="@+id/etMenuName" />
+
+        <Spinner
+            android:id="@+id/spinnerRelaxDayCount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/number_spinner_height"
+            android:layout_marginTop="@dimen/margin_s"
+            android:entries="@array/relax_day_count"
+            app:layout_constraintEnd_toEndOf="@+id/etMenuName"
+            app:layout_constraintTop_toBottomOf="@+id/etMenuName" />
+
+
+        <TextView
+            android:id="@+id/tvCountOfDay"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:gravity="center_vertical"
+            android:text="Количество дней:"
+            android:textSize="@dimen/text_m"
+            app:layout_constraintStart_toStartOf="@+id/tvCountOfRelaxDay"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountOfRelaxDay" />
+
+        <Spinner
+            android:id="@+id/spinnerDayCount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/number_spinner_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:entries="@array/day_count"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerRelaxDayCount"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerRelaxDayCount" />
+
+        <TextView
+            android:id="@+id/tvPeopleCount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:gravity="center_vertical"
+            android:text="Количество человек:"
+            android:textSize="@dimen/text_m"
+            app:layout_constraintStart_toStartOf="@+id/tvCountOfDay"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountOfDay" />
+
+        <Spinner
+            android:id="@+id/spinnerCountOfPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/number_spinner_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:entries="@array/people_count"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerDayCount"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerDayCount" />
+
+
+        <TextView
+            android:id="@+id/tvStartMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:gravity="center_vertical"
+            android:text="Старт раскладки:"
+            android:textSize="@dimen/text_m"
+            app:layout_constraintStart_toStartOf="@+id/tvPeopleCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvPeopleCount" />
+
+        <Spinner
+            android:id="@+id/spinnerStartMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/number_spinner_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:entries="@array/menu_start"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerCountOfPeople"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerCountOfPeople" />
+
+        <TextView
+            android:id="@+id/tvDateOfStartMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:gravity="center_vertical"
+            android:text="Укажите дату начала раскладки:"
+            android:textSize="@dimen/text_m"
+            app:layout_constraintStart_toStartOf="@+id/tvStartMenu"
+            app:layout_constraintTop_toBottomOf="@+id/tvStartMenu" />
+
+        <CalendarView
+            android:id="@+id/cvDateOfHike"
+            android:layout_width="wrap_content"
+            android:layout_height="297dp"
+            android:firstDayOfWeek="2"
+            android:selectedWeekBackgroundColor="#ff0000"
+            app:layout_constraintEnd_toEndOf="@id/btnCreateHike"
+            app:layout_constraintStart_toStartOf="@id/btnChangeGrammar"
+            app:layout_constraintTop_toBottomOf="@id/tvDateOfStartMenu" />
+
+        <Button
+            android:id="@+id/btnChangeGrammar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_s"
+            android:layout_marginBottom="@dimen/margin_l"
+            android:background="@color/colorPrimary"
+            android:text="Грамовка"
+            android:textColor="@color/textWhiteSelected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvStartMenu"
+            app:layout_constraintTop_toBottomOf="@+id/cvDateOfHike" />
+
+        <Button
+            android:id="@+id/btnCreateHike"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/margin_s"
+            android:layout_marginBottom="@dimen/margin_l"
+            android:background="@color/colorPrimary"
+            android:text="Далее"
+            android:textColor="@color/textWhiteSelected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerStartMenu"
+            app:layout_constraintTop_toBottomOf="@+id/cvDateOfHike" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

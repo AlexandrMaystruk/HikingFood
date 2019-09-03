@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.funrisestudio.stepprogress.StepProgressView
+        android:id="@+id/vStepProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:arcPadding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:nodeHeight="50dp"
+        app:stepsCount="3"
+        app:textNodeColor="@color/colorAccent"
+        app:textNodeSize="18sp"
+        app:textNodeTitleColor="@color/colorPrimary"
+        app:textNodeTitleSize="14sp"
+        app:textTitlePadding="5dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutBillsHeader"
+        style="@style/ComponentBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_min"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vStepProgress">
+
+
+        <TextView
+            style="@style/TextOrderItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:textColor="@color/colorOrange"
+            android:text="Имя" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrey_700" />
+
+        <TextView
+            style="@style/TextOrderItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="end"
+            android:textColor="@color/colorOrange"
+            android:text="На 1 чел" />
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrey_700" />
+
+        <TextView
+            style="@style/TextOrderItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="end"
+            android:textColor="@color/colorOrange"
+            android:text="Вес" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ingredientOfFoodReceptionRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutBillsHeader" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

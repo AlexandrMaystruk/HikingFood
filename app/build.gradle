@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    def globalConfiguration = rootProject.ext
+    compileSdkVersion globalConfiguration.androidCompileSdkVersion
+    defaultConfig {
+
+        applicationId globalConfiguration.androidApplicationId
+
+        minSdkVersion globalConfiguration.androidMinSdkVersion
+        targetSdkVersion globalConfiguration.androidTargetSdkVersion
+
+        versionCode globalConfiguration.androidVersionCode
+        versionName globalConfiguration.androidVersionName
+
+        testInstrumentationRunner globalConfiguration.testInstrumentationRunner
+        vectorDrawables.useSupportLibrary = true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+
+    implementation project(':domain')
+    api project(':data')
+
+    compileOnly presentationDependencies.javaxAnnotation
+    compileOnly presentationDependencies.javaxInject
+    implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.kotlin
+    implementation presentationDependencies.supportAndroid
+    implementation presentationDependencies.supportAppCompat
+    implementation presentationDependencies.supportDesign
+    implementation presentationDependencies.cardView
+    implementation presentationDependencies.recyclerView
+    implementation presentationDependencies.circleImageView
+    implementation presentationDependencies.androidCoreKTX
+    implementation presentationDependencies.stepProgressView
+
+
+
+    implementation presentationDependencies.rxJava
+    implementation presentationDependencies.rxAndroid
+
+    implementation presentationDependencies.dagger
+    kapt presentationDependencies.daggerCompiler
+
+    implementation presentationDependencies.cicerone
+
+    testImplementation presentationTestDependencies.junit
+    testImplementation presentationTestDependencies.mockito
+    androidTestImplementation presentationTestDependencies.espresso
+    androidTestImplementation presentationTestDependencies.testingSupportLib
+}

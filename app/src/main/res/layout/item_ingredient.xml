@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutIngredient"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/margin_xs"
+    android:paddingTop="@dimen/margin_xs"
+    android:paddingEnd="@dimen/margin_xs"
+    android:paddingBottom="@dimen/margin_xs">
+
+    <CheckBox
+        android:id="@+id/cbIsIngredientSelected"
+        android:layout_width="0dp"
+        android:layout_weight="0.18"
+        android:checked="true"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvProductName"
+        style="@style/TextOrderItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"
+        android:gravity="start"
+        android:textColor="@color/colorOrange" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorHint" />
+
+    <TextView
+        android:id="@+id/tvIngredientWeightForOnePeople"
+        style="@style/TextOrderItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="end"
+        android:textColor="@color/colorOrange" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorHint" />
+
+    <TextView
+        android:id="@+id/tvIngredientWeightForAllPeople"
+        style="@style/TextOrderItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="end"
+        android:textColor="@color/colorOrange" />
+
+</LinearLayout>

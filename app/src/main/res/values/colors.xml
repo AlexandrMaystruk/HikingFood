@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#300606</color>
+    <color name="colorPrimaryDark">#310303</color>
+    <color name="colorHint">#FFEB3B</color>
+    <color name="colorAccent">#FFD15C</color>
+    <color name="colorGreen">#00A018</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorRed">#BD1515</color>
+    <color name="colorOrange">#FF5722</color>
+    <color name="colorGrey">#cb444869</color>
+    <color name="colorGrey_700">#616161</color>
+
+    <color name="background">#D9DDFF</color>
+    <color name="backgroundHeader">#9ca1c9</color>
+    <color name="bottomNavigationViewColor">#bf3d4269</color>
+    <color name="hintColor">#77FFFFFF</color>
+    <color name="textWhiteUnselected">#A3FFFFFF</color>
+    <color name="textWhiteSelected">#ffffff</color>
+
+    <color name="colorMainRoute">#D27787E7</color>
+    <color name="colorSpareRoute">#B92196F3</color>
+</resources>

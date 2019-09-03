@@ -1,0 +1,84 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>n
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@drawable/main_background</item>
+    </style>
+
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/colorOrange</item>
+        <item name="android:textSize">@dimen/text_l</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+    </style>
+
+    <style name="ComponentBarLayout">
+        <item name="android:background">@drawable/bg_corner_layout</item>
+        <item name="android:paddingTop">@dimen/margin_s</item>
+        <item name="android:paddingBottom">@dimen/margin_s</item>
+        <item name="android:paddingStart">@dimen/margin_s</item>
+        <item name="android:paddingEnd">@dimen/margin_s</item>
+    </style>
+
+    <style name="TextOrderItemTitle">
+        <item name="android:textSize">@dimen/margin_s</item>
+    </style>
+
+
+    <style name="TextOrderItem" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/text_m</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:paddingTop">@dimen/margin_xs</item>
+        <item name="android:paddingBottom">@dimen/margin_xs</item>
+        <item name="android:paddingStart">@dimen/margin_m</item>
+        <item name="android:paddingEnd">@dimen/margin_s</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextBottomNavigation">
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:textColor">@color/textWhiteUnselected</item>
+    </style>
+
+    <style name="TextXS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="TextS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_s</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="ButtonS">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+
+    <style name="HeaderTextFont" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/kon_kord_retro</item>
+        <item name="android:textSize">@dimen/text_xl</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="HeaderTextFont.Bold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/kon_kord_retro</item>
+        <item name="android:textSize">@dimen/text_xl</item>
+    </style>
+
+
+</resources>
