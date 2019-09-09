@@ -16,9 +16,9 @@
     <CheckBox
         android:id="@+id/cbIsIngredientSelected"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.18"
-        android:checked="true"
-        android:layout_height="wrap_content" />
+        android:checked="true" />
 
     <TextView
         android:id="@+id/tvProductName"
@@ -27,6 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.9"
         android:gravity="start"
+        android:paddingStart="@dimen/margin_s"
+        android:paddingEnd="@dimen/margin_s"
         android:textColor="@color/colorOrange" />
 
     <View
@@ -41,6 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:gravity="end"
+        android:paddingStart="@dimen/margin_s"
+        android:paddingEnd="@dimen/margin_s"
         android:textColor="@color/colorOrange" />
 
     <View
@@ -55,6 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:gravity="end"
+        android:paddingStart="@dimen/margin_s"
+        android:paddingEnd="@dimen/margin_s"
         android:textColor="@color/colorOrange" />
 
 </LinearLayout>

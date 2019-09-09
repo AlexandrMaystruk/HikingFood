@@ -8,6 +8,6 @@ interface AllMenuInteractor {
 
     fun provideAllMenuList(): Single<List<Menu>>
 
-    fun removeMenu(menu: Menu): Completable
+    fun removeMenu(menuId: Long): Completable
 
 }

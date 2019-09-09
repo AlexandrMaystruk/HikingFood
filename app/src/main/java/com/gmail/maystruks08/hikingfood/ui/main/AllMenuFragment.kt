@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gmail.maystruks08.domain.entity.Menu
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import com.gmail.maystruks08.hikingfood.utils.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_all_menu_list.*
@@ -88,11 +88,11 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         }
     }
 
-    override fun showAllMenuList(allMenuList: List<Menu>) {
+    override fun showAllMenuList(allMenuList: List<MenuView>) {
         allMenuAdapter.menuList = allMenuList.toMutableList()
     }
 
-    override fun showMenuInserted(position: Int, menu: Menu) {
+    override fun showMenuInserted(position: Int, menu: MenuView) {
         allMenuAdapter.menuList.add(position, menu)
         allMenuAdapter.notifyItemInserted(position)
     }
@@ -105,7 +105,7 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         allMenuAdapter.notifyItemChanged(position)
     }
 
-    private fun menuItemClicked(menu: Menu) {
+    private fun menuItemClicked(menu: MenuView) {
         presenter.onMenuItemClicked(menu)
     }
 

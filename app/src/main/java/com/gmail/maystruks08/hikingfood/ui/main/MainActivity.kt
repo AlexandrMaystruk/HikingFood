@@ -55,17 +55,17 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
     }
 
 
-    private val navigator: Navigator = object : AppNavigator(this, supportFragmentManager, R.id.mainContainer) {
-
-        override fun setupFragmentTransaction(
-            command: Command?,
-            currentFragment: Fragment?,
-            nextFragment: Fragment?,
-            fragmentTransaction: FragmentTransaction
-        ) {
-            fragmentTransaction.setReorderingAllowed(true)
+    private val navigator: Navigator =
+        object : AppNavigator(this, supportFragmentManager, R.id.mainContainer) {
+            override fun setupFragmentTransaction(
+                command: Command?,
+                currentFragment: Fragment?,
+                nextFragment: Fragment?,
+                fragmentTransaction: FragmentTransaction
+            ) {
+                fragmentTransaction.setReorderingAllowed(true)
+            }
         }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -89,7 +89,8 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
             onBackHandler != null -> onBackHandler!!.run()
             supportFragmentManager.backStackEntryCount > 0 -> router.exit()
             lastBackPressTime < System.currentTimeMillis() - PRESS_TWICE_INTERVAL -> {
-                Toast.makeText(this, R.string.toast_exit_app_warning_text, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.toast_exit_app_warning_text, Toast.LENGTH_SHORT)
+                    .show()
                 lastBackPressTime = System.currentTimeMillis()
             }
             else -> router.exit()
@@ -98,7 +99,8 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
 
     private fun hideSoftKeyboard() {
         if (currentFocus != null) {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
     }
@@ -112,7 +114,7 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
     }
 
     override fun setBackgroundColor(color: Int) {
-        ContextCompat.getColor(this, color).let{
+        ContextCompat.getColor(this, color).let {
             toolbar.setBackgroundColor(it)
         }
     }

@@ -3,7 +3,7 @@
     <color name="colorPrimary">#300606</color>
     <color name="colorPrimaryDark">#310303</color>
     <color name="colorHint">#FFEB3B</color>
-    <color name="colorAccent">#FFD15C</color>
+    <color name="colorAccent">#0BB10E</color>
     <color name="colorGreen">#00A018</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
@@ -21,4 +21,9 @@
 
     <color name="colorMainRoute">#D27787E7</color>
     <color name="colorSpareRoute">#B92196F3</color>
+
+    <color name="colorGreyDarkItem">#E0D4D4</color>
+    <color name="colorGreyLightItem">#F3EAEA</color>
+
+
 </resources>

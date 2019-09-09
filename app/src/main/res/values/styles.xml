@@ -18,12 +18,43 @@
         <item name="colorControlNormal">@android:color/transparent</item>
     </style>
 
+    <style name="Spinner" parent="AppTheme">
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColorPrimary">@color/colorOrange</item>
+        <item name="android:textColor">@color/colorOrange</item>
+        <item name="android:textSize">@dimen/text_xs</item>
+    </style>
+
+    <style name="FabSuccess">
+        <item name="android:backgroundTint">@color/colorGreen</item>
+        <item name="android:src">@drawable/ic_check</item>
+    </style>
+
+    <style name="FabNextStep">
+        <item name="android:backgroundTint">@color/colorGreen</item>
+        <item name="android:src">@drawable/ic_chevron_right</item>
+
+    </style>
+
+    <style name="GuidelineHorizontalComponent">
+        <item name="android:orientation">horizontal</item>
+        <item name="layout_constraintGuide_percent">@dimen/mainVerticalGuideline</item>
+    </style>
+
+    <style name="GuidelineVerticalComponent">
+        <item name="android:orientation">vertical</item>
+        <item name="layout_constraintGuide_percent">@dimen/mainVerticalGuideline</item>
+    </style>
+
     <style name="ComponentBarLayout">
         <item name="android:background">@drawable/bg_corner_layout</item>
-        <item name="android:paddingTop">@dimen/margin_s</item>
-        <item name="android:paddingBottom">@dimen/margin_s</item>
-        <item name="android:paddingStart">@dimen/margin_s</item>
-        <item name="android:paddingEnd">@dimen/margin_s</item>
+        <item name="android:paddingTop">@dimen/margin_min</item>
+        <item name="android:paddingBottom">@dimen/margin_min</item>
+        <item name="android:paddingStart">@dimen/margin_min</item>
+        <item name="android:paddingEnd">@dimen/margin_min</item>
     </style>
 
     <style name="TextOrderItemTitle">
@@ -50,14 +81,28 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_xs</item>
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorOrange</item>
     </style>
 
     <style name="TextS">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_s</item>
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorOrange</item>
+    </style>
+
+    <style name="TextM">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_m</item>
+        <item name="android:textColor">@color/colorOrange</item>
+    </style>
+
+    <style name="TextL">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_l</item>
+        <item name="android:textColor">@color/colorOrange</item>
     </style>
 
     <style name="ButtonS">

@@ -1,38 +1,119 @@
 package com.gmail.maystruks08.data.storage
 
-import com.gmail.maystruks08.domain.entity.Product
-import com.gmail.maystruks08.domain.entity.StartInquirerInfo
+import com.gmail.maystruks08.domain.entity.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MenuInfo @Inject constructor() {
 
-    val defaultProductPortionList = mutableListOf<Product>().apply {
-        add(Product(0, "Гречка", 85))
-        add(Product(1, "Рис", 85))
-        add(Product(2, "Макароны", 85))
-        add(Product(3, "Крупы в суп", 20))
-        add(Product(4, "Соль", 3))
-        add(Product(5, "Сахар", 35))
-        add(Product(6, "Чай", 3))
-        add(Product(7, "Печенье", 40))
-        add(Product(8, "Колбаса", 50))
-        add(Product(9, "Сыр", 50))
-        add(Product(10, "Сало", 50))
-        add(Product(11, "Пашетет", 60))
-        add(Product(12, "Рыбные консервы", 60))
-        add(Product(13, "Мясо(в мокром виде)", 60))
-        add(Product(14, "Сухари/галеты", 60))
-        add(Product(15, "Картошка(в мокром виде)", 20))
-        add(Product(16, "Капуста(в мокром виде)", 20))
-        add(Product(17, "Морковка(в мокром виде)", 10))
-        add(Product(18, "Зелень(в мокром виде)", 2))
-        add(Product(19, "Хлеб(в мокром виде)", 200))
-        add(Product(20, "Сладкое на обед", 75))
-        add(Product(21, "Привальные", 40))
-    }.toList()
+    val defaultProductPortionList = listOf(
+        Product(0, "Гречка", Portion(85, 75, 100)),
+        Product(1, "Рис", Portion(85, 75, 100)),
+        Product(2, "Макароны", Portion(85, 75, 100)),
+        Product(3, "Крупы в суп", Portion(20, 20, 20)),
+        Product(4, "Соль", Portion(3, 2, 4)),
+        Product(5, "Сахар", Portion(35, 30, 40)),
+        Product(6, "Чай", Portion(3, 2, 4)),
+        Product(7, "Печенье", Portion(40, 35, 50)),
+        Product(8, "Колбаса", Portion(50, 50, 50)),
+        Product(9, "Сыр", Portion(50, 50, 50)),
+        Product(10, "Сало", Portion(50, 50, 50)),
+        Product(11, "Пашетет", Portion(60, 60, 60)),
+        Product(12, "Рыбные консервы", Portion(60, 60, 60)),
+        Product(13, "Мясо(в мокром виде)", Portion(20, 15, 25)),
+        Product(14, "Сухари/галеты", Portion(25, 20, 30)),
+        Product(15, "Картошка(в мокром виде)", Portion(20, 15, 25)),
+        Product(16, "Капуста(в мокром виде)", Portion(20, 15, 25)),
+        Product(17, "Морковка(в мокром виде)", Portion(10, 7, 13)),
+        Product(18, "Зелень(в мокром виде)", Portion(2, 2, 4)),
+        Product(18, "Лук", Portion(2, 2, 4)),
+        Product(19, "Хлеб(в мокром виде)", Portion(200, 180, 220)),
+        Product(20, "Сладкое", Portion(40, 30, 50)),
+        Product(21, "Привальные", Portion(75, 70, 80))
+    )
+
+    val defaultSoupSetList = listOf(
+        SoupSet.create(0, "Борщ", getDefaultSoupIngredients().apply {
+            this.add(Product(21, "Заправка", Portion(75, 70, 80)))
+        }),
+        SoupSet.create(0, "Рассольник", getDefaultSoupIngredients().apply {
+            this.add(Product(21, "Заправка", Portion(75, 70, 80)))
+        }),
+        SoupSet.create(0, "Солянка", getDefaultSoupIngredients().apply {
+            this.add(Product(21, "Заправка", Portion(75, 70, 80)))
+        }),
+        SoupSet.create(0, "Суп харчо", getDefaultSoupIngredients()),
+        SoupSet.create(0, "Суп гороховый", getDefaultSoupIngredients().apply {
+            this.add(Product(21, "Гороховые брикеты", Portion(75, 70, 80)))
+        }),
+        SoupSet.create(0, "Суп чечевичный", getDefaultSoupIngredients()),
+        SoupSet.create(0, "Суп гречневый", getDefaultSoupIngredients().apply {
+            this.add(Product(21, "Гречка", Portion(20, 20, 20)))
+        }),
+        SoupSet.create(0, "Сырный суп", getDefaultSoupIngredients()),
+        SoupSet.create(0, "Суп грибной", getDefaultSoupIngredients().apply {
+            this.add(Product(21, "Грибы", Portion(20, 20, 20)))
+            this.add(Product(21, "Гречка", Portion(20, 20, 20)))
+        })
+    )
+
+    private fun getDefaultSoupIngredients(): MutableList<Product> {
+        return mutableListOf(
+            Product(15, "Картошка(в мокром виде)", Portion(20, 15, 25)),
+            Product(16, "Капуста(в мокром виде)", Portion(20, 15, 25)),
+            Product(17, "Морковка(в мокром виде)", Portion(10, 7, 13)),
+            Product(18, "Зелень(в мокром виде)", Portion(2, 2, 4)),
+            Product(18, "Лук", Portion(2, 2, 4))
+        )
+    }
+
+    val defaultFoodMeals = mapOf(
+        TypeOfMeal.BREAKFAST to FoodMeal(
+            mutableListOf(
+                Product(4, "Соль", Portion(3, 2, 4)),
+                Product(5, "Сахар", Portion(35, 30, 40)),
+                Product(6, "Чай", Portion(3, 2, 4)),
+                Product(7, "Печенье", Portion(40, 35, 50)),
+                Product(9, "Сыр", Portion(50, 50, 50)),
+                Product(14, "Сухари/галеты", Portion(25, 20, 30)),
+                Product(19, "Хлеб(в мокром виде)", Portion(200, 180, 220))
+            ), mutableListOf(
+                Product(0, "Гречка", Portion(85, 75, 100)),
+                Product(1, "Рис", Portion(85, 75, 100)),
+                Product(2, "Макароны", Portion(85, 75, 100))
+            )
+        ),
+        TypeOfMeal.LUNCH to FoodMeal(
+            mutableListOf(
+                Product(7, "Печенье", Portion(40, 35, 50)),
+                Product(19, "Хлеб(в мокром виде)", Portion(200, 180, 220)),
+                Product(20, "Сладкое", Portion(40, 30, 50)),
+                Product(21, "Привальные", Portion(75, 70, 80))
+            ),
+            mutableListOf(
+                Product(8, "Колбаса", Portion(50, 50, 50)),
+                Product(10, "Сало", Portion(50, 50, 50)),
+                Product(11, "Пашетет", Portion(60, 60, 60)),
+                Product(12, "Рыбные консервы", Portion(60, 60, 60)),
+                Product(14, "Сухари/галеты", Portion(25, 20, 30))
+            )
+
+        ),
+        TypeOfMeal.DINNER to FoodMeal(
+            mutableListOf(
+                Product(6, "Чай", Portion(3, 2, 4)),
+                Product(7, "Печенье", Portion(40, 35, 50)),
+                Product(14, "Сухари/галеты", Portion(25, 20, 30)),
+                Product(19, "Хлеб(в мокром виде)", Portion(200, 180, 220))
+            ), defaultSoupSetList.toMutableList()
+        )
+    )
 
     var startInquirerInfo: StartInquirerInfo? = null
+
+
+    //TODO implement with db
+    val menuList: MutableList<Menu> = mutableListOf()
 
 }

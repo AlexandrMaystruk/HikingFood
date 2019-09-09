@@ -22,9 +22,9 @@ class ProductPortionForOnePeoplePresenter @Inject constructor(private val intera
         )
     }
 
-    override fun onPortionValueChanged(newValue: Int, productName: String) {
+    override fun onPortionValueChanged(newValue: Int, productId: Int) {
         compositeDisposable.add(
-            interactor.onPortionValueChanged(newValue, productName)
+            interactor.onPortionValueChanged(newValue, productId)
                 .subscribe({
                     view?.hideLoading()
                 }, {

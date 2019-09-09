@@ -8,5 +8,5 @@ interface ProductPortionInteractor {
 
     fun getProducts(): Single<List<Product>>
 
-    fun onPortionValueChanged(newValue: Int, productName: String): Completable
+    fun onPortionValueChanged(newValue: Int, productId: Int): Completable
 }

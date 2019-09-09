@@ -1,18 +1,21 @@
 package com.gmail.maystruks08.hikingfood.ui.createmenu.createreception
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.hikingfood.*
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.DefaultIngredientView
+import com.gmail.maystruks08.hikingfood.core.navigation.Screens
+import com.gmail.maystruks08.hikingfood.ui.createmenu.createreception.selectingredient.SelectIngredientDialog
+import com.gmail.maystruks08.hikingfood.ui.createmenu.createreception.selectingredient.SelectIngredientListener
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
 import kotlinx.android.synthetic.main.fragment_create_food_reception.*
 import javax.inject.Inject
 
-class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View {
+class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View, SelectIngredientListener {
 
     @Inject
     lateinit var presenter: CreateFoodReceptionContract.Presenter
@@ -20,7 +23,9 @@ class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View
     @Inject
     lateinit var controller: ToolBarController
 
-    lateinit var adapter: IngredientForFoodReceptionAdapter
+    private lateinit var adapterVariableProduct: VariableProductAdapter
+
+    private lateinit var adapterDefProduct: DefaultProductAdapter
 
 
     override fun onCreateView(
@@ -50,24 +55,69 @@ class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View
     }
 
     private fun init() {
-        setAdapter()
-        presenter.initFragment(TypeOfMeal.BREAKFAST)
+        setDefAdapter()
+        setVariableAdapter()
+        presenter.initFragment()
+
+        vStepProgress.onStepSelected = {
+            presenter.onStepSelected(it)
+        }
+
+        btnCreateFoodReceiptNextStep.setOnClickListener {
+            presenter.onFoodReceptionCreationComplete(adapterDefProduct.getSelectedItems(), adapterVariableProduct.productList)
+        }
+
+        fabAddVariableProduct.setOnClickListener {
+            presenter.onAddVariableProductClicked()
+        }
     }
 
-    private fun setAdapter() {
-        adapter = IngredientForFoodReceptionAdapter { ingredientPortionItemClicked(it) }
-        ingredientOfFoodReceptionRecyclerView.layoutManager =
-            LinearLayoutManager(ingredientOfFoodReceptionRecyclerView.context)
-        ingredientOfFoodReceptionRecyclerView.adapter = adapter
+    private fun setDefAdapter() {
+        adapterDefProduct = DefaultProductAdapter { adapterItemOnLongClicked(it) }
+        ingredientOfFoodReceptionRecyclerView.layoutManager = LinearLayoutManager(context)
+        ingredientOfFoodReceptionRecyclerView.adapter = adapterDefProduct
+    }
+
+    private fun setVariableAdapter() {
+        adapterVariableProduct = VariableProductAdapter { adapterItemOnLongClicked(it) }
+        mutableIngredientOfFoodReceptionRecyclerView.layoutManager = LinearLayoutManager(context)
+        mutableIngredientOfFoodReceptionRecyclerView.adapter = adapterVariableProduct
     }
 
 
-    override fun showDefaultMenuIngredient(ingredients: List<DefaultIngredientView>) {
-        adapter.ingredientList = ingredients.toMutableList()
+    override fun showDefaultMenuIngredient(products: List<ProductView>) {
+        adapterDefProduct.productList = products.toMutableList()
     }
 
-    private fun ingredientPortionItemClicked(ingredient: DefaultIngredientView) {
+    override fun showVariableMenuIngredient(products: List<ProductView>) {
+        adapterVariableProduct.productList = products.toMutableList()
+    }
 
+    override fun showSelectIngredientFragment(products: List<ProductView>) {
+         SelectIngredientDialog.getInstance(products).show(childFragmentManager, Screens.SELECT_INGREDIENT_DIALOG)
+    }
+
+    private fun adapterItemOnLongClicked(product: ProductView) {
+
+    }
+
+    override fun markCurrentStepAsComplete() {
+        vStepProgress.nextStep(true)
+        if(vStepProgress.isProgressFinished()){
+            presenter.onProgressFinished()
+        }
+    }
+
+    override fun showFinishButton() {
+        btnCreateFoodReceiptNextStep.setBackgroundColor(Color.GREEN)
+        btnCreateFoodReceiptNextStep.text = "Завершить"
+        btnCreateFoodReceiptNextStep.setOnClickListener {
+            presenter.onFinishClicked()
+        }
+    }
+
+    override fun onIngredientsSelected(products: List<ProductView>) {
+        presenter.onVariableProductsSelected(products)
     }
 
     override fun showLoading() {

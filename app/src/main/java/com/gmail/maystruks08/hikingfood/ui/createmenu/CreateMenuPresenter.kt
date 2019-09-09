@@ -45,24 +45,38 @@ class CreateMenuPresenter @Inject constructor(
         this.dateOfStartMenu = date
     }
 
-    override fun onChangeIngredientPortion() {
-        interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
-        router.navigateTo(Screens.ChangeIngredientPortionScreen())
+    override fun onIngredientPortionClicked() {
+        compositeDisposable.add(
+            interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
+                .subscribe({
+                    Log.d(CreateMenuPresenter::class.java.name, "Save start inquirer data success, navigateTo(Screens.ChangeIngredientPortionScreen")
+                    router.navigateTo(Screens.ChangeIngredientPortionScreen())
+                }, {
+                    view?.showError(it)
+                    it.printStackTrace()
+                })
+        )
     }
 
     override fun createNewMenuClicked() {
-        interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
-        router.navigateTo(Screens.CreateReceptionScreen())
+        compositeDisposable.add(
+            interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
+                .subscribe({
+                    Log.d(CreateMenuPresenter::class.java.name, "Save start inquirer data success")
+                    router.navigateTo(Screens.CreateReceptionScreen())
+                }, {
+                    view?.showError(it)
+                    it.printStackTrace()
+                })
+        )
     }
 
     override fun end() {
         compositeDisposable.add(
             interactor.clearStartInquirerData().subscribe({
-                Log.d(CreateMenuPresenter::class.java.name,"Clear start inquirer data success" )
-                super.end()
+                Log.d(CreateMenuPresenter::class.java.name, "Clear start inquirer data success")
             }, {
                 it.printStackTrace()
-                super.end()
             })
         )
     }

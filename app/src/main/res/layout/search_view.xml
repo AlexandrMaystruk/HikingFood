@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorWhite"
+        android:drawableStart="@drawable/ic_search"
         android:padding="@dimen/margin_m"
         android:text="@string/search"
-        android:drawableStart="@drawable/ic_search"
         android:textColor="@color/colorGrey"
         android:textSize="@dimen/text_m" />
 

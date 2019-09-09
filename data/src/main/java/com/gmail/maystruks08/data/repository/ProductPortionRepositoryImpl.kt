@@ -12,27 +12,28 @@ import javax.inject.Inject
 class ProductPortionRepositoryImpl @Inject constructor(private val menuInfo: MenuInfo) :
     ProductPortionRepository {
 
-
-    override fun getStartInquirerInfo(): Single<StartInquirerInfo> {
-        return Single.just(menuInfo.startInquirerInfo ?: StartInquirerInfo(
-            "No name",
-            1,
-            1,
-            0,
-            Date(),
-            TypeOfMeal.BREAKFAST,
-            menuInfo.defaultProductPortionList.toMutableList()
-        ))
-    }
-
-    override fun setStartInquirerInfo(startInquirerInfo: StartInquirerInfo) {
+    override fun saveStartInquirerInfo(startInquirerInfo: StartInquirerInfo) {
         menuInfo.startInquirerInfo = startInquirerInfo
     }
 
-    override fun getAllProducts(): Single<List<Product>> {
+    override fun getStartInquirerInfo(): Single<StartInquirerInfo> {
         return Single.just(
-            menuInfo.startInquirerInfo?.portionForOnePeople ?: menuInfo.defaultProductPortionList
+            menuInfo.startInquirerInfo ?: StartInquirerInfo(
+                name = "No name",
+                peopleCount = 1,
+                numberOfReceptions = 1,
+                relaxDayCount = 0,
+                dateOfStartMenu = Date(),
+                timeOfStartMenu = TypeOfMeal.BREAKFAST,
+                products = menuInfo.defaultProductPortionList.toMutableList(),
+                soupSets = menuInfo.defaultSoupSetList,
+                foodMeals = menuInfo.defaultFoodMeals.toMutableMap()
+            )
         )
+    }
+
+    override fun getAllProducts(): Single<List<Product>> {
+        return Single.just(menuInfo.startInquirerInfo?.products ?: menuInfo.defaultProductPortionList)
     }
 }
 

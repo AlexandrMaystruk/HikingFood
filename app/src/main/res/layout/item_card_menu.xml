@@ -1,47 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view_participant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="5dp"
-        card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="3dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:contentPadding="0dp">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_marginBottom="5dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="3dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:contentPadding="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVertical"
+            style="@style/GuidelineVerticalComponent"
+            app:layout_constraintGuide_percent="0.45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tvParticipantName"
+            android:id="@+id/tvMenuName"
+            style="@style/TextL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_m"
+            android:text="Название"
+            android:textSize="@dimen/text_l"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCountOfRelaxDay"
+            style="@style/TextS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="К-во дневок:"
+            app:layout_constraintEnd_toStartOf="@+id/tvRelaxDayCountValue"
+            app:layout_constraintStart_toStartOf="@+id/tvMenuName"
+            app:layout_constraintTop_toBottomOf="@+id/tvMenuName" />
+
+        <TextView
+            android:id="@+id/tvRelaxDayCountValue"
+            style="@style/TextS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_m"
-            android:layout_marginTop="@dimen/margin_s"
-            android:layout_marginBottom="@dimen/margin_s"
-            android:text="Menu"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_l"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnInviteToHike"
-            style="@style/ButtonS"
+            android:layout_marginTop="@dimen/margin_xs"
             android:layout_marginEnd="@dimen/margin_m"
-            android:text="text"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            android:text="12"
+            app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvMenuName" />
 
 
+        <TextView
+            android:id="@+id/tvMenuDateStart"
+            style="@style/TextS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="Старт:"
+            app:layout_constraintEnd_toStartOf="@+id/tvMenuDateStartValue"
+            app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvMenuName" />
 
+        <TextView
+            android:id="@+id/tvMenuDateStartValue"
+            style="@style/TextS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="12"
+            app:layout_constraintEnd_toEndOf="@+id/tvMenuName"
+            app:layout_constraintTop_toBottomOf="@+id/tvMenuName" />
+
+        <TextView
+            android:id="@+id/tvPeopleCount"
+            style="@style/TextS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="К-во человек:"
+            app:layout_constraintEnd_toStartOf="@+id/tvCountOfPeopleValue"
+            app:layout_constraintStart_toStartOf="@+id/tvCountOfRelaxDay"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountOfRelaxDay" />
+
+
+        <TextView
+            android:id="@+id/tvCountOfPeopleValue"
+            style="@style/TextS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:layout_marginEnd="@dimen/margin_m"
+            android:text="12"
+            app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountOfRelaxDay" />
+
+        <TextView
+            android:id="@+id/tvStartMenu"
+            style="@style/TextS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="Первый прием:"
+            app:layout_constraintEnd_toStartOf="@+id/tvStartMenuValue"
+            app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvMenuDateStart" />
+
+        <TextView
+            android:id="@+id/tvStartMenuValue"
+            style="@style/TextS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="12"
+            app:layout_constraintEnd_toEndOf="@+id/tvMenuName"
+            app:layout_constraintTop_toBottomOf="@+id/tvMenuDateStartValue" />
+
+        <TextView
+            android:id="@+id/tvCountOfReceptions"
+            style="@style/TextS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:layout_marginBottom="@dimen/margin_m"
+            android:text="К-во приемов:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvCountOfReceptionsValue"
+            app:layout_constraintStart_toStartOf="@+id/tvPeopleCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvPeopleCount" />
+
+        <TextView
+            android:id="@+id/tvCountOfReceptionsValue"
+            style="@style/TextS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:layout_marginEnd="@dimen/margin_m"
+            android:text="12"
+            app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountOfPeopleValue" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.cardview.widget.CardView>

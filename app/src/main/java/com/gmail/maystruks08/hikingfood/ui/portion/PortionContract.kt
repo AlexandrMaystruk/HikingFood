@@ -8,10 +8,11 @@ interface PortionContract {
 
     interface View : IView{
 
-        fun showProductPortionList(products:List<Product>)
+        fun showProductPortionList(products: List<Product>)
     }
 
     interface Presenter : IPresenter<View> {
-        fun onPortionValueChanged(newValue: Int, productName: String)
+
+        fun onPortionValueChanged(newValue: Int, productId: Int)
     }
 }

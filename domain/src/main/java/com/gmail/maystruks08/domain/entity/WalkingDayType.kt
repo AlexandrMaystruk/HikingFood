@@ -2,7 +2,7 @@ package com.gmail.maystruks08.domain.entity
 
 enum class WalkingDayType(val type: Int) {
     NORMAL(0),
-    REST(1);
+    RELAX(1);
 
     companion object {
 

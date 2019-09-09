@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gmail.maystruks08.domain.entity.Menu
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
+import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
 
 class MenuFragment : Fragment(), MenuContract.View {
@@ -16,6 +19,8 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     @Inject
     lateinit var controller: ToolBarController
+
+    private lateinit var daysAdapter: DayAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +41,30 @@ class MenuFragment : Fragment(), MenuContract.View {
         controller.configure(
             ToolbarDescriptor.Builder()
                 .visibility(true)
-                .title("Menu")
+                .navigationIcon(R.drawable.ic_arrow_back)
+                .title("Выбранная раскладка")
                 .build(),
             activity as ConfigToolbar
         )
     }
 
     private fun init() {
+        setAdapter()
+        arguments?.getLong(MENU_ID)?.let { presenter.initFragment(it) }
+    }
+
+    private fun setAdapter() {
+        daysAdapter = DayAdapter { dayItemClicked(it) }
+        daysRecyclerView.layoutManager = LinearLayoutManager(context)
+        daysRecyclerView.adapter = daysAdapter
+    }
+
+    private fun dayItemClicked(day: DayView) {
+
+    }
+
+    override fun showFoodDays(days: List<DayView>) {
+        daysAdapter.dayList = days.toMutableList()
     }
 
     override fun showLoading() {
@@ -56,9 +78,12 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     companion object {
 
-        fun getInstance(menu: Menu): MenuFragment =
+        private const val MENU_ID = "menuId"
+
+        fun getInstance(menuId: Long): MenuFragment =
             MenuFragment().apply {
                 arguments = Bundle().apply {
+                    putLong(MENU_ID, menuId)
                 }
             }
     }

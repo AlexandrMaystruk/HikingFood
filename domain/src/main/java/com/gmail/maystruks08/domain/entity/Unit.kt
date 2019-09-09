@@ -7,7 +7,7 @@ enum class Unit(val type: String) {
     companion object {
 
         fun fromValue(value: String): Unit {
-            return values().firstOrNull { it.type == value }?:KILOGRAM
+            return values().firstOrNull { it.type == value }?:GRAM
         }
     }
 }

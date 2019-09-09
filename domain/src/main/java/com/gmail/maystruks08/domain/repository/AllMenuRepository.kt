@@ -8,5 +8,5 @@ interface AllMenuRepository {
 
     fun getAllMenuList(): Single<List<Menu>>
 
-    fun removeMenu(menu: Menu): Completable
+    fun removeMenu(menuId: Long): Completable
 }

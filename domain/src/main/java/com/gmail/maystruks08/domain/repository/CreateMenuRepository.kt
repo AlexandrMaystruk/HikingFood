@@ -1,14 +1,19 @@
 package com.gmail.maystruks08.domain.repository
 
-import com.gmail.maystruks08.domain.entity.Product
-import com.gmail.maystruks08.domain.entity.StartInquirerInfo
+import com.gmail.maystruks08.domain.entity.*
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface CreateMenuRepository {
 
-    fun getDefaultIngredientPortions(): Single<List<Product>>
+    //return default values
+    fun getDefaultProductPortions(): Single<List<Product>>
 
+    fun getDefaultSoupSet(): Single<List<SoupSet>>
+
+    fun getDefaultFoodMeals(): Single<Map<TypeOfMeal, FoodMeal>>
+
+    //work with StartInquirerData
     fun getStartInquirerData(): Single<StartInquirerInfo>
 
     fun saveStartInquirerData(startInquirerInfo: StartInquirerInfo): Completable

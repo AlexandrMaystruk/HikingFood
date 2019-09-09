@@ -4,29 +4,32 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.gmail.maystruks08.domain.entity.Unit
 
-data class DefaultIngredientView(
-    val id: String,
+data class ProductView(
+    val id: Int,
     val name: String,
     val portionForOnePeople: Int,
     val portionForAllPeople: Int,
     val unit: Unit,
+    val isSoupSet: Boolean,
     var isSelected: Boolean = true
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()?:"",
-        parcel.readString()?:"",
+        parcel.readInt(),
+        parcel.readString() ?: "",
         parcel.readInt(),
         parcel.readInt(),
-        Unit.fromValue(parcel.readString()?:""),
+        Unit.fromValue(parcel.readString() ?: ""),
+        parcel.readByte() != 0.toByte(),
         parcel.readByte() != 0.toByte()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
+        parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeInt(portionForOnePeople)
         parcel.writeInt(portionForAllPeople)
         parcel.writeString(unit.type)
+        parcel.writeByte(if (isSoupSet) 1 else 0)
         parcel.writeByte(if (isSelected) 1 else 0)
     }
 
@@ -34,12 +37,12 @@ data class DefaultIngredientView(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<DefaultIngredientView> {
-        override fun createFromParcel(parcel: Parcel): DefaultIngredientView {
-            return DefaultIngredientView(parcel)
+    companion object CREATOR : Parcelable.Creator<ProductView> {
+        override fun createFromParcel(parcel: Parcel): ProductView {
+            return ProductView(parcel)
         }
 
-        override fun newArray(size: Int): Array<DefaultIngredientView?> {
+        override fun newArray(size: Int): Array<ProductView?> {
             return arrayOfNulls(size)
         }
     }

@@ -9,7 +9,7 @@ import com.gmail.maystruks08.hikingfood.R
 import kotlinx.android.synthetic.main.item_card_product_portion.view.*
 import kotlin.properties.Delegates
 
-class ProductsPortionAdapter(private val portionChangeListener: (Int, String) -> Unit) :
+class ProductsPortionAdapter(private val portionChangeListener: (Int, Int) -> Unit) :
     RecyclerView.Adapter<ProductsPortionAdapter.ViewHolder>() {
 
     var productList: MutableList<Product> by Delegates.observable(mutableListOf()) { _, _, _ ->
@@ -35,15 +35,15 @@ class ProductsPortionAdapter(private val portionChangeListener: (Int, String) ->
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindHolder(product: Product, portionChangeListener: (Int, String) -> Unit) {
+        fun bindHolder(product: Product, portionChangeListener: (Int, Int) -> Unit) {
             itemView.tvProductName.text = product.name
-            itemView.numberPickerProductPortion.minValue = (product.portionForOnePeople * 0.7).toInt()
-            itemView.numberPickerProductPortion.maxValue = (product.portionForOnePeople * 1.3).toInt()
-            itemView.numberPickerProductPortion.value = product.portionForOnePeople
+            itemView.numberPickerProductPortion.minValue = product.portion.min
+            itemView.numberPickerProductPortion.maxValue = product.portion.max
+            itemView.numberPickerProductPortion.value = product.portion.value
             itemView.numberPickerProductPortion.wrapSelectorWheel = false
 
             itemView.numberPickerProductPortion.setOnValueChangedListener { _, _, newVal ->
-                portionChangeListener(newVal, product.name)
+                portionChangeListener(newVal, product.id)
             }
         }
     }

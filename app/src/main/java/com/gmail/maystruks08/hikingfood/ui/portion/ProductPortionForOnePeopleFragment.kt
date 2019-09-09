@@ -59,8 +59,8 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
         productsPortionAdapter.productList = products.toMutableList()
     }
 
-    private fun portionValueChanged(newValue: Int, productName: String) {
-        presenter.onPortionValueChanged(newValue, productName)
+    private fun portionValueChanged(newValue: Int, productId: Int) {
+        presenter.onPortionValueChanged(newValue, productId)
     }
 
     private fun init() {

@@ -48,21 +48,31 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
     }
 
     private fun init() {
-        if (etMenuName.text != null) {
-            btnChangeGrammar.setOnClickListener { presenter.onChangeIngredientPortion() }
+        btnCreateMenuNextStep.setOnClickListener {
+            if (etMenuName.text != null) {
+                presenter.createNewMenuClicked()
+            }
         }
 
-        etMenuName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                presenter.onNameMenuChanged(s.toString())
+
+        btnChangeGrammar.setOnClickListener {
+            if (etMenuName.text != null) {
+                presenter.onIngredientPortionClicked()
             }
+        }
+
+        etMenuName.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    presenter.onNameMenuChanged(s.toString())
+                }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         })
 
-        spinnerRelaxDayCount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        tvRelaxDayCountValue.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>) {}
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (position >= 0) {
@@ -101,7 +111,6 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
         cvDateOfHike.setOnDateChangeListener { _, _, _, _ ->
             presenter.onDateMenuStartChanged(Date(cvDateOfHike.date))
         }
-
     }
 
     override fun onDestroy() {

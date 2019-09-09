@@ -13,8 +13,8 @@ object Screens {
         override fun getFragment() = AllMenuFragment.getInstance()
     }
 
-    class MenuScreen(val menu: Menu) : AppScreen() {
-        override fun getFragment() = MenuFragment.getInstance(menu)
+    class MenuScreen(val menuId: Long) : AppScreen() {
+        override fun getFragment() = MenuFragment.getInstance(menuId)
     }
 
     class CreateMenuScreen : AppScreen() {
@@ -29,6 +29,8 @@ object Screens {
     class ChangeIngredientPortionScreen : AppScreen() {
         override fun getFragment() = ProductPortionForOnePeopleFragment.getInstance()
     }
+
+    const val SELECT_INGREDIENT_DIALOG = "select_ingredient_dialog"
 
 }
 

@@ -9,7 +9,10 @@ import io.reactivex.Completable
 import java.util.*
 import javax.inject.Inject
 
-class CreateMenuInteractorImpl @Inject constructor(private val executor: ThreadExecutor, val repository: CreateMenuRepository) :
+class CreateMenuInteractorImpl @Inject constructor(
+    private val executor: ThreadExecutor,
+    val repository: CreateMenuRepository
+) :
     CreateMenuInteractor {
 
     override fun saveStartInquirerData(
@@ -20,29 +23,36 @@ class CreateMenuInteractorImpl @Inject constructor(private val executor: ThreadE
             .flatMapCompletable {
                 val updatedStartInquirerData = it.apply {
                     this.name = name
-                    this.dayCount = dayCount
+                    this.numberOfReceptions = dayCount
                     this.relaxDayCount = relaxDayCount
                     this.peopleCount = peopleCount
                     this.timeOfStartMenu = TypeOfMeal.fromValue(timeOfStartMenu)
+                    this.dateOfStartMenu = dateOfStartMenu
                 }
+                updatedStartInquirerData.updatePortionValue()
                 repository.saveStartInquirerData(updatedStartInquirerData)
             }
             .onErrorResumeNext { throwable ->
                 if (throwable is HasNotStartInquirerInfoException) {
-                    repository.getDefaultIngredientPortions()
-                        .flatMapCompletable {
-                            repository.saveStartInquirerData(
-                                StartInquirerInfo(
-                                    name,
-                                    dayCount,
-                                    relaxDayCount,
-                                    peopleCount,
-                                    dateOfStartMenu,
-                                    TypeOfMeal.fromValue(timeOfStartMenu),
-                                    it.toMutableList()
-                                )
-                            )
+                    val defaultProducts = repository.getDefaultProductPortions().blockingGet()
+                    val defaultFoodMeals = repository.getDefaultFoodMeals().blockingGet()
+                    val defaultSoupSets = repository.getDefaultSoupSet().blockingGet()
+                    repository.saveStartInquirerData(
+                        StartInquirerInfo(
+                            name = name,
+                            numberOfReceptions = dayCount,
+                            relaxDayCount = relaxDayCount,
+                            peopleCount = peopleCount,
+                            dateOfStartMenu = dateOfStartMenu,
+                            timeOfStartMenu = TypeOfMeal.fromValue(timeOfStartMenu),
+                            products = defaultProducts.toMutableList(),
+                            soupSets = defaultSoupSets,
+                            foodMeals = defaultFoodMeals.toMutableMap()
+                        ).apply {
+                            this.updatePortionValue()
                         }
+                    )
+
                 } else {
                     Completable.error(throwable)
                 }

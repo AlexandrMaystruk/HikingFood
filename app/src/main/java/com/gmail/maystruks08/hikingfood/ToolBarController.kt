@@ -36,6 +36,10 @@ class ToolBarController {
         }
     }
 
+    fun changeToolbarTitle(title: String, configToolbar: ConfigToolbar){
+        configToolbar.setToolbarTitle(title)
+    }
+
     fun addMenuClickListener(configToolbar: ConfigToolbar, menuClickListener: (Int) -> Unit){
         configToolbar.setOptionMenuClickListener(menuClickListener)
     }

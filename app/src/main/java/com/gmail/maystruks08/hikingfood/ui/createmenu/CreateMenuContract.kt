@@ -24,6 +24,6 @@ interface CreateMenuContract {
 
         fun onDateMenuStartChanged(date: Date)
 
-        fun onChangeIngredientPortion()
+        fun onIngredientPortionClicked()
     }
 }

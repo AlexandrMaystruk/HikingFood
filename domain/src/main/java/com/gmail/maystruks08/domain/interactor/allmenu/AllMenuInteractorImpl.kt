@@ -12,15 +12,14 @@ class AllMenuInteractorImpl @Inject constructor(
     private val repository: AllMenuRepository
 ) : AllMenuInteractor {
 
-
     override fun provideAllMenuList(): Single<List<Menu>> {
         return repository.getAllMenuList()
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
 
-    override fun removeMenu(menu: Menu): Completable {
-        return repository.removeMenu(menu)
+    override fun removeMenu(menuId: Long): Completable {
+        return repository.removeMenu(menuId)
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
