@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
-import kotlinx.android.synthetic.main.item_card_day.view.*
+import kotlinx.android.synthetic.main.item_day.view.*
 
 import kotlin.properties.Delegates
 
@@ -22,7 +22,7 @@ class DayAdapter(private val clickListener: (DayView) -> Unit) : RecyclerView.Ad
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_card_day, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_day, parent, false)
         return ViewHolder(view)
     }
 
@@ -35,7 +35,7 @@ class DayAdapter(private val clickListener: (DayView) -> Unit) : RecyclerView.Ad
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindHolder(dayView: DayView, clickListener: (DayView) -> Unit) {
-            itemView.tvDayNumber.text = dayView.number.toString()
+            itemView.tvDayNumberValue.text = (dayView.number + 1).toString()
             itemView.setOnClickListener { clickListener(dayView) }
         }
     }

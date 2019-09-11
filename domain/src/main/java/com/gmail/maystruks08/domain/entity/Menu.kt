@@ -23,36 +23,41 @@ data class Menu(
                 var indexLunch = 0
                 var indexDinner = 0
                 var dayNumber = 0
-
                 var day = Day(dayNumber)
                 for (number in 0 until inquirerInfo.numberOfReceptions) {
-                    if (number % 3 == 1) {
-                        dayList.add(day)
-                        dayNumber++
-                        day = Day(dayNumber)
-                    }
                     when ((number + 3) % 3) {
                         0 -> {
                             inquirerInfo.foodMeals[TypeOfMeal.BREAKFAST]?.let { foodMeal ->
-                                day.products[TypeOfMeal.BREAKFAST]?.addAll(foodMeal.defProducts)
+                                day.addProducts(TypeOfMeal.BREAKFAST, foodMeal.defProducts)
                                 if (foodMeal.loopProducts.lastIndex == indexBreakfast) {
-                                    day.products[TypeOfMeal.BREAKFAST]?.add(foodMeal.loopProducts[indexBreakfast])
+                                    day.addProduct(
+                                        TypeOfMeal.BREAKFAST,
+                                        foodMeal.loopProducts[indexBreakfast]
+                                    )
                                     indexBreakfast = 0
                                 } else {
-                                    day.products[TypeOfMeal.BREAKFAST]?.add(foodMeal.loopProducts[indexBreakfast])
+                                    day.addProduct(
+                                        TypeOfMeal.BREAKFAST,
+                                        foodMeal.loopProducts[indexBreakfast]
+                                    )
                                     indexBreakfast++
                                 }
-
                             }
                         }
                         1 -> {
                             inquirerInfo.foodMeals[TypeOfMeal.LUNCH]?.let { foodMeal ->
-                                day.products[TypeOfMeal.LUNCH]?.addAll(foodMeal.defProducts)
+                                day.addProducts(TypeOfMeal.LUNCH, foodMeal.defProducts)
                                 if (foodMeal.loopProducts.lastIndex == indexLunch) {
-                                    day.products[TypeOfMeal.LUNCH]?.add(foodMeal.loopProducts[indexLunch])
+                                    day.addProduct(
+                                        TypeOfMeal.LUNCH,
+                                        foodMeal.loopProducts[indexBreakfast]
+                                    )
                                     indexLunch = 0
                                 } else {
-                                    day.products[TypeOfMeal.LUNCH]?.add(foodMeal.loopProducts[indexLunch])
+                                    day.addProduct(
+                                        TypeOfMeal.LUNCH,
+                                        foodMeal.loopProducts[indexBreakfast]
+                                    )
                                     indexLunch++
                                 }
                             }
@@ -60,17 +65,33 @@ data class Menu(
                         }
                         2 -> {
                             inquirerInfo.foodMeals[TypeOfMeal.DINNER]?.let { foodMeal ->
-                                day.products[TypeOfMeal.DINNER]?.addAll(foodMeal.defProducts)
+                                day.addProducts(TypeOfMeal.DINNER, foodMeal.defProducts)
                                 if (foodMeal.loopProducts.lastIndex == indexDinner) {
-                                    day.products[TypeOfMeal.DINNER]?.add(foodMeal.loopProducts[indexDinner])
+                                    day.addProduct(
+                                        TypeOfMeal.DINNER,
+                                        foodMeal.loopProducts[indexBreakfast]
+                                    )
                                     indexDinner = 0
                                 } else {
-                                    day.products[TypeOfMeal.DINNER]?.add(foodMeal.loopProducts[indexDinner])
+                                    day.addProduct(
+                                        TypeOfMeal.DINNER,
+                                        foodMeal.loopProducts[indexBreakfast]
+                                    )
                                     indexDinner++
                                 }
                             }
                         }
                     }
+
+                    if ((indexLunch == indexBreakfast && indexBreakfast == indexDinner) || number == inquirerInfo.numberOfReceptions - 1) {
+                        dayList.add(day)
+                        dayNumber++
+                        day = Day(dayNumber)
+                    }
+//
+//                    if (number % 3 == 0 && number != 0 || number == inquirerInfo.numberOfReceptions) {
+//
+//                    }
                 }
 
                 inquirerInfo.let {

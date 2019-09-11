@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutIngredient"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/margin_xs"
+    android:paddingTop="@dimen/margin_xs"
+    android:paddingEnd="@dimen/margin_xs"
+    android:paddingBottom="@dimen/margin_xs">
+
+    <TextView
+        android:id="@+id/tvProductName"
+        style="@style/TextOrderItemTitle"
+        android:text="День"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:paddingStart="@dimen/margin_s"
+        android:paddingEnd="@dimen/margin_s"
+        android:textColor="@color/colorOrange" />
+
+
+    <TextView
+        android:id="@+id/tvDayNumberValue"
+        style="@style/TextOrderItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:gravity="end"
+        android:paddingStart="@dimen/margin_s"
+        android:paddingEnd="@dimen/margin_s"
+        android:textColor="@color/colorOrange" />
+
+</LinearLayout>

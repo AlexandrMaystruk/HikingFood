@@ -15,5 +15,7 @@ interface MenuContract {
     interface Presenter : IPresenter<View> {
 
         fun initFragment(menuId: Long)
+
+        fun dayItemClicked(day: DayView)
     }
 }

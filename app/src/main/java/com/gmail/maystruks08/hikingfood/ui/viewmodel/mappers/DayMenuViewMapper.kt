@@ -18,7 +18,9 @@ class DayMenuViewMapper @Inject constructor(private val productViewMapper: Defau
             }.orEmpty().toMutableList(),
             dinnerProducts = day.products[TypeOfMeal.DINNER]?.map {
                 productViewMapper.fromProduct(it)
-            }.orEmpty().toMutableList()
-
+            }.orEmpty().toMutableList(),
+            breakfastTotalWeight = day.weightTotals[TypeOfMeal.BREAKFAST] ?: 0,
+            lunchTotalWeight = day.weightTotals[TypeOfMeal.LUNCH] ?: 0,
+            dinnerTotalWeight = day.weightTotals[TypeOfMeal.DINNER] ?: 0
         )
 }

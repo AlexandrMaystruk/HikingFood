@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
 import kotlinx.android.synthetic.main.fragment_menu.*
@@ -60,7 +61,7 @@ class MenuFragment : Fragment(), MenuContract.View {
     }
 
     private fun dayItemClicked(day: DayView) {
-
+        presenter.dayItemClicked(day)
     }
 
     override fun showFoodDays(days: List<DayView>) {
