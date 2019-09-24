@@ -4,6 +4,7 @@ open class Product(
     val id: Int,
     val name: String,
     var portion: Portion,
+    val categories: List<Category>,
     val unit: Unit = Unit.GRAM
 ) {
 

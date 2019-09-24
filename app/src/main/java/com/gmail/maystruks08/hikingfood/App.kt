@@ -6,45 +6,18 @@ import io.reactivex.plugins.RxJavaPlugins
 import com.gmail.maystruks08.hikingfood.core.di.application.AndroidModule
 import com.gmail.maystruks08.hikingfood.core.di.application.AppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.DaggerAppComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.createmenu.CreateMenuComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.createmenu.createreception.CreateReceptionComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.dose.DoseMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.CreateMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.createreception.CreateReceptionComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.dose.DoseMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.AllMenuComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.menu.MenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.day.DayComponent
 
 class App : Application() {
 
     companion object {
+
         lateinit var appComponent: AppComponent
-
-        var menuComponent: MenuComponent? = null
-            get() {
-                if (field == null)
-                    field = appComponent.menuComponent()
-                return field
-            }
-
-        var createMenuComponent: CreateMenuComponent? = null
-            get() {
-                if (field == null)
-                    field = appComponent.createMenuComponent()
-                return field
-            }
-
-
-        var createReceptionComponent: CreateReceptionComponent? = null
-            get() {
-                if (field == null)
-                    field = appComponent.createReceptionComponent()
-                return field
-            }
-
-        var doseComponent: DoseMenuComponent? = null
-            get() {
-                if (field == null)
-                    field = appComponent.doseComponent()
-                return field
-            }
 
         var allMenuComponent: AllMenuComponent? = null
             get() {
@@ -52,6 +25,43 @@ class App : Application() {
                     field = appComponent.allMenuComponent()
                 return field
             }
+
+        var menuComponent: MenuComponent? = null
+            get() {
+                if (field == null)
+                    field = allMenuComponent?.menuComponent()
+                return field
+            }
+
+        var dayComponent: DayComponent? = null
+            get() {
+                if (field == null)
+                    field = menuComponent?.dayComponent()
+                return field
+            }
+
+        var createMenuComponent: CreateMenuComponent? = null
+            get() {
+                if (field == null)
+                    field = menuComponent?.createMenuComponent()
+                return field
+            }
+
+        var doseComponent: DoseMenuComponent? = null
+            get() {
+                if (field == null)
+                    field = menuComponent?.doseComponent()
+                return field
+            }
+
+
+        var createReceptionComponent: CreateReceptionComponent? = null
+            get() {
+                if (field == null)
+                    field = createMenuComponent?.createReceptionComponent()
+                return field
+            }
+
 
         fun clearMenuComponent() {
             menuComponent = null
@@ -69,6 +79,9 @@ class App : Application() {
             allMenuComponent = null
         }
 
+        fun clearDayComponent() {
+            dayComponent = null
+        }
     }
 
 

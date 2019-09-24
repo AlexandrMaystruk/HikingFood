@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.funrisestudio.stepprogress.StepProgressView
+    <com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
         android:id="@+id/vStepProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ingredientOfFoodReceptionRecyclerView"
+        android:id="@+id/staticProductsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_min"
@@ -166,7 +166,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mutableIngredientOfFoodReceptionRecyclerView"
+        android:id="@+id/loopProductRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_min"
@@ -178,7 +178,7 @@
 
 
     <Button
-        android:id="@+id/fabAddVariableProduct"
+        android:id="@+id/fabAddLoopProducts"
         android:layout_width="@dimen/size_fab_min"
         android:layout_height="@dimen/size_fab_min"
         android:layout_marginEnd="@dimen/margin_m"
@@ -200,6 +200,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mutableIngredientOfFoodReceptionRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@id/loopProductRecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

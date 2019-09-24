@@ -26,8 +26,8 @@ class CreateReceptionRepositoryImpl @Inject constructor(private val menuInfo: Me
         return Single.just(menuInfo.startInquirerInfo!!)
     }
 
-    override fun getSoupSets(): Single<List<SoupSet>> {
-        return Single.just(menuInfo.defaultSoupSetList)
+    override fun getSoupSets(): Single<List<ProductSet>> {
+        return Single.just(menuInfo.soupSetList)
     }
 
     override fun saveFoodMeal(typeOfMeal: TypeOfMeal, foodMeal: FoodMeal): Completable {
@@ -41,7 +41,6 @@ class CreateReceptionRepositoryImpl @Inject constructor(private val menuInfo: Me
         return Completable.fromAction {
             menuInfo.startInquirerInfo = null
             menuInfo.menuList.add(menu)
-            //andThan(menuInfo.startInquirerInfo = null)
         }
     }
 }

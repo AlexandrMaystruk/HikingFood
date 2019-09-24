@@ -25,15 +25,15 @@ class ProductPortionRepositoryImpl @Inject constructor(private val menuInfo: Men
                 relaxDayCount = 0,
                 dateOfStartMenu = Date(),
                 timeOfStartMenu = TypeOfMeal.BREAKFAST,
-                products = menuInfo.defaultProductPortionList.toMutableList(),
-                soupSets = menuInfo.defaultSoupSetList,
+                products = menuInfo.productPortionList.toMutableList(),
+                productSets = menuInfo.soupSetList,
                 foodMeals = menuInfo.defaultFoodMeals.toMutableMap()
             )
         )
     }
 
     override fun getAllProducts(): Single<List<Product>> {
-        return Single.just(menuInfo.startInquirerInfo?.products ?: menuInfo.defaultProductPortionList)
+        return Single.just(menuInfo.startInquirerInfo?.products ?: menuInfo.productPortionList)
     }
 }
 

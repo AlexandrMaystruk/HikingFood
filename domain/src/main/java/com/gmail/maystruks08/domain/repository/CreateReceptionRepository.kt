@@ -12,7 +12,7 @@ interface CreateReceptionRepository {
 
     fun getDefaultVariableMealProducts(typeOfMeal: TypeOfMeal): Single<List<Product>>
 
-    fun getSoupSets(): Single<List<SoupSet>>
+    fun getSoupSets(): Single<List<ProductSet>>
 
     fun saveFoodMeal(typeOfMeal: TypeOfMeal, foodMeal: FoodMeal): Completable
 

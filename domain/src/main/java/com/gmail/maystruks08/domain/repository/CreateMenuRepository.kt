@@ -9,7 +9,7 @@ interface CreateMenuRepository {
     //return default values
     fun getDefaultProductPortions(): Single<List<Product>>
 
-    fun getDefaultSoupSet(): Single<List<SoupSet>>
+    fun getDefaultSoupSet(): Single<List<ProductSet>>
 
     fun getDefaultFoodMeals(): Single<Map<TypeOfMeal, FoodMeal>>
 

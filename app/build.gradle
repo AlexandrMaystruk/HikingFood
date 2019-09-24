@@ -59,8 +59,6 @@ dependencies {
     implementation presentationDependencies.recyclerView
     implementation presentationDependencies.circleImageView
     implementation presentationDependencies.androidCoreKTX
-    implementation presentationDependencies.stepProgressView
-
 
 
     implementation presentationDependencies.rxJava

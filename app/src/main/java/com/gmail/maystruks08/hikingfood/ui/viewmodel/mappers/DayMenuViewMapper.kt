@@ -4,7 +4,7 @@ import com.gmail.maystruks08.domain.entity.*
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import javax.inject.Inject
 
-class DayMenuViewMapper @Inject constructor(private val productViewMapper: DefaultIngredientViewMapper) {
+class DayMenuViewMapper @Inject constructor(private val productViewMapper: ProductViewMapper) {
 
     fun fromMenuDay(menuId: Long, day: Day): DayView =
         DayView(

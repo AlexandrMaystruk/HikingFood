@@ -4,13 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.gmail.maystruks08.domain.entity.Unit
 
-data class ProductView(
+open class ProductView(
     val id: Int,
     val name: String,
     val portionForOnePeople: Int,
     val portionForAllPeople: Int,
     val unit: Unit,
-    val isSoupSet: Boolean,
     var isSelected: Boolean = true
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -19,7 +18,6 @@ data class ProductView(
         parcel.readInt(),
         parcel.readInt(),
         Unit.fromValue(parcel.readString() ?: ""),
-        parcel.readByte() != 0.toByte(),
         parcel.readByte() != 0.toByte()
     )
 
@@ -29,7 +27,6 @@ data class ProductView(
         parcel.writeInt(portionForOnePeople)
         parcel.writeInt(portionForAllPeople)
         parcel.writeString(unit.type)
-        parcel.writeByte(if (isSoupSet) 1 else 0)
         parcel.writeByte(if (isSelected) 1 else 0)
     }
 

@@ -22,7 +22,7 @@ data class Menu(
                 var indexBreakfast = 0
                 var indexLunch = 0
                 var indexDinner = 0
-                var dayNumber = 0
+                var dayNumber = 1
                 var day = Day(dayNumber)
                 for (number in 0 until inquirerInfo.numberOfReceptions) {
                     when ((number + 3) % 3) {
@@ -61,7 +61,6 @@ data class Menu(
                                     indexLunch++
                                 }
                             }
-
                         }
                         2 -> {
                             inquirerInfo.foodMeals[TypeOfMeal.DINNER]?.let { foodMeal ->
@@ -88,10 +87,6 @@ data class Menu(
                         dayNumber++
                         day = Day(dayNumber)
                     }
-//
-//                    if (number % 3 == 0 && number != 0 || number == inquirerInfo.numberOfReceptions) {
-//
-//                    }
                 }
 
                 inquirerInfo.let {
@@ -110,5 +105,4 @@ data class Menu(
             }
         }
     }
-
 }

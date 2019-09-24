@@ -10,12 +10,12 @@ data class StartInquirerInfo(
     var dateOfStartMenu: Date,
     var timeOfStartMenu: TypeOfMeal,
     val products: MutableList<Product>,
-    val soupSets: List<SoupSet>,
+    val productSets: List<ProductSet>,
     val foodMeals: MutableMap<TypeOfMeal, FoodMeal>
 ) {
 
     fun getProduct(id: Int): Product? {
-        return products.find { it.id == id }
+        return products.find { it.id == id } ?: productSets.find { it.id == id }
     }
 
     fun changePortionValue(newValue: Int, productId: Int) {
@@ -28,7 +28,7 @@ data class StartInquirerInfo(
     fun updatePortionValue() {
         products.forEach { it.calculatePortionForAllPeople(peopleCount) }
         foodMeals.values.forEach { it.calculatePortionForAllPeople(peopleCount) }
-        soupSets.forEach { it.calculatePortionForAllPeople(peopleCount) }
+        productSets.forEach { it.calculatePortionForAllPeople(peopleCount) }
     }
 
     private fun updateValueInProducts(newValue: Int, productId: Int) {
@@ -36,7 +36,7 @@ data class StartInquirerInfo(
             val position = products.indexOf(product)
             products.remove(product)
             val updatedProduct =
-                if (product is SoupSet) {
+                if (product is ProductSet) {
                     product.apply {
                         this.updatePortionValue(newValue, productId, peopleCount)
                     }
@@ -64,7 +64,8 @@ data class StartInquirerInfo(
             this.updateProductPortionValue(newValue, productId, peopleCount)
         }?.let { foodMeals[TypeOfMeal.DINNER] = it }
     }
+
     private fun updateValueInSoupSets(newValue: Int, productId: Int) {
-        soupSets.forEach { it.updatePortionValue(newValue, productId, peopleCount) }
+        productSets.forEach { it.updatePortionValue(newValue, productId, peopleCount) }
     }
 }

@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardBreakfast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_min"
@@ -136,6 +137,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardLunch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_min"
@@ -263,6 +265,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardDinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_min"

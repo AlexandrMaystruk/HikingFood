@@ -23,7 +23,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .observeOn(executor.postExecutor)
     }
 
-    override fun getDefaultVariableProducts(typeOfMeal: TypeOfMeal): Single<List<Product>> {
+    override fun getDefaultLoopProducts(typeOfMeal: TypeOfMeal): Single<List<Product>> {
         return repository.getDefaultVariableMealProducts(typeOfMeal).flatMap { list ->
             return@flatMap Single.create<List<Product>> { emitter ->
                 val startInquirerInfo = repository.getStartInquirerInfo().blockingGet()
@@ -37,10 +37,21 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .observeOn(executor.postExecutor)
     }
 
-    override fun getSoupSets(typeOfMeal: TypeOfMeal): Single<List<SoupSet>> {
+    override fun getSoupSets(typeOfMeal: TypeOfMeal): Single<List<ProductSet>> {
         return repository.getSoupSets()
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
+    }
+
+
+    override fun onLoopProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable {
+        return Completable.fromAction {
+            val startInfo = repository.getStartInquirerInfo().blockingGet()
+            val products = productIds.mapNotNull { id ->
+                repository.getProductById(id)?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
+            }
+            startInfo.foodMeals[typeOfMeal]?.loopProducts?.addAll(products)
+        }
     }
 
     override fun onFoodReceptionCreationComplete(
@@ -66,7 +77,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
     override fun onFinishCreateReception(): Completable {
         return repository.getStartInquirerInfo().flatMapCompletable {
 
-           repository.saveMenu( Menu.create(it))
+            repository.saveMenu(Menu.create(it))
 
         }
 

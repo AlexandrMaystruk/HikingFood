@@ -12,11 +12,11 @@ class CreateMenuRepositoryImpl @Inject constructor(private val menuInfo: MenuInf
     CreateMenuRepository {
 
     override fun getDefaultProductPortions(): Single<List<Product>> {
-        return Single.just(menuInfo.defaultProductPortionList)
+        return Single.just(menuInfo.productPortionList)
     }
 
-    override fun getDefaultSoupSet(): Single<List<SoupSet>> {
-        return Single.just(menuInfo.defaultSoupSetList)
+    override fun getDefaultSoupSet(): Single<List<ProductSet>> {
+        return Single.just(menuInfo.soupSetList)
     }
 
     override fun getDefaultFoodMeals(): Single<Map<TypeOfMeal, FoodMeal>> {

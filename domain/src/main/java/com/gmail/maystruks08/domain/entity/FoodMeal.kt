@@ -13,7 +13,7 @@ data class FoodMeal(val defProducts: MutableList<Product>, val loopProducts: Mut
             val position = defProducts.indexOf(product)
             defProducts.remove(product)
             val updatedProduct =
-                if (product is SoupSet) {
+                if (product is ProductSet) {
                     product.apply { this.updatePortionValue(newValue, id, peopleCount) }
                 } else {
                     product.apply {
@@ -28,7 +28,7 @@ data class FoodMeal(val defProducts: MutableList<Product>, val loopProducts: Mut
             val position = loopProducts.indexOf(product)
             loopProducts.remove(product)
             val updatedProduct =
-                if (product is SoupSet) {
+                if (product is ProductSet) {
                     product.apply { this.updatePortionValue(newValue, id, peopleCount) }
                 } else {
                     product.apply {
