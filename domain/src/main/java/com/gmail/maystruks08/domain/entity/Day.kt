@@ -3,13 +3,14 @@ package com.gmail.maystruks08.domain.entity
 class Day(
     val number: Int,
     val products: MutableMap<TypeOfMeal, MutableList<Product>> = mutableMapOf(),
-    val weightTotals: MutableMap<TypeOfMeal, Int> = mutableMapOf()
+    val weightTotalsForOne: MutableMap<TypeOfMeal, Int> = mutableMapOf(),
+    val weightTotalsForAll: MutableMap<TypeOfMeal, Int> = mutableMapOf()
 ) {
 
-    fun getDayTotalWeight(): Int {
-        return (weightTotals[TypeOfMeal.BREAKFAST] ?: 0) +
-                (weightTotals[TypeOfMeal.LUNCH] ?: 0) +
-                (weightTotals[TypeOfMeal.DINNER] ?: 0)
+    fun getDayTotalWeightForAll(): Int {
+        return (weightTotalsForAll[TypeOfMeal.BREAKFAST] ?: 0) +
+                (weightTotalsForAll[TypeOfMeal.LUNCH] ?: 0) +
+                (weightTotalsForAll[TypeOfMeal.DINNER] ?: 0)
     }
 
     fun addProduct(typeOfMeal: TypeOfMeal, product: Product) {
@@ -39,10 +40,13 @@ class Day(
     }
 
     private fun updateTotalWeight(typeOfMeal: TypeOfMeal) {
-        var currentWeight =  0
+        var currentWeightForAll = 0
+        var currentWeightForOne = 0
         products[typeOfMeal]?.forEach {
-            currentWeight += it.portion.portionForAllPeople
+            currentWeightForAll += it.portion.portionForAllPeople
+            currentWeightForOne += it.portion.value
         }
-        weightTotals[typeOfMeal] = currentWeight
+        weightTotalsForAll[typeOfMeal] = currentWeightForAll
+        weightTotalsForOne[typeOfMeal] = currentWeightForOne
     }
 }

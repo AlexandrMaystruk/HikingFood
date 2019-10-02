@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class ProductViewMapper @Inject constructor() {
 
-    fun fromProduct(pr: Product): ProductView =
+    private fun fromProduct(pr: Product, isChild: Boolean = false): ProductView =
         when (pr) {
             is ProductSet -> {
                 SetProductView(
@@ -17,7 +17,7 @@ class ProductViewMapper @Inject constructor() {
                     portionForOnePeople = pr.portion.value,
                     portionForAllPeople = pr.portion.portionForAllPeople,
                     unit = pr.unit,
-                    products = pr.products.map { fromProduct(it) }
+                    products = pr.products.map { fromProduct(it, true) }
                 )
             }
             else -> ProductView(
@@ -26,7 +26,13 @@ class ProductViewMapper @Inject constructor() {
                 portionForOnePeople = pr.portion.value,
                 portionForAllPeople = pr.portion.portionForAllPeople,
                 unit = pr.unit,
+                isChild = isChild,
                 isSelected = false
             )
         }
+
+
+    fun fromProducts(products: List<Product>): MutableList<ProductView> {
+        return products.map { fromProduct(it) }.toMutableList()
+    }
 }

@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
+import com.gmail.maystruks08.hikingfood.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
 
@@ -54,8 +56,9 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     private fun setAdapter() {
         daysAdapter = DayAdapter { dayItemClicked(it) }
-        daysRecyclerView.layoutManager = LinearLayoutManager(context)
+        daysRecyclerView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
         daysRecyclerView.adapter = daysAdapter
+        daysRecyclerView.addItemDecoration(GridSpacingItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_xs), resources.getInteger(R.integer.dayPageItemsCount)))
     }
 
     private fun dayItemClicked(day: DayView) {

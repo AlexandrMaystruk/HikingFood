@@ -10,17 +10,14 @@ class DayMenuViewMapper @Inject constructor(private val productViewMapper: Produ
         DayView(
             menuId = menuId,
             number = day.number,
-            breakfastProducts = day.products[TypeOfMeal.BREAKFAST]?.map {
-                productViewMapper.fromProduct(it)
-            }.orEmpty().toMutableList(),
-            lunchProducts = day.products[TypeOfMeal.LUNCH]?.map {
-                productViewMapper.fromProduct(it)
-            }.orEmpty().toMutableList(),
-            dinnerProducts = day.products[TypeOfMeal.DINNER]?.map {
-                productViewMapper.fromProduct(it)
-            }.orEmpty().toMutableList(),
-            breakfastTotalWeight = day.weightTotals[TypeOfMeal.BREAKFAST] ?: 0,
-            lunchTotalWeight = day.weightTotals[TypeOfMeal.LUNCH] ?: 0,
-            dinnerTotalWeight = day.weightTotals[TypeOfMeal.DINNER] ?: 0
+            breakfastProducts = productViewMapper.fromProducts(day.products[TypeOfMeal.BREAKFAST].orEmpty()).toMutableList(),
+            lunchProducts = productViewMapper.fromProducts(day.products[TypeOfMeal.LUNCH].orEmpty()).toMutableList(),
+            dinnerProducts = productViewMapper.fromProducts(day.products[TypeOfMeal.DINNER].orEmpty()).toMutableList(),
+            breakfastTotalWeight = day.weightTotalsForOne[TypeOfMeal.BREAKFAST] ?: 0,
+            lunchTotalWeight = day.weightTotalsForOne[TypeOfMeal.LUNCH] ?: 0,
+            dinnerTotalWeight = day.weightTotalsForOne[TypeOfMeal.DINNER] ?: 0,
+            breakfastTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.BREAKFAST] ?: 0,
+            lunchTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.LUNCH] ?: 0,
+            dinnerTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.DINNER] ?: 0
         )
 }

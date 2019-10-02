@@ -1,36 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutIngredient"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingStart="@dimen/margin_xs"
-    android:paddingTop="@dimen/margin_xs"
-    android:paddingEnd="@dimen/margin_xs"
-    android:paddingBottom="@dimen/margin_xs">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvProductName"
-        style="@style/TextOrderItemTitle"
-        android:text="День"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:gravity="start"
-        android:paddingStart="@dimen/margin_s"
-        android:paddingEnd="@dimen/margin_s"
-        android:textColor="@color/colorOrange" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvDayNumberValue"
+            style="@style/CircleNumberImage"
+            android:layout_marginStart="@dimen/size_xs"
+            android:layout_marginTop="@dimen/size_xs"
+            android:text="1"
+            android:textColor="@color/colorOrange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/tvDayNumberValue"
-        style="@style/TextOrderItemTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:gravity="end"
-        android:paddingStart="@dimen/margin_s"
-        android:paddingEnd="@dimen/margin_s"
-        android:textColor="@color/colorOrange" />
+        <TextView
+            android:id="@+id/tvProductName"
+            style="@style/TextM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_min"
+            android:layout_marginEnd="@dimen/size_xs"
+            android:text="День"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDayNumberValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tvDayNumberValue"
+            app:layout_constraintTop_toTopOf="@+id/tvDayNumberValue" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvTotalWeight"
+            style="@style/TextXS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/size_xs"
+            android:layout_marginTop="@dimen/size_xs"
+            android:gravity="start"
+            android:text="Вес на 1 ч.:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDayNumberValue" />
+
+        <TextView
+            android:id="@+id/tvTotalWeightValue"
+            style="@style/TextXS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100g"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTotalWeight"
+            app:layout_constraintEnd_toEndOf="@+id/tvTotalWeightForAllValue"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvTotalWeight"
+            app:layout_constraintTop_toTopOf="@+id/tvTotalWeight" />
+
+        <TextView
+            android:id="@+id/tvTotalWeightForAll"
+            style="@style/TextXS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/size_xs"
+            android:layout_marginTop="@dimen/size_xs"
+            android:layout_marginBottom="@dimen/size_xs"
+            android:text="Вес на группу:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTotalWeight" />
+
+        <TextView
+            android:id="@+id/tvTotalWeightForAllValue"
+            style="@style/TextXS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_xs"
+            android:layout_marginEnd="@dimen/size_xs"
+            android:text="1000g"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTotalWeightForAll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvTotalWeightForAll"
+            app:layout_constraintTop_toTopOf="@+id/tvTotalWeightForAll" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

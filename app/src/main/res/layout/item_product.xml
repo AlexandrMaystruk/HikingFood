@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutProductItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,8 +9,6 @@
         android:id="@+id/layoutIngredient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="@dimen/margin_xs"
         android:paddingTop="@dimen/margin_xs"
@@ -20,58 +19,60 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tvProductNumber"
+            style="@style/TextOrderItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_min"
+            android:layout_weight="0.11"
+            android:gravity="center"
+            android:textColor="@color/colorOrange" />
+
+
+        <ImageView
+            android:id="@+id/ivProductSetIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right"
+            android:visibility="gone" />
+
+
+        <TextView
             android:id="@+id/tvProductName"
             style="@style/TextOrderItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="0.9"
             android:gravity="start"
             android:paddingStart="@dimen/margin_s"
             android:paddingEnd="@dimen/margin_s"
             android:textColor="@color/colorOrange" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorHint" />
-
         <TextView
-            android:id="@+id/tvIngredientWeightForOnePeople"
+            android:id="@+id/tvProductWeightForOnePeople"
             style="@style/TextOrderItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="0.3"
             android:gravity="end"
             android:paddingStart="@dimen/margin_s"
             android:paddingEnd="@dimen/margin_s"
             android:textColor="@color/colorOrange" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorHint" />
-
         <TextView
-            android:id="@+id/tvIngredientWeightForAllPeople"
+            android:id="@+id/tvProductWeightForAllPeople"
             style="@style/TextOrderItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="0.3"
             android:gravity="end"
             android:paddingStart="@dimen/margin_s"
             android:paddingEnd="@dimen/margin_s"
             android:textColor="@color/colorOrange" />
-
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChildItemProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutIngredient" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

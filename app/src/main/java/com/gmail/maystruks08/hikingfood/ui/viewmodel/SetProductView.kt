@@ -18,7 +18,7 @@ class SetProductView(
         parcel.readInt(),
         parcel.readInt(),
         Unit.fromValue(parcel.readString() ?: ""),
-        parcel.createTypedArrayList(ProductView)
+        parcel.createTypedArrayList(ProductView) as List<ProductView>
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

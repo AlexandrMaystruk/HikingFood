@@ -36,7 +36,6 @@
     <style name="FabNextStep">
         <item name="android:backgroundTint">@color/colorGreen</item>
         <item name="android:src">@drawable/ic_chevron_right</item>
-
     </style>
 
     <style name="GuidelineHorizontalComponent">
@@ -49,6 +48,16 @@
         <item name="layout_constraintGuide_percent">@dimen/mainVerticalGuideline</item>
     </style>
 
+
+    <style name="CircleNumberImage">
+        <item name="android:layout_width">@dimen/size_xl</item>
+        <item name="android:layout_height">@dimen/size_xl</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_circle_avatar</item>
+    </style>
+
     <style name="ComponentBarLayout">
         <item name="android:background">@drawable/bg_corner_layout</item>
         <item name="android:paddingTop">@dimen/margin_min</item>
@@ -58,6 +67,7 @@
     </style>
 
     <style name="TextOrderItemTitle">
+
         <item name="android:textSize">@dimen/margin_s</item>
     </style>
 

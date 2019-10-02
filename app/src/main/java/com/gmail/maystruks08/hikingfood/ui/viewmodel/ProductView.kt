@@ -10,7 +10,8 @@ open class ProductView(
     val portionForOnePeople: Int,
     val portionForAllPeople: Int,
     val unit: Unit,
-    var isSelected: Boolean = true
+    val isChild: Boolean = false,
+    var isSelected: Boolean = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -18,6 +19,7 @@ open class ProductView(
         parcel.readInt(),
         parcel.readInt(),
         Unit.fromValue(parcel.readString() ?: ""),
+        parcel.readByte() != 0.toByte(),
         parcel.readByte() != 0.toByte()
     )
 
@@ -27,6 +29,7 @@ open class ProductView(
         parcel.writeInt(portionForOnePeople)
         parcel.writeInt(portionForAllPeople)
         parcel.writeString(unit.type)
+        parcel.writeByte(if (isChild) 1 else 0)
         parcel.writeByte(if (isSelected) 1 else 0)
     }
 

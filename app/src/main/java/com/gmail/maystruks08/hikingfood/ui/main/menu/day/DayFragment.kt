@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
 import kotlinx.android.synthetic.main.fragment_day.*
@@ -35,7 +36,7 @@ class DayFragment : Fragment(), DayContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.bindView(this, arguments?.getParcelable<DayView>(DAY))
+        presenter.bindView(this, arguments?.getParcelable(DAY))
     }
 
     override fun configToolbar() {
@@ -71,7 +72,8 @@ class DayFragment : Fragment(), DayContract.View {
         tvDayLunchValue.text = number
         tvLunchSumWeightValue.text = totalWeight
 
-        lunchAdapter = ProductAdapter { itemClicked(it) }
+        lunchAdapter =
+            ProductAdapter { itemClicked(it) }
         rvLunch.layoutManager = LinearLayoutManager(context)
         rvLunch.adapter = lunchAdapter
         lunchAdapter.productList = products

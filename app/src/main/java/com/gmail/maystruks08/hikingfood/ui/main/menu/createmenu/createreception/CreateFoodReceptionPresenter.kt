@@ -24,8 +24,8 @@ class CreateFoodReceptionPresenter @Inject constructor(
             interactor.getAllDefaultProducts(typeOfMeal)
                 .subscribe({ meal ->
                     view?.hideLoading()
-                    view?.showStaticProducts(meal.defProducts.map { productViewMapper.fromProduct(it) })
-                    view?.showLoopProducts(meal.loopProducts.map { productViewMapper.fromProduct(it) })
+                    view?.showStaticProducts(productViewMapper.fromProducts(meal.defProducts))
+                    view?.showLoopProducts(productViewMapper.fromProducts(meal.loopProducts))
                 }, {
                     view?.hideLoading()
                     it.printStackTrace()
@@ -33,13 +33,13 @@ class CreateFoodReceptionPresenter @Inject constructor(
         )
     }
 
-    override fun onAddLoopProductClicked() {
+    override fun onAddVariableProductClicked() {
         view?.showLoading()
         compositeDisposable.add(
             interactor.getDefaultLoopProducts(typeOfMeal)
                 .subscribe({ list ->
                     view?.hideLoading()
-                    view?.showSelectProductFragment(list.map { productViewMapper.fromProduct(it) })
+                    view?.showSelectProductFragment(productViewMapper.fromProducts(list))
                 }, {
                     view?.hideLoading()
                     it.printStackTrace()
@@ -47,8 +47,14 @@ class CreateFoodReceptionPresenter @Inject constructor(
         )
     }
 
-    override fun onDeleteLoopProductClicked(position: Int, productView: ProductView) {
-        view?.showLoopProductRemoved(position)
+    override fun onDeleteStaticProductClicked(position: Int, productView: ProductView) {
+        //TODO fix this
+        view?.showStaticProductRemoved(position)
+    }
+
+    override fun onDeleteVariableProductClicked(position: Int, productView: ProductView) {
+        //TODO fix this
+        view?.showVariableProductRemoved(position)
     }
 
     override fun onStepSelected(step: Int) {
@@ -63,8 +69,19 @@ class CreateFoodReceptionPresenter @Inject constructor(
         compositeDisposable.add(
             interactor.onFoodReceptionCreationComplete(
                 typeOfMeal,
-                staticProductList.mapNotNull { interactor.getProductById(it.id) },
-                loopProductList.mapNotNull { interactor.getProductById(it.id) }).subscribe(
+                staticProductList.mapNotNull {
+                    if (it.isChild) {
+                        return@mapNotNull null
+                    }
+                    interactor.getProductById(it.id)
+                },
+                loopProductList.mapNotNull {
+                    if (it.isChild) {
+                        return@mapNotNull null
+                    }
+                    interactor.getProductById(it.id)
+
+                }).subscribe(
                 {
                     view?.markCurrentStepAsComplete()
                 },
@@ -74,11 +91,11 @@ class CreateFoodReceptionPresenter @Inject constructor(
         )
     }
 
-    override fun onLoopProductsSelected(products: List<ProductView>) {
+    override fun onVariableProductsSelected(products: List<ProductView>) {
         compositeDisposable.add(
             interactor.onLoopProductsAdded(typeOfMeal, products.map { it.id }).subscribe({
                 products.forEach {
-                    view?.showLoopProductInserted(it)
+                    view?.showVariableProductInserted(it)
                 }
             }, {
                 it.printStackTrace()

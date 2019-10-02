@@ -11,7 +11,10 @@ class DayView(
     val dinnerProducts: MutableList<ProductView>,
     val breakfastTotalWeight: Int,
     val lunchTotalWeight: Int,
-    val dinnerTotalWeight: Int
+    val dinnerTotalWeight: Int,
+    val breakfastTotalWeightForAll: Int,
+    val lunchTotalWeightForAll: Int,
+    val dinnerTotalWeightForAll: Int
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -20,6 +23,9 @@ class DayView(
         parcel.createTypedArrayList(ProductView),
         parcel.createTypedArrayList(ProductView),
         parcel.createTypedArrayList(ProductView),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt()
@@ -34,6 +40,9 @@ class DayView(
         parcel.writeInt(breakfastTotalWeight)
         parcel.writeInt(lunchTotalWeight)
         parcel.writeInt(dinnerTotalWeight)
+        parcel.writeInt(breakfastTotalWeightForAll)
+        parcel.writeInt(lunchTotalWeightForAll)
+        parcel.writeInt(dinnerTotalWeightForAll)
     }
 
     override fun describeContents(): Int {

@@ -8,19 +8,23 @@ interface CreateFoodReceptionContract {
 
     interface View : IView {
 
-        fun showStaticProducts(products: List<ProductView>)
-
-        fun showLoopProducts(products: List<ProductView>)
-
         fun markCurrentStepAsComplete()
 
         fun showFinishButton()
 
         fun showSelectProductFragment(products: List<ProductView>)
 
-        fun showLoopProductInserted(product: ProductView)
+        fun showStaticProducts(products: List<ProductView>)
 
-        fun showLoopProductRemoved(position: Int)
+        fun showLoopProducts(products: List<ProductView>)
+
+        fun showStaticProductInserted(product: ProductView)
+
+        fun showVariableProductInserted(product: ProductView)
+
+        fun showStaticProductRemoved(position: Int)
+
+        fun showVariableProductRemoved(position: Int)
     }
 
 
@@ -28,8 +32,7 @@ interface CreateFoodReceptionContract {
 
         fun initFragment()
 
-        fun onAddLoopProductClicked()
-
+        fun onAddVariableProductClicked()
 
         fun onFoodReceptionCreationComplete(staticProductList: List<ProductView>, loopProductList: List<ProductView>)
 
@@ -39,10 +42,11 @@ interface CreateFoodReceptionContract {
 
         fun onFinishClicked()
 
-        fun onLoopProductsSelected(products: List<ProductView>)
+        fun onVariableProductsSelected(products: List<ProductView>)
 
-        fun onDeleteLoopProductClicked(position: Int, productView: ProductView)
+        fun onDeleteStaticProductClicked(position: Int, productView: ProductView)
 
+        fun onDeleteVariableProductClicked(position: Int, productView: ProductView)
 
     }
 }

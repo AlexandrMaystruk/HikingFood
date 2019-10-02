@@ -10,13 +10,14 @@ import kotlinx.android.synthetic.main.item_day.view.*
 
 import kotlin.properties.Delegates
 
-class DayAdapter(private val clickListener: (DayView) -> Unit) : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
+class DayAdapter(private val clickListener: (DayView) -> Unit) :
+    RecyclerView.Adapter<DayAdapter.ViewHolder>() {
 
     var dayList: MutableList<DayView> by Delegates.observable(mutableListOf()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
-    fun removeItem(position: Int){
+    fun removeItem(position: Int) {
         dayList.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -36,6 +37,8 @@ class DayAdapter(private val clickListener: (DayView) -> Unit) : RecyclerView.Ad
 
         fun bindHolder(dayView: DayView, clickListener: (DayView) -> Unit) {
             itemView.tvDayNumberValue.text = dayView.number.toString()
+            itemView.tvTotalWeightValue.text = (dayView.breakfastTotalWeight + dayView.lunchTotalWeight + dayView.dinnerTotalWeight).toString()
+            itemView.tvTotalWeightForAllValue.text = (dayView.breakfastTotalWeightForAll + dayView.lunchTotalWeightForAll + dayView.dinnerTotalWeightForAll).toString()
             itemView.setOnClickListener { clickListener(dayView) }
         }
     }

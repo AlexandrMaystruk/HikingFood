@@ -24,6 +24,8 @@
 
     <color name="colorGreyDarkItem">#E0D4D4</color>
     <color name="colorGreyLightItem">#F3EAEA</color>
+    <color name="colorProductSet">#DBCECE</color>
+    <color name="colorProductSetChild">#99DBCECE</color>
 
 
 </resources>

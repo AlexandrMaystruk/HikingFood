@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
+import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectProductsDialog
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectLoopProductsListener
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
@@ -28,9 +29,9 @@ class CreateFoodReceptionFragment : Fragment(),
     @Inject
     lateinit var controller: ToolBarController
 
-    private lateinit var adapterLoopProducts: LoopProductsAdapter
+    private lateinit var adapterLoopProducts: ProductAdapter
 
-    private lateinit var adapterStaticProducts: DefaultProductAdapter
+    private lateinit var adapterStaticProducts: ProductAdapter
 
 
     override fun onCreateView(
@@ -62,6 +63,7 @@ class CreateFoodReceptionFragment : Fragment(),
     private fun init() {
         setStaticProductAdapter()
         setLoopProductAdapter()
+        initStaticCardSwipe()
         initVariableCardSwipe()
         presenter.initFragment()
 
@@ -71,19 +73,19 @@ class CreateFoodReceptionFragment : Fragment(),
 
         btnCreateFoodReceiptNextStep.setOnClickListener {
             presenter.onFoodReceptionCreationComplete(
-                adapterStaticProducts.getSelectedItems(),
+                adapterStaticProducts.productList,
                 adapterLoopProducts.productList
             )
         }
 
         fabAddLoopProducts.setOnClickListener {
-            presenter.onAddLoopProductClicked()
+            presenter.onAddVariableProductClicked()
         }
     }
 
     private fun setStaticProductAdapter() {
         adapterStaticProducts =
-            DefaultProductAdapter {
+            ProductAdapter {
                 adapterItemOnLongClicked(it)
             }
         staticProductsRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -92,11 +94,28 @@ class CreateFoodReceptionFragment : Fragment(),
 
     private fun setLoopProductAdapter() {
         adapterLoopProducts =
-            LoopProductsAdapter {
+            ProductAdapter {
                 adapterItemOnLongClicked(it)
             }
         loopProductRecyclerView.layoutManager = LinearLayoutManager(context)
         loopProductRecyclerView.adapter = adapterLoopProducts
+    }
+
+    private fun initStaticCardSwipe() {
+        context?.let {
+            val swipeHelper = object : SwipeActionHelper(it) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    if (direction == ItemTouchHelper.LEFT) {
+                        presenter.onDeleteStaticProductClicked(
+                            position,
+                            adapterLoopProducts.productList[position]
+                        )
+                    }
+                }
+            }
+            ItemTouchHelper(swipeHelper).attachToRecyclerView(staticProductsRecyclerView)
+        }
     }
 
     private fun initVariableCardSwipe() {
@@ -105,7 +124,10 @@ class CreateFoodReceptionFragment : Fragment(),
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.adapterPosition
                     if (direction == ItemTouchHelper.LEFT) {
-                        presenter.onDeleteLoopProductClicked(position, adapterLoopProducts.productList[position])
+                        presenter.onDeleteVariableProductClicked(
+                            position,
+                            adapterLoopProducts.productList[position]
+                        )
                     }
                 }
             }
@@ -149,19 +171,32 @@ class CreateFoodReceptionFragment : Fragment(),
         }
     }
 
-    override fun onLoopProductsSelected(products: List<ProductView>) {
-        presenter.onLoopProductsSelected(products)
+    override fun showStaticProductInserted(product: ProductView) {
+        adapterStaticProducts.productList.add(product)
+        adapterStaticProducts.notifyItemInserted(adapterStaticProducts.productList.indexOf(product))
     }
 
-    override fun showLoopProductInserted(product: ProductView) {
+    override fun showStaticProductRemoved(position: Int) {
+        adapterStaticProducts.productList.removeAt(position)
+        adapterStaticProducts.notifyItemRemoved(position)
+    }
+
+
+    override fun onLoopProductsSelected(products: List<ProductView>) {
+        presenter.onVariableProductsSelected(products)
+    }
+
+    override fun showVariableProductInserted(product: ProductView) {
         adapterLoopProducts.productList.add(product)
         adapterLoopProducts.notifyItemInserted(adapterLoopProducts.productList.indexOf(product))
     }
 
-    override fun showLoopProductRemoved(position: Int) {
+    override fun showVariableProductRemoved(position: Int) {
         adapterLoopProducts.productList.removeAt(position)
         adapterLoopProducts.notifyItemRemoved(position)
     }
+
+
 
     override fun showLoading() {
 
