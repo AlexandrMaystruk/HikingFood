@@ -7,6 +7,13 @@ class Day(
     val weightTotalsForAll: MutableMap<TypeOfMeal, Int> = mutableMapOf()
 ) {
 
+    fun isDayComplete(): Boolean {
+        return (products[TypeOfMeal.BREAKFAST]?.isNotEmpty() ?: false) &&
+                (products[TypeOfMeal.LUNCH]?.isNotEmpty() ?: false) &&
+                (products[TypeOfMeal.DINNER]?.isNotEmpty() ?: false)
+    }
+
+
     fun getDayTotalWeightForAll(): Int {
         return (weightTotalsForAll[TypeOfMeal.BREAKFAST] ?: 0) +
                 (weightTotalsForAll[TypeOfMeal.LUNCH] ?: 0) +

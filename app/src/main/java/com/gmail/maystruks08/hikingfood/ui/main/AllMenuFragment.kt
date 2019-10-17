@@ -92,8 +92,8 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         allMenuAdapter.menuList = allMenuList.toMutableList()
     }
 
-    override fun showMenuInserted(position: Int, menu: MenuView) {
-        allMenuAdapter.menuList.add(position, menu)
+    override fun showMenuInserted(position: Int, menuView: MenuView) {
+        allMenuAdapter.menuList.add(position, menuView)
         allMenuAdapter.notifyItemInserted(position)
     }
 

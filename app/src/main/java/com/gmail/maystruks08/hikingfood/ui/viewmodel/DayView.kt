@@ -20,9 +20,9 @@ class DayView(
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readInt(),
-        parcel.createTypedArrayList(ProductView),
-        parcel.createTypedArrayList(ProductView),
-        parcel.createTypedArrayList(ProductView),
+        parcel.createTypedArrayList(ProductView) as MutableList<ProductView>,
+        parcel.createTypedArrayList(ProductView) as MutableList<ProductView>,
+        parcel.createTypedArrayList(ProductView) as MutableList<ProductView>,
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt(),

@@ -50,13 +50,13 @@ data class Menu(
                                 if (foodMeal.loopProducts.lastIndex == indexLunch) {
                                     day.addProduct(
                                         TypeOfMeal.LUNCH,
-                                        foodMeal.loopProducts[indexBreakfast]
+                                        foodMeal.loopProducts[indexLunch]
                                     )
                                     indexLunch = 0
                                 } else {
                                     day.addProduct(
                                         TypeOfMeal.LUNCH,
-                                        foodMeal.loopProducts[indexBreakfast]
+                                        foodMeal.loopProducts[indexLunch]
                                     )
                                     indexLunch++
                                 }
@@ -68,13 +68,13 @@ data class Menu(
                                 if (foodMeal.loopProducts.lastIndex == indexDinner) {
                                     day.addProduct(
                                         TypeOfMeal.DINNER,
-                                        foodMeal.loopProducts[indexBreakfast]
+                                        foodMeal.loopProducts[indexDinner]
                                     )
                                     indexDinner = 0
                                 } else {
                                     day.addProduct(
                                         TypeOfMeal.DINNER,
-                                        foodMeal.loopProducts[indexBreakfast]
+                                        foodMeal.loopProducts[indexDinner]
                                     )
                                     indexDinner++
                                 }
@@ -82,26 +82,24 @@ data class Menu(
                         }
                     }
 
-                    if ((indexLunch == indexBreakfast && indexBreakfast == indexDinner) || number == inquirerInfo.numberOfReceptions - 1) {
+                    if (day.isDayComplete() || number == inquirerInfo.numberOfReceptions - 1) {
                         dayList.add(day)
                         dayNumber++
                         day = Day(dayNumber)
                     }
                 }
 
-                inquirerInfo.let {
-                    Menu(
-                        id = Date().time,
-                        name = inquirerInfo.name,
-                        peopleCount = it.peopleCount,
-                        numberOfReceptions = inquirerInfo.numberOfReceptions,
-                        restDayCount = inquirerInfo.relaxDayCount,
-                        dateOfStartMenu = inquirerInfo.dateOfStartMenu,
-                        startFrom = inquirerInfo.timeOfStartMenu,
-                        defaultProductList = inquirerInfo.products,
-                        menu = dayList
-                    )
-                }
+                Menu(
+                    id = Date().time,
+                    name = inquirerInfo.name,
+                    peopleCount = inquirerInfo.peopleCount,
+                    numberOfReceptions = inquirerInfo.numberOfReceptions,
+                    restDayCount = inquirerInfo.relaxDayCount,
+                    dateOfStartMenu = inquirerInfo.dateOfStartMenu,
+                    startFrom = inquirerInfo.timeOfStartMenu,
+                    defaultProductList = inquirerInfo.products,
+                    menu = dayList
+                )
             }
         }
     }
