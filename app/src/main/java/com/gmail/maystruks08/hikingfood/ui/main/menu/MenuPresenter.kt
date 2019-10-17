@@ -14,17 +14,22 @@ class MenuPresenter @Inject constructor(
     private val router: Router
 ) :
     MenuContract.Presenter, BasePresenter<MenuContract.View>() {
-    override fun dayItemClicked(day: DayView) {
-        router.navigateTo(Screens.DayScreen(day))
-    }
+
+    private val actualFoodDays = mutableListOf<DayView>()
 
     override fun initFragment(menuId: Long) {
         compositeDisposable.add(
             menuInteractorImpl.getMenuDays(menuId).subscribe({ list ->
-                view?.showFoodDays(list.map { dayMenuViewMapper.fromMenuDay(menuId, it) })
+                actualFoodDays.clear()
+                actualFoodDays.addAll(list.map { dayMenuViewMapper.fromMenuDay(menuId, it) })
+                view?.showFoodDays(actualFoodDays)
             }, {
                 it.printStackTrace()
             })
         )
+    }
+
+    override fun dayItemClicked(day: DayView) {
+        router.navigateTo(Screens.DayPagerScreen(actualFoodDays, actualFoodDays.indexOf(day)))
     }
 }

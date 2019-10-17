@@ -15,6 +15,7 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import com.gmail.maystruks08.hikingfood.R
+import com.gmail.maystruks08.hikingfood.ui.view.DrawableHelper
 
 class StepProgressView : ViewGroup, View.OnClickListener {
 

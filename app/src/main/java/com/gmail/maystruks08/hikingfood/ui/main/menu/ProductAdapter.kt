@@ -70,6 +70,7 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
 
                 ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_set)
             } else {
+                itemView.tvProductNumber.text = ""
                 itemView.ivProductSetIcon.visibility = View.GONE
                 if (product.isChild) {
                     itemView.tvProductName.setTypeface(null, Typeface.ITALIC)

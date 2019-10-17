@@ -1,9 +1,10 @@
-package com.gmail.maystruks08.hikingfood.ui.view.stepprogress
+package com.gmail.maystruks08.hikingfood.ui.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import com.gmail.maystruks08.hikingfood.R
+import com.gmail.maystruks08.hikingfood.ui.view.stepprogress.SViewUtils
 
 class DrawableHelper {
 

@@ -11,46 +11,64 @@ import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
 import kotlinx.android.synthetic.main.fragment_day.*
-import javax.inject.Inject
 
-class DayFragment : Fragment(), DayContract.View {
-
-    @Inject
-    lateinit var controller: ToolBarController
-
-    @Inject
-    lateinit var presenter: DayContract.Presenter
+class DayFragment : Fragment() {
 
     private lateinit var breakfastAdapter: ProductAdapter
     private lateinit var lunchAdapter: ProductAdapter
     private lateinit var dinnerAdapter: ProductAdapter
+    private lateinit var dayView: DayView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        App.dayComponent?.inject(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.getParcelable<DayView>(DAY)?.let {
+            dayView = it
+        }
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_day, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.bindView(this, arguments?.getParcelable(DAY))
+        showDayView(dayView)
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .title("День ${arguments?.getInt(DAY_NUMBER)}")
-                .build(),
-            activity as ConfigToolbar
-        )
+    private fun showDayView(dayView: DayView) {
+        dayView.let {
+            view.run {
+                showBreakfastCard(it.breakfastProducts.isNotEmpty())
+                showLunchCard(it.lunchProducts.isNotEmpty())
+                showDinnerCard(it.dinnerProducts.isNotEmpty())
+            }
+
+            if (it.breakfastProducts.isNotEmpty()) {
+                showBreakfastProducts(
+                    (it.number).toString(),
+                    it.breakfastTotalWeight.toString(),
+                    it.breakfastProducts
+                )
+            }
+
+            if (it.lunchProducts.isNotEmpty()) {
+                showLunchProducts(
+                    (it.number).toString(),
+                    it.lunchTotalWeight.toString(),
+                    it.lunchProducts
+                )
+            }
+
+            if (it.dinnerProducts.isNotEmpty()) {
+                showDinnerProducts(
+                    (it.number).toString(),
+                    it.dinnerTotalWeight.toString(),
+                    it.dinnerProducts
+                )
+            }
+        }
     }
 
-    override fun showBreakfastProducts(
+    private fun showBreakfastProducts(
         number: String,
         totalWeight: String,
         products: MutableList<ProductView>
@@ -64,7 +82,7 @@ class DayFragment : Fragment(), DayContract.View {
         breakfastAdapter.productList = products
     }
 
-    override fun showLunchProducts(
+    private fun showLunchProducts(
         number: String,
         totalWeight: String,
         products: MutableList<ProductView>
@@ -79,7 +97,7 @@ class DayFragment : Fragment(), DayContract.View {
         lunchAdapter.productList = products
     }
 
-    override fun showDinnerProducts(
+    private fun showDinnerProducts(
         number: String,
         totalWeight: String,
         products: MutableList<ProductView>
@@ -95,37 +113,25 @@ class DayFragment : Fragment(), DayContract.View {
 
     private fun itemClicked(productView: ProductView) {}
 
-    override fun showBreakfastCard(enable: Boolean) {
+    private fun showBreakfastCard(enable: Boolean) {
         cardBreakfast.visibility = if (enable) View.VISIBLE else View.GONE
     }
 
-    override fun showLunchCard(enable: Boolean) {
+    private fun showLunchCard(enable: Boolean) {
         cardLunch.visibility = if (enable) View.VISIBLE else View.GONE
-
     }
 
-    override fun showDinnerCard(enable: Boolean) {
+    private fun showDinnerCard(enable: Boolean) {
         cardDinner.visibility = if (enable) View.VISIBLE else View.GONE
     }
-
-    override fun showLoading() {}
-
-    override fun hideLoading() {}
-
-    override fun showError(t: Throwable) {}
 
     companion object {
 
         private const val DAY = "day"
 
-        private const val DAY_NUMBER = "dayNumber"
-
         fun getInstance(day: DayView): DayFragment =
             DayFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(DAY, day)
-                    putInt(DAY_NUMBER, day.number)
-                }
+                arguments = Bundle().apply { putParcelable(DAY, day) }
             }
     }
 }

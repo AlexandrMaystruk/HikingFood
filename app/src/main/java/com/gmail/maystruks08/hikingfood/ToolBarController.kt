@@ -1,6 +1,5 @@
 package com.gmail.maystruks08.hikingfood
 
-
 class ToolBarController {
 
     fun configure(toolbarDescriptor: ToolbarDescriptor, configToolbar: ConfigToolbar) {

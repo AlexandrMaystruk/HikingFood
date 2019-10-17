@@ -5,7 +5,7 @@ import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.
 import com.gmail.maystruks08.hikingfood.ui.main.menu.portion.ProductPortionForOnePeopleFragment
 import com.gmail.maystruks08.hikingfood.ui.main.menu.MenuFragment
 import com.gmail.maystruks08.hikingfood.ui.main.AllMenuFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.day.DayFragment
+import com.gmail.maystruks08.hikingfood.ui.main.menu.day.pager.DayPagerFragment
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 
 object Screens {
@@ -32,11 +32,11 @@ object Screens {
     }
 
 
-    class DayScreen(private val dayView: DayView) : AppScreen() {
-        override fun getFragment() = DayFragment.getInstance(dayView)
+    class DayPagerScreen(private val dayViews: List<DayView>, private val position: Int) : AppScreen() {
+        override fun getFragment() = DayPagerFragment.getInstance(dayViews, position)
     }
 
-    const val SELECT_PRODUCTS_DIALOG = "select_ingredient_dialog"
+    const val SELECT_PRODUCTS_DIALOG = "SELECT_PRODUCTS_DIALOG"
 
 }
 
