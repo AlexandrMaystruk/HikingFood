@@ -22,17 +22,13 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     private lateinit var daysAdapter: DayAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        App.menuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.menuComponent?.inject(this)
         presenter.bindView(this)
         init()
     }
@@ -67,6 +63,17 @@ class MenuFragment : Fragment(), MenuContract.View {
     override fun showFoodDays(days: List<DayView>) {
         daysAdapter.dayList = days.toMutableList()
     }
+
+//    override fun onDestroyView() {
+//        presenter.end()
+//        daysRecyclerView.adapter = null
+//        super.onDestroyView()
+//    }
+//
+//    override fun onDestroy() {
+//        App.clearMenuComponent()
+//        super.onDestroy()
+//    }
 
     override fun showLoading() {
     }

@@ -1,6 +1,6 @@
 package com.gmail.maystruks08.hikingfood.core.di.application.main.menu
 
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.dose.DoseMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.portion.ProductPortionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.CreateMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.day.DayComponent
 import dagger.Subcomponent
@@ -16,6 +16,6 @@ interface MenuComponent {
 
     fun createMenuComponent(): CreateMenuComponent
 
-    fun doseComponent(): DoseMenuComponent
+    fun portionComponent(): ProductPortionComponent
 
 }

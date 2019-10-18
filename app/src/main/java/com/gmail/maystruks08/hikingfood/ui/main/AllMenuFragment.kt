@@ -26,17 +26,13 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     private lateinit var allMenuAdapter: AllMenuAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        App.allMenuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_all_menu_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.allMenuComponent?.inject(this)
         presenter.bindView(this)
         init()
         initCardSwipe()
@@ -109,11 +105,10 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         presenter.onMenuItemClicked(menu)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        presenter.end()
-        App.clearAllMenuComponent()
-    }
+//    override fun onDestroyView() {
+//        presenter.end()
+//        super.onDestroyView()
+//    }
 
     override fun showLoading() {}
 

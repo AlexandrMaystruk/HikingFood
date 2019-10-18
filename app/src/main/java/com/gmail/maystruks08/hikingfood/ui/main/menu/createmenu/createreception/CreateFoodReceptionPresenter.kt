@@ -16,7 +16,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
 ) :
     CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
 
-    var typeOfMeal: TypeOfMeal = TypeOfMeal.BREAKFAST
+    private var typeOfMeal: TypeOfMeal = TypeOfMeal.BREAKFAST
 
     override fun initFragment() {
         view?.showLoading()

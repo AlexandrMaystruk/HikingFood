@@ -17,20 +17,15 @@ class SelectProductsDialog : DialogFragment() {
 
     private var listenerLoop: SelectLoopProductsListener? = null
 
-    lateinit var adapterDefProduct: ProductAdapter
+    private lateinit var adapterDefProduct: ProductAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_fragment_select_ingredient, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-
         arguments?.getParcelableArrayList<ProductView>(INGREDIENTS)?.let {
             adapterDefProduct.productList = it.toMutableList()
         }
@@ -44,9 +39,7 @@ class SelectProductsDialog : DialogFragment() {
 
         btnDismissDialog.setOnClickListener { this.dismiss() }
 
-        adapterDefProduct = ProductAdapter {
-
-        }
+        adapterDefProduct = ProductAdapter {}
         selectIngrediengRecyclerView.layoutManager = LinearLayoutManager(context)
         selectIngrediengRecyclerView.adapter = adapterDefProduct
     }
@@ -64,6 +57,11 @@ class SelectProductsDialog : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        selectIngrediengRecyclerView.adapter = null
     }
 
     override fun onDestroy() {

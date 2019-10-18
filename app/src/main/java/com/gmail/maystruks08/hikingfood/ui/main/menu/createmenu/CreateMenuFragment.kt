@@ -27,12 +27,12 @@ class CreateMenuFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        App.createMenuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_create_menu, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.createMenuComponent?.inject(this)
         presenter.bindView(this)
         init()
     }
@@ -70,7 +70,7 @@ class CreateMenuFragment : Fragment(),
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-        })
+            })
 
         tvRelaxDayCountValue.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -115,6 +115,7 @@ class CreateMenuFragment : Fragment(),
 
     override fun onDestroy() {
         presenter.end()
+        App.clearCreateMenuComponent()
         super.onDestroy()
     }
 

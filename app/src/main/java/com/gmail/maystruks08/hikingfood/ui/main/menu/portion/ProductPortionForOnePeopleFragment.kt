@@ -23,12 +23,16 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
 
     private lateinit var productsPortionAdapter: ProductsPortionAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        App.portionComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_portion_for_one_people, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.bindView(this)
+        init()
+        setAdapter()
     }
 
     override fun configToolbar() {
@@ -40,14 +44,6 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
                 .build(),
             activity as ConfigToolbar
         )
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        App.doseComponent?.inject(this)
-        presenter.bindView(this)
-        init()
-        setAdapter()
     }
 
     private fun setAdapter() {
@@ -73,6 +69,17 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
+    }
+
+    override fun onDestroyView() {
+        presenter.end()
+        allIngredientPortionRecyclerView.adapter = null
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        App.clearPortionComponent()
+        super.onDestroy()
     }
 
     override fun showLoading() {}

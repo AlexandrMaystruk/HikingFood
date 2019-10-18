@@ -111,6 +111,13 @@ class DayFragment : Fragment() {
         dinnerAdapter.productList = products
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        rvBreakfast.adapter = null
+        rvLunch.adapter = null
+        rvDinner.adapter = null
+    }
+
     private fun itemClicked(productView: ProductView) {}
 
     private fun showBreakfastCard(enable: Boolean) {

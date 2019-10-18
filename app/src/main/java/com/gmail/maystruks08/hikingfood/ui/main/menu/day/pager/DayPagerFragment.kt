@@ -22,11 +22,7 @@ class DayPagerFragment : Fragment(), DayPagerContract.View {
 
     private lateinit var dayPagerAdapter: DayPagerAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         App.dayComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_day_tabs, container, false)
     }
@@ -63,6 +59,16 @@ class DayPagerFragment : Fragment(), DayPagerContract.View {
         dayViewPager?.currentItem = selectedPosition
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.end()
+        dayViewPager.adapter = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        App.clearDayComponent()
+    }
 
     override fun showLoading() {}
 

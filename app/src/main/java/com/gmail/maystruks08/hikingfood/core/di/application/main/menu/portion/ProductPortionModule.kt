@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.dose
+package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.portion
 
 import com.gmail.maystruks08.data.repository.ProductPortionRepositoryImpl
 import com.gmail.maystruks08.domain.interactor.dose.ProductPortionInteractor
@@ -11,18 +11,18 @@ import dagger.Provides
 
 
 @Module
-class DoseMenuModule {
+class ProductPortionModule {
 
     @Provides
-    @DoseScope
+    @ProductPortionScope
     fun interactor(doseInteractorImpl: ProductPortionInteractorImpl): ProductPortionInteractor = doseInteractorImpl
 
     @Provides
-    @DoseScope
+    @ProductPortionScope
     fun presenter(productPortionForOnePeoplePresenter: ProductPortionForOnePeoplePresenter): PortionContract.Presenter = productPortionForOnePeoplePresenter
 
     @Provides
-    @DoseScope
+    @ProductPortionScope
     fun userRepository(productPortionRepositoryImpl: ProductPortionRepositoryImpl): ProductPortionRepository = productPortionRepositoryImpl
 
 }

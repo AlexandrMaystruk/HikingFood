@@ -33,18 +33,13 @@ class CreateFoodReceptionFragment : Fragment(),
 
     private lateinit var adapterStaticProducts: ProductAdapter
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        App.createReceptionComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_create_food_reception, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.createReceptionComponent?.inject(this)
         presenter.bindView(this)
         init()
     }
@@ -198,7 +193,17 @@ class CreateFoodReceptionFragment : Fragment(),
         adapterLoopProducts.notifyItemRangeChanged(position, adapterLoopProducts.itemCount)
     }
 
-
+//    override fun onDestroyView() {
+//        presenter.end()
+//        staticProductsRecyclerView.adapter = null
+//        loopProductRecyclerView.adapter = null
+//        super.onDestroyView()
+//    }
+//
+//    override fun onDestroy() {
+//        App.clearCreateReceptionComponent()
+//        super.onDestroy()
+//    }
     override fun showLoading() {}
 
     override fun hideLoading() {}

@@ -8,7 +8,7 @@ import com.gmail.maystruks08.hikingfood.core.di.application.AppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.DaggerAppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.CreateMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.createreception.CreateReceptionComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.dose.DoseMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.portion.ProductPortionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.AllMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.day.DayComponent
@@ -47,10 +47,10 @@ class App : Application() {
                 return field
             }
 
-        var doseComponent: DoseMenuComponent? = null
+        var portionComponent: ProductPortionComponent? = null
             get() {
                 if (field == null)
-                    field = menuComponent?.doseComponent()
+                    field = menuComponent?.portionComponent()
                 return field
             }
 
@@ -71,8 +71,8 @@ class App : Application() {
             createMenuComponent = null
         }
 
-        fun clearDoseComponent() {
-            doseComponent = null
+        fun clearPortionComponent() {
+            portionComponent = null
         }
 
         fun clearAllMenuComponent() {
@@ -81,6 +81,10 @@ class App : Application() {
 
         fun clearDayComponent() {
             dayComponent = null
+        }
+
+        fun clearCreateReceptionComponent() {
+            createReceptionComponent = null
         }
     }
 
