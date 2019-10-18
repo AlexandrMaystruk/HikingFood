@@ -25,6 +25,15 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.*
 
+fun String.isolateSpecialSymbolsForRegex(): String =
+    this.replace("*", "\\*")
+        .replace("(", "\\(")
+        .replace(")", "\\)")
+        .replace("{", "\\{")
+        .replace("}", "\\}")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+
 fun FragmentActivity.hideKeyboard () {
     val view = this.currentFocus
     if (view != null) {

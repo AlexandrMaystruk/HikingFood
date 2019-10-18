@@ -1,11 +1,15 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.portion
 
+import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.domain.interactor.dose.ProductPortionInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
+import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
 import javax.inject.Inject
 
 class ProductPortionForOnePeoplePresenter @Inject constructor(private val interactor: ProductPortionInteractor) :
     PortionContract.Presenter, BasePresenter<PortionContract.View>() {
+
+    private var products = mutableListOf<Product>()
 
     override fun bindView(view: PortionContract.View) {
         super.bindView(view)
@@ -13,8 +17,9 @@ class ProductPortionForOnePeoplePresenter @Inject constructor(private val intera
         compositeDisposable.add(
             interactor.getProducts()
                 .subscribe({
+                    products = it.toMutableList()
+                    view.showProductPortionList(products)
                     view.hideLoading()
-                    view.showProductPortionList(it)
                 }, {
                     view.hideLoading()
                     it.printStackTrace()
@@ -32,5 +37,18 @@ class ProductPortionForOnePeoplePresenter @Inject constructor(private val intera
                     it.printStackTrace()
                 })
         )
+    }
+
+    /** Filter by product name */
+    override fun onSearchQueryChanged(productName: String) {
+        if (productName.isEmpty()) {
+            view?.showProductPortionList(products)
+        } else {
+            view?.showLoading()
+            //this pattern use for avoid kotlin crash with regular expression
+            val pattern = ".*${productName.isolateSpecialSymbolsForRegex().toLowerCase()}.*".toRegex()
+            val filteredProducts = products.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
+            view?.showProductPortionList(filteredProducts)
+        }
     }
 }

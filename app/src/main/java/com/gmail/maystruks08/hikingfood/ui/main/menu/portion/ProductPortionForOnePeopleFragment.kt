@@ -1,6 +1,8 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.portion
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +13,7 @@ import com.gmail.maystruks08.hikingfood.*
 import kotlinx.android.synthetic.main.fragment_portion_for_one_people.*
 import javax.inject.Inject
 
-class ProductPortionForOnePeopleFragment : Fragment(),
-    PortionContract.View {
+class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
 
     @Inject
     lateinit var presenter: PortionContract.Presenter
@@ -50,10 +51,8 @@ class ProductPortionForOnePeopleFragment : Fragment(),
     }
 
     private fun setAdapter() {
-        productsPortionAdapter =
-            ProductsPortionAdapter(::portionValueChanged)
-        allIngredientPortionRecyclerView.layoutManager =
-            LinearLayoutManager(allIngredientPortionRecyclerView.context)
+        productsPortionAdapter = ProductsPortionAdapter(::portionValueChanged)
+        allIngredientPortionRecyclerView.layoutManager = LinearLayoutManager(allIngredientPortionRecyclerView.context)
         allIngredientPortionRecyclerView.adapter = productsPortionAdapter
     }
 
@@ -66,23 +65,25 @@ class ProductPortionForOnePeopleFragment : Fragment(),
     }
 
     private fun init() {
-
+        productSearchView.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    presenter.onSearchQueryChanged(s.toString())
+                }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
     }
 
-    override fun showLoading() {
+    override fun showLoading() {}
 
-    }
+    override fun hideLoading() {}
 
-    override fun hideLoading() {
-    }
-
-    override fun showError(t: Throwable) {
-    }
+    override fun showError(t: Throwable) {}
 
     companion object {
 
-        fun getInstance(): ProductPortionForOnePeopleFragment =
-            ProductPortionForOnePeopleFragment()
+        fun getInstance(): ProductPortionForOnePeopleFragment = ProductPortionForOnePeopleFragment()
 
     }
 }

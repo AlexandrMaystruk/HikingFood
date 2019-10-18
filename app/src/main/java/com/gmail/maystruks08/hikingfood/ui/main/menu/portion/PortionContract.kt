@@ -14,5 +14,7 @@ interface PortionContract {
     interface Presenter : IPresenter<View> {
 
         fun onPortionValueChanged(newValue: Int, productId: Int)
+
+        fun onSearchQueryChanged(productName: String)
     }
 }

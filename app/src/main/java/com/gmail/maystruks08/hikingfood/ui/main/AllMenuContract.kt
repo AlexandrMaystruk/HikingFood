@@ -24,5 +24,7 @@ interface AllMenuContract {
         fun onMenuItemClicked(menuView: MenuView)
 
         fun onDeleteMenuClicked(position: Int, menuView: MenuView)
+
+        fun onSearchQueryChanged(menuName: String)
     }
 }

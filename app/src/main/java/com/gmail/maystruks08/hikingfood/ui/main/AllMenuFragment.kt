@@ -1,6 +1,8 @@
 package com.gmail.maystruks08.hikingfood.ui.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
-import com.gmail.maystruks08.hikingfood.utils.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_all_menu_list.*
 import javax.inject.Inject
 
@@ -51,15 +52,14 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
     }
 
     private fun init() {
-        billSearchView.setOnSearchActionListener(object : SearchViewCustom.OnSearchActionListener {
-            override fun onSearchOpened() {
-
-            }
-
-            override fun onSearchClosed() {
-                hideKeyboard()
-            }
-        })
+        menuSearchView.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    presenter.onSearchQueryChanged(s.toString())
+                }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
 
         setAdapter()
 
@@ -115,14 +115,11 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         App.clearAllMenuComponent()
     }
 
-    override fun showLoading() {
-    }
+    override fun showLoading() {}
 
-    override fun hideLoading() {
-    }
+    override fun hideLoading() {}
 
-    override fun showError(t: Throwable) {
-    }
+    override fun showError(t: Throwable) {}
 
     companion object {
 

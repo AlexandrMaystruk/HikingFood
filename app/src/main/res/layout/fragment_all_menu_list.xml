@@ -5,15 +5,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.gmail.maystruks08.hikingfood.SearchViewCustom
-        android:id="@+id/billSearchView"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/menuSearchView"
+        style="@style/TextEditSearchWithKeyboard"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_xs"
+        android:layout_margin="@dimen/margin_min"
         android:background="@color/colorWhite"
-        android:text="@string/search"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:hint="@string/search"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:outlineProvider="none"
         android:textColor="@color/colorGrey"
-        android:textSize="@dimen/text_l"
+        android:textColorHint="@color/colorGrey"
+        android:textSize="@dimen/text_s"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +31,7 @@
         android:layout_marginTop="@dimen/margin_xs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/billSearchView" />
+        app:layout_constraintTop_toBottomOf="@+id/menuSearchView" />
 
     <Button
         android:id="@+id/fabCreateNewMenu"

@@ -5,6 +5,7 @@ import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.MenuViewMapper
+import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -14,14 +15,18 @@ class AllMenuPresenter @Inject constructor(
     private val menuViewMapper: MenuViewMapper
 ) : AllMenuContract.Presenter, BasePresenter<AllMenuContract.View>() {
 
+    private var menuViews = mutableListOf<MenuView>()
+
     override fun bindView(view: AllMenuContract.View) {
         super.bindView(view)
         view.showLoading()
         compositeDisposable.add(
             interactor.provideAllMenuList()
-                .subscribe({
+                .subscribe({ list ->
+                    menuViews.clear()
+                    menuViews.addAll(list.map { menuViewMapper.fromMenu(it) })
+                    view.showAllMenuList(menuViews)
                     view.hideLoading()
-                    view.showAllMenuList(it.map { menuViewMapper.fromMenu(it) })
                 }, {
                     view.hideLoading()
                     it.printStackTrace()
@@ -42,6 +47,7 @@ class AllMenuPresenter @Inject constructor(
         compositeDisposable.add(
             interactor.removeMenu(menuView.id)
                 .subscribe({
+                    menuViews.remove(menuView)
                     view?.hideLoading()
                 }, {
                     view?.hideLoading()
@@ -49,5 +55,17 @@ class AllMenuPresenter @Inject constructor(
                     it.printStackTrace()
                 })
         )
+    }
+
+    override fun onSearchQueryChanged(menuName: String) {
+        if (menuName.isEmpty()) {
+            view?.showAllMenuList(menuViews)
+        } else {
+            view?.showLoading()
+            //this pattern use for avoid kotlin crash with regular expression
+            val pattern = ".*${menuName.isolateSpecialSymbolsForRegex().toLowerCase()}.*".toRegex()
+            val filteredProducts = menuViews.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
+            view?.showAllMenuList(filteredProducts)
+        }
     }
 }

@@ -18,6 +18,16 @@
         <item name="colorControlNormal">@android:color/transparent</item>
     </style>
 
+    <style name="TextEditSearchWithKeyboard">
+        <item name="android:layout_margin">@dimen/margin_s</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:drawableEnd">@drawable/ic_search</item>
+        <item name="android:padding">@dimen/margin_m</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_m</item>
+    </style>
+
     <style name="Spinner" parent="AppTheme">
         <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>
     </style>
