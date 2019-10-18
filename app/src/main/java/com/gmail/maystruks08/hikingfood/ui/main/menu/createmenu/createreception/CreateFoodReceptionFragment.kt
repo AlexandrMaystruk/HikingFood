@@ -193,17 +193,17 @@ class CreateFoodReceptionFragment : Fragment(),
         adapterLoopProducts.notifyItemRangeChanged(position, adapterLoopProducts.itemCount)
     }
 
-//    override fun onDestroyView() {
-//        presenter.end()
-//        staticProductsRecyclerView.adapter = null
-//        loopProductRecyclerView.adapter = null
-//        super.onDestroyView()
-//    }
-//
-//    override fun onDestroy() {
-//        App.clearCreateReceptionComponent()
-//        super.onDestroy()
-//    }
+    override fun onDestroyView() {
+        presenter.end()
+        staticProductsRecyclerView.adapter = null
+        loopProductRecyclerView.adapter = null
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        App.clearCreateReceptionComponent()
+        super.onDestroy()
+    }
     override fun showLoading() {}
 
     override fun hideLoading() {}

@@ -6,10 +6,10 @@ import io.reactivex.plugins.RxJavaPlugins
 import com.gmail.maystruks08.hikingfood.core.di.application.AndroidModule
 import com.gmail.maystruks08.hikingfood.core.di.application.AppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.DaggerAppComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.AllMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.CreateMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.createreception.CreateReceptionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.portion.ProductPortionComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.AllMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.day.DayComponent
 

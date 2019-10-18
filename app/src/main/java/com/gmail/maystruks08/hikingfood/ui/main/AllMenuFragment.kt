@@ -105,10 +105,10 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         presenter.onMenuItemClicked(menu)
     }
 
-//    override fun onDestroyView() {
-//        presenter.end()
-//        super.onDestroyView()
-//    }
+    override fun onDestroyView() {
+        allMenuRecyclerView.adapter = null
+        super.onDestroyView()
+    }
 
     override fun showLoading() {}
 
@@ -118,7 +118,6 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     companion object {
 
-        fun getInstance(): AllMenuFragment =
-            AllMenuFragment()
+        fun getInstance(): AllMenuFragment = AllMenuFragment()
     }
 }
