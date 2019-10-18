@@ -109,7 +109,7 @@ class CreateFoodReceptionFragment : Fragment(),
                     if (direction == ItemTouchHelper.LEFT) {
                         presenter.onDeleteStaticProductClicked(
                             position,
-                            adapterLoopProducts.productList[position]
+                            adapterStaticProducts.productList[position]
                         )
                     }
                 }
@@ -179,6 +179,7 @@ class CreateFoodReceptionFragment : Fragment(),
     override fun showStaticProductRemoved(position: Int) {
         adapterStaticProducts.productList.removeAt(position)
         adapterStaticProducts.notifyItemRemoved(position)
+        adapterStaticProducts.notifyItemChanged(position, adapterStaticProducts.itemCount)
     }
 
 
@@ -194,19 +195,15 @@ class CreateFoodReceptionFragment : Fragment(),
     override fun showVariableProductRemoved(position: Int) {
         adapterLoopProducts.productList.removeAt(position)
         adapterLoopProducts.notifyItemRemoved(position)
+        adapterLoopProducts.notifyItemRangeChanged(position, adapterLoopProducts.itemCount)
     }
 
 
+    override fun showLoading() {}
 
-    override fun showLoading() {
+    override fun hideLoading() {}
 
-    }
-
-    override fun hideLoading() {
-    }
-
-    override fun showError(t: Throwable) {
-    }
+    override fun showError(t: Throwable) {}
 
     companion object {
 

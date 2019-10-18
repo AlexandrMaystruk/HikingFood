@@ -47,7 +47,7 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
             itemView.tvProductWeightForAllPeople.text = product.portionForAllPeople.toString()
 
             itemView.background = if (product is SetProductView) {
-                itemView.tvProductNumber.text = position.toString()
+                itemView.tvProductNumber.text = (position + 1).toString()
                 itemView.ivProductSetIcon.visibility = View.VISIBLE
                 itemView.tvProductName.setTypeface(null, Typeface.BOLD)
                 itemView.tvProductWeightForOnePeople.setTypeface(null, Typeface.BOLD)
@@ -81,7 +81,7 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
                     itemView.tvProductName.typeface = Typeface.DEFAULT
                     itemView.tvProductWeightForOnePeople.typeface = Typeface.DEFAULT
                     itemView.tvProductWeightForAllPeople.typeface = Typeface.DEFAULT
-                    itemView.tvProductNumber.text = position.toString()
+                    itemView.tvProductNumber.text = (position + 1).toString()
                     if (position % 2 == 0) {
                         ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_dark)
                     } else {
