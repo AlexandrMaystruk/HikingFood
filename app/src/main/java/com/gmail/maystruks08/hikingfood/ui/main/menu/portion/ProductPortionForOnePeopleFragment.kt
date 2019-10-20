@@ -1,16 +1,13 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.portion
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.hikingfood.*
-import kotlinx.android.synthetic.main.fragment_portion_for_one_people.*
+import kotlinx.android.synthetic.main.fragment_portions.*
 import javax.inject.Inject
 
 class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
@@ -23,15 +20,19 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
 
     private lateinit var productsPortionAdapter: ProductsPortionAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         App.portionComponent?.inject(this)
-        return inflater.inflate(R.layout.fragment_portion_for_one_people, container, false)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_portions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        init()
         setAdapter()
     }
 
@@ -46,9 +47,30 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
         )
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        initSearch(menu, inflater)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun initSearch(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        val searchView = menu.findItem(R.id.action_search)?.actionView as? SearchView
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                presenter.onSearchQueryChanged(newText)
+                return false
+            }
+        })
+    }
+
     private fun setAdapter() {
         productsPortionAdapter = ProductsPortionAdapter(::portionValueChanged)
-        allIngredientPortionRecyclerView.layoutManager = LinearLayoutManager(allIngredientPortionRecyclerView.context)
+        allIngredientPortionRecyclerView.layoutManager =
+            LinearLayoutManager(allIngredientPortionRecyclerView.context)
         allIngredientPortionRecyclerView.adapter = productsPortionAdapter
     }
 
@@ -58,17 +80,6 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
 
     private fun portionValueChanged(newValue: Int, productId: Int) {
         presenter.onPortionValueChanged(newValue, productId)
-    }
-
-    private fun init() {
-        productSearchView.addTextChangedListener(
-            object : TextWatcher {
-                override fun afterTextChanged(s: Editable) {
-                    presenter.onSearchQueryChanged(s.toString())
-                }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            })
     }
 
     override fun onDestroyView() {
@@ -88,9 +99,4 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
 
     override fun showError(t: Throwable) {}
 
-    companion object {
-
-        fun getInstance(): ProductPortionForOnePeopleFragment = ProductPortionForOnePeopleFragment()
-
-    }
 }

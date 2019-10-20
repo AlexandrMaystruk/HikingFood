@@ -42,7 +42,7 @@
     <!--Widget size-->
     <dimen name="tabs_height">26dp</dimen>
 
-    <item name="mainVerticalGuideline" format="float" type="dimen">0.52</item>
+    <item name="mainVerticalGuideline" format="float" type="dimen">0.5</item>
 
 
 </resources>

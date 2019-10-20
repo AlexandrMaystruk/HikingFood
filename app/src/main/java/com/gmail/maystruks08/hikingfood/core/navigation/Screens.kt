@@ -11,7 +11,7 @@ import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 object Screens {
 
     class AllMenuScreen : AppScreen() {
-        override fun getFragment() = AllMenuFragment.getInstance()
+        override fun getFragment() = AllMenuFragment()
     }
 
     class MenuScreen(private val menuId: Long) : AppScreen() {
@@ -19,16 +19,16 @@ object Screens {
     }
 
     class CreateMenuScreen : AppScreen() {
-        override fun getFragment() = CreateMenuFragment.getInstance()
+        override fun getFragment() = CreateMenuFragment()
     }
 
 
     class CreateReceptionScreen : AppScreen() {
-        override fun getFragment() = CreateFoodReceptionFragment.getInstance()
+        override fun getFragment() = CreateFoodReceptionFragment()
     }
 
     class ChangeIngredientPortionScreen : AppScreen() {
-        override fun getFragment() = ProductPortionForOnePeopleFragment.getInstance()
+        override fun getFragment() = ProductPortionForOnePeopleFragment()
     }
 
 

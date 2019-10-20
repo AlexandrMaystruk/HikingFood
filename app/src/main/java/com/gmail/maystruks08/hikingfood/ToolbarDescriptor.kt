@@ -5,8 +5,7 @@ class ToolbarDescriptor private constructor(
     val title: String? = null,
     val navigationIcon: Int? = null,
     val collapse: Boolean = false,
-    val color: Int? = null,
-    val menu: Int? = null
+    val color: Int? = null
 ) {
 
     class Builder(
@@ -14,8 +13,7 @@ class ToolbarDescriptor private constructor(
         private var title: String? = null,
         private var navigationIcon: Int? = null,
         private var collapse: Boolean = false,
-        private var color: Int = R.color.colorPrimary,
-        private var menu: Int? = null
+        private var color: Int = R.color.colorPrimary
     ) {
 
         fun visibility(visible: Boolean) = apply {
@@ -39,13 +37,8 @@ class ToolbarDescriptor private constructor(
             this.collapse = collapse
         }
 
-
         fun color(color: Int) = apply {
             this.color = color
-        }
-
-        fun menu(menu: Int?) = apply {
-            this.menu = menu
         }
 
         fun build() = ToolbarDescriptor(
@@ -53,9 +46,7 @@ class ToolbarDescriptor private constructor(
             title,
             navigationIcon,
             collapse,
-            color,
-            menu
+            color
         )
     }
-
 }

@@ -2,15 +2,14 @@ package com.gmail.maystruks08.hikingfood.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -23,6 +22,8 @@ import com.gmail.maystruks08.hikingfood.utils.PRESS_TWICE_INTERVAL
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.core.navigation.AppNavigator
 import kotlinx.android.synthetic.main.activity_main.*
+import com.gmail.maystruks08.hikingfood.core.navigation.Screens
+import com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
 
 class MainActivity : AppCompatActivity(), ConfigToolbar {
 
@@ -35,10 +36,6 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
     private var onBackHandler: Runnable? = null
 
     private var lastBackPressTime = 0L
-
-    private var optionsMenu: Menu? = null
-
-    private lateinit var menuClickListener: (Int) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,24 +143,9 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
         toolbar.navigationIcon = null
     }
 
-    override fun showOptionMenu(showMenu: Boolean) {
-        if (optionsMenu == null) return
-    }
-
-    override fun setOptionMenuClickListener(clickListener: (Int) -> Unit) {
-        menuClickListener = clickListener
-    }
-
     override fun enableBottomBar() {
     }
 
     override fun disableBottomBar() {
-    }
-
-    override fun setOptionMenu(menuRes: Int) {
-        optionsMenu?.let {
-            it.clear()
-            menuInflater.inflate(menuRes, it)
-        }
     }
 }

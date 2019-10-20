@@ -19,8 +19,7 @@ class ToolBarController {
             configToolbar.setToolbarTitle(toolbarDescriptor.title)
         }
 
-
-        if (toolbarDescriptor.color != null){
+        if (toolbarDescriptor.color != null) {
             configToolbar.setBackgroundColor(toolbarDescriptor.color)
         }
 
@@ -29,17 +28,9 @@ class ToolBarController {
         } else {
             configToolbar.removeNavigationIcon()
         }
-
-        if (toolbarDescriptor.menu != null) {
-            configToolbar.setOptionMenu(toolbarDescriptor.menu)
-        }
     }
 
-    fun changeToolbarTitle(title: String, configToolbar: ConfigToolbar){
+    fun changeToolbarTitle(title: String, configToolbar: ConfigToolbar) {
         configToolbar.setToolbarTitle(title)
-    }
-
-    fun addMenuClickListener(configToolbar: ConfigToolbar, menuClickListener: (Int) -> Unit){
-        configToolbar.setOptionMenuClickListener(menuClickListener)
     }
 }

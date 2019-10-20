@@ -5,33 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/menuSearchView"
-        style="@style/TextEditSearchWithKeyboard"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/allMenuRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_min"
-        android:background="@color/colorWhite"
-        android:elevation="@dimen/cardview_default_elevation"
-        android:hint="@string/search"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:outlineProvider="none"
-        android:textColor="@color/colorGrey"
-        android:textColorHint="@color/colorGrey"
-        android:textSize="@dimen/text_s"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin_min"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/allMenuRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_xs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuSearchView" />
 
     <Button
         android:id="@+id/fabCreateNewMenu"
@@ -43,6 +25,5 @@
         android:foreground="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

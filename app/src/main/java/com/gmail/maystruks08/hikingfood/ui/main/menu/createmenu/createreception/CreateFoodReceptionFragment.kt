@@ -49,7 +49,7 @@ class CreateFoodReceptionFragment : Fragment(),
             ToolbarDescriptor.Builder()
                 .visibility(true)
                 .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Создать приемы пищи")
+                .title("Создание приемов пищи")
                 .build(),
             activity as ConfigToolbar
         )
@@ -88,8 +88,7 @@ class CreateFoodReceptionFragment : Fragment(),
     }
 
     private fun setLoopProductAdapter() {
-        adapterLoopProducts =
-            ProductAdapter {
+        adapterLoopProducts = ProductAdapter {
                 adapterItemOnLongClicked(it)
             }
         loopProductRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -210,10 +209,4 @@ class CreateFoodReceptionFragment : Fragment(),
 
     override fun showError(t: Throwable) {}
 
-    companion object {
-
-        fun getInstance(): CreateFoodReceptionFragment =
-            CreateFoodReceptionFragment()
-
-    }
 }

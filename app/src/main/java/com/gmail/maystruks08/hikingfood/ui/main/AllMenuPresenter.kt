@@ -26,6 +26,7 @@ class AllMenuPresenter @Inject constructor(
                     menuViews.clear()
                     menuViews.addAll(list.map { menuViewMapper.fromMenu(it) })
                     view.showAllMenuList(menuViews)
+                    view.configToolbar()
                     view.hideLoading()
                 }, {
                     view.hideLoading()

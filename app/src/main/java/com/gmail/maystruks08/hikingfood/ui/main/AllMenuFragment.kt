@@ -1,12 +1,7 @@
 package com.gmail.maystruks08.hikingfood.ui.main
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +10,8 @@ import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_all_menu_list.*
 import javax.inject.Inject
+import android.view.*
+import androidx.appcompat.widget.SearchView
 
 class AllMenuFragment : Fragment(), AllMenuContract.View {
 
@@ -28,6 +25,7 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         App.allMenuComponent?.inject(this)
     }
 
@@ -42,35 +40,37 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         initCardSwipe()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        initSearch(menu, inflater)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun initSearch(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        val searchView = menu.findItem(R.id.action_search)?.actionView as? SearchView
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                presenter.onSearchQueryChanged(newText)
+                return false
+            }
+        })
+    }
+
     override fun configToolbar() {
         controller.configure(
             ToolbarDescriptor.Builder()
-                .visibility(false)
+                .visibility(true)
+                .title("Раскладка")
                 .build(),
             activity as ConfigToolbar
         )
     }
 
     private fun init() {
-        menuSearchView.addTextChangedListener(
-            object : TextWatcher {
-                override fun afterTextChanged(s: Editable) {
-                    presenter.onSearchQueryChanged(s.toString())
-                }
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            })
-
         setAdapter()
-
         fabCreateNewMenu.setOnClickListener {
             presenter.createNewMenuClicked()
         }
@@ -133,8 +133,4 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     override fun showError(t: Throwable) {}
 
-    companion object {
-
-        fun getInstance(): AllMenuFragment = AllMenuFragment()
-    }
 }

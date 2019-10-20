@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
-import kotlinx.android.synthetic.main.item_card_menu.view.*
+import kotlinx.android.synthetic.main.item_menu.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,7 +26,7 @@ class AllMenuAdapter(private val clickListener: (MenuView) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_card_menu, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
         return ViewHolder(view)
     }
 

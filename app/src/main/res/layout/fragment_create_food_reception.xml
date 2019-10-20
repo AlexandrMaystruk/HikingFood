@@ -7,20 +7,17 @@
 
     <com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
         android:id="@+id/vStepProgress"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/margin_m"
-        android:layout_marginTop="@dimen/margin_xs"
-        android:layout_marginEnd="@dimen/margin_m"
-        android:layout_marginBottom="@dimen/margin_xs"
-        app:arcPadding="10dp"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/margin_xs"
+        app:arcPadding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:nodeHeight="50dp"
+        app:nodeHeight="35dp"
         app:stepsCount="3"
-        app:textNodeColor="@color/colorAccent"
+        app:textNodeColor="@color/colorGreen"
         app:textNodeSize="18sp"
         app:textNodeTitleSize="14sp" />
 

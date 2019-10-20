@@ -27,8 +27,7 @@ class DrawableHelper {
     fun createCheckDrawable(context: Context, color: Int): Drawable {
         val checkDrawable = context.getDrawable(R.drawable.ic_check)
         return LayerDrawable(arrayOf(createOvalDrawable(color), checkDrawable)).apply {
-            val ins =
-                SViewUtils.toPx(15, context)
+            val ins = SViewUtils.toPx(7, context)
             setLayerInset(1, ins, ins, ins, ins)
         }
     }

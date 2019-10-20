@@ -16,12 +16,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.view.DrawableHelper
+import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 
 class StepProgressView : ViewGroup, View.OnClickListener {
 
     private val stepProgress = StepProgress()
-    private val drawableHelper =
-        DrawableHelper()
+    private val drawableHelper = DrawableHelper()
 
     private lateinit var ovalStrokeDrawable: Drawable
     private lateinit var ovalStrokeInactiveDrawable: Drawable
@@ -31,11 +31,9 @@ class StepProgressView : ViewGroup, View.OnClickListener {
     private lateinit var arcInactiveDrawable: ColorDrawable
 
     @ColorInt
-    private var textNodeTitleColor = ContextCompat.getColor(context, R.color.colorPrimary)
+    private var textNodeColor = ContextCompat.getColor(context, R.color.colorGreen)
     @ColorInt
-    private var textNodeColor = ContextCompat.getColor(context, R.color.colorAccent)
-    @ColorInt
-    private var nodeColor = ContextCompat.getColor(context, R.color.colorPrimary)
+    private var nodeColor = ContextCompat.getColor(context, R.color.colorOrange)
     @ColorInt
     private var arcColor = ContextCompat.getColor(context, R.color.colorAccent)
     @ColorInt
@@ -43,35 +41,30 @@ class StepProgressView : ViewGroup, View.OnClickListener {
 
     private var titles: List<String> = listOf()
     private var stepsCount = 1
-    private var titlesEnabled = false
     private var nodeHeight = -1f
     private var textNodeTitleSize = 30
     private var textNodeSize = 35
-    private var textTitlePadding =
-        SViewUtils.toPx(5f, context)
-    private var arcHeight =
-        SViewUtils.toPx(2f, context)
-    private var arcPadding =
-        SViewUtils.toPx(10f, context)
-    private val minSpacingLength =
-        SViewUtils.toPx(10, context)
+    private var textTitlePadding = SViewUtils.toPx(5f, context)
+    private var arcHeight = SViewUtils.toPx(2f, context)
+    private var arcPadding = SViewUtils.toPx(10f, context)
+    private val minSpacingLength = SViewUtils.toPx(10, context)
     private val nodeDefaultRatio = 0.1
     private val arcsMaxRatio = 0.60
     private val arcTransitionDuration = 200
 
     var onStepSelected: ((Int) -> Unit)? = null
 
-    constructor(context: Context) : super(context) { init() }
+    constructor(context: Context) : super(context) {
+        init()
+    }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        context.theme.obtainStyledAttributes(attrs, R.styleable.StepProgressView,
-                0, 0).apply {
+        context.theme.obtainStyledAttributes(attrs, R.styleable.StepProgressView, 0, 0).apply {
             try {
                 //common setup
-                stepsCount = getInteger(R.styleable.StepProgressView_stepsCount, stepsCount)
-                if (stepsCount < 0) {
-                    throw IllegalStateException("Steps count can't be a negative number")
-                }
+                val countOfStep = getInteger(R.styleable.StepProgressView_stepsCount, stepsCount)
+                stepsCount = if (countOfStep > 3) 3 else countOfStep
+                check(stepsCount >= 0) { "Steps count can't be a negative number" }
                 colorInactive = getColor(R.styleable.StepProgressView_colorInactive, colorInactive)
                 //node setup
                 nodeHeight = getDimension(R.styleable.StepProgressView_nodeHeight, nodeHeight)
@@ -81,12 +74,16 @@ class StepProgressView : ViewGroup, View.OnClickListener {
                 arcPadding = getDimension(R.styleable.StepProgressView_arcPadding, arcPadding)
                 arcColor = getColor(R.styleable.StepProgressView_arcColor, arcColor)
                 //titles setup
-                titlesEnabled = getBoolean(R.styleable.StepProgressView_titlesEnabled, titlesEnabled)
-                textTitlePadding = getDimension(R.styleable.StepProgressView_textTitlePadding, textTitlePadding)
-                textNodeTitleSize = getDimensionPixelSize(R.styleable.StepProgressView_textNodeTitleSize, textNodeTitleSize)
-                textNodeSize = getDimensionPixelSize(R.styleable.StepProgressView_textNodeSize, textNodeSize)
+                textTitlePadding =
+                    getDimension(R.styleable.StepProgressView_textTitlePadding, textTitlePadding)
+                textNodeTitleSize = getDimensionPixelSize(
+                    R.styleable.StepProgressView_textNodeTitleSize,
+                    textNodeTitleSize
+                )
+                textNodeSize =
+                    getDimensionPixelSize(R.styleable.StepProgressView_textNodeSize, textNodeSize)
                 textNodeColor = getColor(R.styleable.StepProgressView_textNodeColor, textNodeColor)
-                textNodeTitleColor = getColor(R.styleable.StepProgressView_textNodeTitleColor, textNodeTitleColor)
+
             } finally {
                 recycle()
             }
@@ -101,10 +98,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         checkedDrawable = drawableHelper.createCheckDrawable(context, nodeColor)
         arcActiveDrawable = ColorDrawable(arcColor)
         arcInactiveDrawable = ColorDrawable(colorInactive)
-
-        if (titlesEnabled) {
-            titles = getDefaultTitles()
-        }
+        titles = getDefaultTitles()
         stepProgress.reset()
         createViews()
     }
@@ -115,9 +109,6 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         }
         removeAllViews()
         for (i in 0 until stepsCount) {
-            if (titlesEnabled) {
-                addView(textViewForStepTitle(i))
-            }
             addView(textViewForStep(i, i == 0))
             if (i != stepsCount - 1) {
                 addView(arcView(i))
@@ -151,13 +142,13 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         } else {
             0
         }
-        resolveTextOverflow(nodeSize)
         children.forEach {
             when {
                 //Measure titles for step (node) views
                 //Text takes a width equal to node size + allowed overflow size
                 it is TextView && (it.tag as String == STEP_TITLE_TAG) -> {
-                    val wSpecToMeasure = MeasureSpec.makeMeasureSpec(nodeSize + textOverflow, MeasureSpec.AT_MOST)
+                    val wSpecToMeasure =
+                        MeasureSpec.makeMeasureSpec(nodeSize + textOverflow, MeasureSpec.AT_MOST)
                     val hSpecToMeasure = MeasureSpec.makeMeasureSpec(hSize, MeasureSpec.AT_MOST)
                     it.measure(wSpecToMeasure, hSpecToMeasure)
                     //save measuring results to use them onLayout
@@ -176,7 +167,8 @@ class StepProgressView : ViewGroup, View.OnClickListener {
                     //
                     //measures arc view
                     val arcWSpec = MeasureSpec.makeMeasureSpec(arcWidth, MeasureSpec.EXACTLY)
-                    val arcHSpec = MeasureSpec.makeMeasureSpec(arcHeight.toInt(), MeasureSpec.EXACTLY)
+                    val arcHSpec =
+                        MeasureSpec.makeMeasureSpec(arcHeight.toInt(), MeasureSpec.EXACTLY)
                     if (!hasNodeOverflow) {
                         (it.layoutParams as LinearLayout.LayoutParams).setMargins(
                             arcPadding.toInt(), 0, arcPadding.toInt(), 0
@@ -221,15 +213,6 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         setMeasuredDimension(desiredW, desiredH)
     }
 
-    //Text could be bigger than node view
-    //Text overflow margin is calculated to fit text in a node view
-    private fun resolveTextOverflow(nodeSize: Int) {
-        textOverflow = if (titlesEnabled) {
-             nodeSize
-        } else {
-            0
-        }
-    }
 
     //Calculate optimal node size to fit view width.
     //If node with default or exact size does not fit layout, it scales down to fit available width
@@ -261,15 +244,9 @@ class StepProgressView : ViewGroup, View.OnClickListener {
     //If WRAP_CONTENT width is set for layout arc size could be reduced
     //to respect optimal proportions for nodes and arcs
     private fun getArcWidth(widthMeasureSpec: Int, width: Int, nodeSize: Int): Int {
-        //include padding for titles
-        val sCount = if (titlesEnabled) {
-            stepsCount + 1
-        } else {
-            stepsCount
-        }
         val wMode = MeasureSpec.getMode(widthMeasureSpec)
         val arcsCount = stepsCount - 1
-        val allArcsWidth = (width - sCount * nodeSize)
+        val allArcsWidth = (width - stepsCount * nodeSize)
         val isArcsWidthAppropriate = allArcsWidth <= width * arcsMaxRatio
         return if (isArcsWidthAppropriate || (!isArcsWidthAppropriate && wMode == MeasureSpec.EXACTLY)) {
             allArcsWidth / arcsCount
@@ -279,23 +256,11 @@ class StepProgressView : ViewGroup, View.OnClickListener {
     }
 
     private fun nodeSizeFits(width: Int, desiredSize: Int): Boolean {
-        //include padding for titles
-        val sCount = if (titlesEnabled) {
-            stepsCount + 1
-        } else {
-            stepsCount
-        }
-        return (width - desiredSize * sCount) >= minSpacingLength * (stepsCount - 1)
+        return (width - desiredSize * stepsCount) >= minSpacingLength * (stepsCount - 1)
     }
 
     private fun maximalNodeSize(width: Int): Int {
-        //include padding for titles
-        val sCount = if (titlesEnabled) {
-            stepsCount + 1
-        } else {
-            stepsCount
-        }
-        return (width - minSpacingLength * (stepsCount - 1)) / sCount
+        return (width - minSpacingLength * (stepsCount - 1)) / stepsCount
     }
 
     //Arranges all created views in a proper order from left to right
@@ -321,43 +286,45 @@ class StepProgressView : ViewGroup, View.OnClickListener {
                 //step title
                 it is TextView && (it.tag as String == STEP_TITLE_TAG) -> {
                     val centerPadding = (stepWidth - it.measuredWidth) / 2
-                    it.layout(left + centerPadding, top,
-                        left + it.measuredWidth + centerPadding, top + it.measuredHeight)
+                    it.layout(
+                        left + centerPadding, top,
+                        left + it.measuredWidth + centerPadding, top + it.measuredHeight
+                    )
                 }
                 //step
                 it is TextView && (it.tag as String != STEP_TITLE_TAG) -> {
                     val centerPadding = (stepWidth - it.measuredWidth) / 2
-                    it.layout(left + it.marginLeft + centerPadding, top + it.marginTop,
-                        left + it.measuredWidth + centerPadding, top + it.measuredHeight + it.marginTop)
+                    it.layout(
+                        left + it.marginLeft + centerPadding,
+                        top + it.marginTop,
+                        left + it.measuredWidth + centerPadding,
+                        top + it.measuredHeight + it.marginTop
+                    )
                     left += it.measuredWidth + it.marginRight + it.marginLeft
                 }
                 //arc
                 else -> {
                     val arcTop = ((b - t) - it.measuredHeight) / 2
-                    it.layout(left + it.marginStart, arcTop + titleTextMaxHeight / 2,
-                        left + it.measuredWidth - it.marginEnd, arcTop + it.measuredHeight + titleTextMaxHeight / 2)
+                    it.layout(
+                        left + it.marginStart,
+                        arcTop + titleTextMaxHeight / 2,
+                        left + it.measuredWidth - it.marginEnd,
+                        arcTop + it.measuredHeight + titleTextMaxHeight / 2
+                    )
                     left += it.measuredWidth
                 }
             }
         }
     }
 
-    private fun textViewForStepTitle(stepPosition: Int): TextView {
-        return TextView(context).apply {
-            text = titles[stepPosition]
-            gravity = Gravity.TOP or Gravity.CENTER
-            layoutParams = getDefaultElementLayoutParams()
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, textNodeTitleSize.toFloat())
-            setTextColor(textNodeTitleColor)
-            setOnClickListener(this@StepProgressView)
-            tag =
-                STEP_TITLE_TAG
-        }
-    }
-
     private fun textViewForStep(stepPosition: Int, isActive: Boolean): TextView {
         return TextView(context).apply {
-            text = (stepPosition + 1).toString()
+            text = when (stepPosition) {
+                0 -> "З"
+                1 -> "О"
+                2 -> "У"
+                else -> ""
+            }
             background = if (isActive) {
                 setTextColor(textNodeColor)
                 ovalStrokeDrawable
@@ -399,6 +366,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
                 val numberIndex = prefixEnd + NODE_TAG_PREFIX.length
                 val selectedStepIndex = tagStr.substring(numberIndex).toInt()
                 stepProgress.selectStep(selectedStepIndex)
+                context.toast(titles[selectedStepIndex])
                 onStepSelected?.invoke(selectedStepIndex)
             }
         }
@@ -434,7 +402,8 @@ class StepProgressView : ViewGroup, View.OnClickListener {
 
     private fun animateProgressArc(arcNumber: Int, activated: Boolean) {
         val view = findViewWithTag<ArcView>(
-            ARC_TAG_PREFIX + arcNumber)
+            ARC_TAG_PREFIX + arcNumber
+        )
         if (activated) {
             if (!view.isHighlighted) {
                 view.isHighlighted = true
@@ -454,9 +423,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
      */
     @Throws(IllegalStateException::class)
     fun setStepsCount(stepsCount: Int) {
-        if (stepsCount < 0) {
-            throw IllegalStateException("Steps count can't be a negative number")
-        }
+        check(!(stepsCount < 0 || stepsCount > 3)) { "Steps count can't be a negative number or more that 3" }
         this.stepsCount = stepsCount
         if (titles.size != stepsCount) {
             titles = getDefaultTitles()
@@ -474,55 +441,15 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         return stepProgress.nextStep(isCurrentDone) == 1
     }
 
-    /**
-     * Mark current selected step as done
-     */
-    fun markCurrentAsDone() {
-        stepProgress.markCurrentStepDone()
-    }
-
-    /**
-     * Mark current selected step as undone
-     */
-    fun markCurrentAsUndone() {
-        stepProgress.markCurrentStepUndone()
-    }
-
-    /**
-     * Set title for each step
-     * @param titles list of titles to apply to step views. Size should be the same as steps count
-     */
-    fun setStepTitles(titles: List<String>) {
-        this.titles = titles
-        resetView()
-        invalidate()
-    }
-
-    /**
-     * Checks if step is finished
-     * @param stepPosition step position to check
-     */
-    fun isStepDone(stepPosition: Int = -1): Boolean {
-        return stepProgress.isStepDone(stepPosition)
-    }
-
-
     fun getCurrentStep(): Int {
         return stepProgress.currentStep
-    }
-    /**
-     * Checks if all steps of a progress are finished
-     * @return true if all steps marked as finished
-     */
-    fun isProgressFinished(): Boolean {
-        return stepProgress.isAllDone()
     }
 
     private fun getDefaultTitles(): List<String> {
         return mutableListOf<String>().apply {
-            for (i in 0 until stepsCount) {
-                add("Step ${i + 1}")
-            }
+            add(context.getString(R.string.breackfast))
+            add(context.getString(R.string.lunch))
+            add(context.getString(R.string.dinner))
         }
     }
 
@@ -579,9 +506,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
             }
             val nextStep = currentStep + 1
             if (isCurrentDone) {
-                changeStepState(currentStep,
-                    StepState.DONE
-                )
+                changeStepState(currentStep, StepState.DONE)
             }
             if (nextStep < stepsCount) {
                 val nextStepState = stepsStates[nextStep]
@@ -604,7 +529,8 @@ class StepProgressView : ViewGroup, View.OnClickListener {
             if (isStepDone()) {
                 return
             }
-            changeStepState(currentStep,
+            changeStepState(
+                currentStep,
                 StepState.SELECTED_DONE
             )
         }
@@ -613,7 +539,8 @@ class StepProgressView : ViewGroup, View.OnClickListener {
             if (isStepUndone()) {
                 return
             }
-            changeStepState(currentStep,
+            changeStepState(
+                currentStep,
                 StepState.SELECTED_UNDONE
             )
         }
@@ -649,6 +576,9 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         }
 
         private fun changeStepState(stepNumber: Int, newState: StepState) {
+            if (newState == StepState.SELECTED_UNDONE || newState == StepState.SELECTED_DONE) {
+                context.toast(titles[stepNumber])
+            }
             stepsStates[stepNumber] = newState
             changeStepStateView(stepNumber, newState)
             updateArcsState()
@@ -672,8 +602,6 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         private const val ARC_TAG_PREFIX = "atn_"
 
         private const val STEP_TITLE_TAG = "step_title"
-
-        private const val TAG = "StepProgressView"
 
     }
 

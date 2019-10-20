@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.fragment_create_menu.*
 import java.util.*
 import javax.inject.Inject
 
-class CreateMenuFragment : Fragment(),
-    CreateMenuContract.View {
+class CreateMenuFragment : Fragment(), CreateMenuContract.View {
 
     @Inject
     lateinit var presenter: CreateMenuContract.Presenter
@@ -42,7 +41,7 @@ class CreateMenuFragment : Fragment(),
             ToolbarDescriptor.Builder()
                 .visibility(true)
                 .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Create menu")
+                .title("Создание меню")
                 .build(),
             activity as ConfigToolbar
         )
@@ -125,9 +124,4 @@ class CreateMenuFragment : Fragment(),
 
     override fun showError(t: Throwable) {}
 
-    companion object {
-
-        fun getInstance(): CreateMenuFragment = CreateMenuFragment()
-
-    }
 }
