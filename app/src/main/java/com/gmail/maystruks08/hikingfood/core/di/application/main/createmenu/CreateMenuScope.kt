@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu
+package com.gmail.maystruks08.hikingfood.core.di.application.main.createmenu
 
 import javax.inject.Scope
 

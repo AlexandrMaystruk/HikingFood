@@ -22,7 +22,11 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     private lateinit var daysAdapter: DayAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         App.menuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
@@ -51,9 +55,16 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     private fun setAdapter() {
         daysAdapter = DayAdapter { dayItemClicked(it) }
-        daysRecyclerView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
+        daysRecyclerView.layoutManager =
+            GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
         daysRecyclerView.adapter = daysAdapter
-        daysRecyclerView.addItemDecoration(GridSpacingItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_xs), resources.getInteger(R.integer.dayPageItemsCount)))
+        daysRecyclerView.addItemDecoration(
+            GridSpacingItemDecoration(
+                resources.getDimensionPixelSize(
+                    R.dimen.margin_xs
+                ), resources.getInteger(R.integer.dayPageItemsCount)
+            )
+        )
     }
 
     private fun dayItemClicked(day: DayView) {
@@ -64,16 +75,16 @@ class MenuFragment : Fragment(), MenuContract.View {
         daysAdapter.dayList = days.toMutableList()
     }
 
-//    override fun onDestroyView() {
-//        presenter.end()
-//        daysRecyclerView.adapter = null
-//        super.onDestroyView()
-//    }
-//
-//    override fun onDestroy() {
-//        App.clearMenuComponent()
-//        super.onDestroy()
-//    }
+    override fun onDestroyView() {
+        daysRecyclerView.adapter = null
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        presenter.end()
+        App.clearMenuComponent()
+        super.onDestroy()
+    }
 
     override fun showLoading() {
     }

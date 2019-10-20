@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu
+package com.gmail.maystruks08.hikingfood.core.di.application.main.createmenu
 
 import com.gmail.maystruks08.data.repository.CreateMenuRepositoryImpl
 import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor

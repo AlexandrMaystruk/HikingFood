@@ -6,12 +6,12 @@ import io.reactivex.plugins.RxJavaPlugins
 import com.gmail.maystruks08.hikingfood.core.di.application.AndroidModule
 import com.gmail.maystruks08.hikingfood.core.di.application.AppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.DaggerAppComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.AllMenuComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.CreateMenuComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.createreception.CreateReceptionComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.portion.ProductPortionComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.allmenu.AllMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createmenu.CreateMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception.CreateReceptionComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.portion.ProductPortionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.day.DayComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.day.DayComponent
 
 class App : Application() {
 
@@ -26,10 +26,24 @@ class App : Application() {
                 return field
             }
 
+        var createMenuComponent: CreateMenuComponent? = null
+            get() {
+                if (field == null)
+                    field = allMenuComponent?.createMenuComponent()
+                return field
+            }
+
         var menuComponent: MenuComponent? = null
             get() {
                 if (field == null)
                     field = allMenuComponent?.menuComponent()
+                return field
+            }
+
+        var portionComponent: ProductPortionComponent? = null
+            get() {
+                if (field == null)
+                    field = allMenuComponent?.portionComponent()
                 return field
             }
 
@@ -39,21 +53,6 @@ class App : Application() {
                     field = menuComponent?.dayComponent()
                 return field
             }
-
-        var createMenuComponent: CreateMenuComponent? = null
-            get() {
-                if (field == null)
-                    field = menuComponent?.createMenuComponent()
-                return field
-            }
-
-        var portionComponent: ProductPortionComponent? = null
-            get() {
-                if (field == null)
-                    field = menuComponent?.portionComponent()
-                return field
-            }
-
 
         var createReceptionComponent: CreateReceptionComponent? = null
             get() {
@@ -96,6 +95,7 @@ class App : Application() {
             .builder()
             .androidModule(AndroidModule(this))
             .build()
+        appComponent.inject(this)
 
         RxJavaPlugins.setErrorHandler { e ->
             if (e is UndeliverableException) {

@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.createreception
+package com.gmail.maystruks08.hikingfood.core.di.application.main.createreception
 
 import com.gmail.maystruks08.data.repository.CreateReceptionRepositoryImpl
 import com.gmail.maystruks08.domain.interactor.createmenu.createbreakfast.CreateReceptionInteractor

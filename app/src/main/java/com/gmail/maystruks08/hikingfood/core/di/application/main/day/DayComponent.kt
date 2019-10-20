@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.day
+package com.gmail.maystruks08.hikingfood.core.di.application.main.day
 
 import dagger.Subcomponent
 import com.gmail.maystruks08.hikingfood.ui.main.menu.day.pager.DayPagerFragment

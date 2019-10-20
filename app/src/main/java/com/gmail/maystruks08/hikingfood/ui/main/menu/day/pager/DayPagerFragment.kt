@@ -60,14 +60,14 @@ class DayPagerFragment : Fragment(), DayPagerContract.View {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         presenter.end()
         dayViewPager.adapter = null
+        super.onDestroyView()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         App.clearDayComponent()
+        super.onDestroy()
     }
 
     override fun showLoading() {}

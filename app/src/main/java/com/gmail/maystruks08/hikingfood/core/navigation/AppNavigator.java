@@ -107,7 +107,7 @@ public class AppNavigator implements Navigator {
             );
 
             fragmentTransaction
-                    .replace(containerId, fragment)
+                    .replace(containerId, fragment, screen.getScreenKey())
                     .addToBackStack(screen.getScreenKey())
                     .commit();
             localStackCopy.add(screen.getScreenKey());
@@ -123,7 +123,7 @@ public class AppNavigator implements Navigator {
             );
 
             fragmentTransaction
-                    .replace(containerId, fragment)
+                    .replace(containerId, fragment, screen.getScreenKey())
                     .commit();
         }
     }

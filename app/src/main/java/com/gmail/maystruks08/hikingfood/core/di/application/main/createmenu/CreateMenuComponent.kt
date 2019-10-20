@@ -1,6 +1,6 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu
+package com.gmail.maystruks08.hikingfood.core.di.application.main.createmenu
 
-import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.createmenu.createreception.CreateReceptionComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception.CreateReceptionComponent
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.CreateMenuFragment
 import dagger.Subcomponent
 

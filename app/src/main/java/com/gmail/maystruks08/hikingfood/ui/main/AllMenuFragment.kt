@@ -26,8 +26,12 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     private lateinit var allMenuAdapter: AllMenuAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         App.allMenuComponent?.inject(this)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_all_menu_list, container, false)
     }
 
@@ -53,7 +57,15 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
                 override fun afterTextChanged(s: Editable) {
                     presenter.onSearchQueryChanged(s.toString())
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
@@ -108,6 +120,11 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
     override fun onDestroyView() {
         allMenuRecyclerView.adapter = null
         super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        App.clearAllMenuComponent()
+        super.onDestroy()
     }
 
     override fun showLoading() {}

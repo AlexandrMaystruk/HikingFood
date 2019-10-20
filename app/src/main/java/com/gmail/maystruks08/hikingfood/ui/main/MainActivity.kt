@@ -166,10 +166,4 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
             menuInflater.inflate(menuRes, it)
         }
     }
-
-    override fun onDestroy() {
-         App.clearAllMenuComponent()
-        super.onDestroy()
-
-    }
 }

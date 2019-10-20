@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.hikingfood.core.di.application.main.menu.portion
+package com.gmail.maystruks08.hikingfood.core.di.application.main.portion
 
 import com.gmail.maystruks08.data.repository.ProductPortionRepositoryImpl
 import com.gmail.maystruks08.domain.interactor.dose.ProductPortionInteractor
