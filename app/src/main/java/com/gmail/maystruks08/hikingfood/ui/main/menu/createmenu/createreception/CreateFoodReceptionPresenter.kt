@@ -48,13 +48,27 @@ class CreateFoodReceptionPresenter @Inject constructor(
     }
 
     override fun onDeleteStaticProductClicked(position: Int, productView: ProductView) {
-        //TODO fix this
-        view?.showStaticProductRemoved(position)
+        compositeDisposable.add(
+            interactor.removeStaticProduct(typeOfMeal, productView.id)
+                .subscribe(
+                    {
+                        view?.showStaticProductRemoved(position)
+                    }, {
+                        it.printStackTrace()
+                    })
+        )
     }
 
     override fun onDeleteVariableProductClicked(position: Int, productView: ProductView) {
-        //TODO fix this
-        view?.showVariableProductRemoved(position)
+        compositeDisposable.add(
+            interactor.removeLoopProduct(typeOfMeal, productView.id)
+                .subscribe(
+                    {
+                        view?.showVariableProductRemoved(position)
+                    }, {
+                        it.printStackTrace()
+                    })
+        )
     }
 
     override fun onStepSelected(step: Int) {

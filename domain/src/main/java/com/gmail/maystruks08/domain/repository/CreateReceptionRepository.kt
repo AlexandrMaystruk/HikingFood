@@ -12,6 +12,10 @@ interface CreateReceptionRepository {
 
     fun getDefaultVariableMealProducts(typeOfMeal: TypeOfMeal): Single<List<Product>>
 
+    fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable
+
+    fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable
+
     fun getSoupSets(): Single<List<ProductSet>>
 
     fun saveFoodMeal(typeOfMeal: TypeOfMeal, foodMeal: FoodMeal): Completable

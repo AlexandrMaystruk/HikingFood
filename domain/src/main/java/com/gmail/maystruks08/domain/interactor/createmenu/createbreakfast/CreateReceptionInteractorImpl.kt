@@ -54,6 +54,20 @@ class CreateReceptionInteractorImpl @Inject constructor(
         }
     }
 
+    override fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
+        return repository.removeLoopProduct(typeOfMeal, productId)
+            .subscribeOn(executor.mainExecutor)
+            .observeOn(executor.postExecutor)
+
+    }
+
+    override fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
+        return repository.removeStaticProduct(typeOfMeal, productId)
+            .subscribeOn(executor.mainExecutor)
+            .observeOn(executor.postExecutor)
+    }
+
+
     override fun onFoodReceptionCreationComplete(
         mealType: TypeOfMeal,
         defaultProductList: List<Product>,
@@ -64,7 +78,8 @@ class CreateReceptionInteractorImpl @Inject constructor(
                 val foodMeal =
                     FoodMeal(
                         defaultProductList.toMutableList(),
-                        variableProductList.toMutableList())
+                        variableProductList.toMutableList()
+                    )
                         .apply { this.calculatePortionForAllPeople(it.peopleCount) }
                 repository.saveFoodMeal(mealType, foodMeal)
             }
@@ -76,10 +91,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
 
     override fun onFinishCreateReception(): Completable {
         return repository.getStartInquirerInfo().flatMapCompletable {
-
             repository.saveMenu(Menu.create(it))
-
         }
-
     }
 }

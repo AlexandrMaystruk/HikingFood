@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.hikingfood.R
-import kotlinx.android.synthetic.main.item_card_product_portion.view.*
+import kotlinx.android.synthetic.main.item_product_portion.view.*
 import kotlin.properties.Delegates
 
 class ProductsPortionAdapter(private val portionChangeListener: (Int, Int) -> Unit) :
@@ -23,7 +23,7 @@ class ProductsPortionAdapter(private val portionChangeListener: (Int, Int) -> Un
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card_product_portion, parent, false)
+            .inflate(R.layout.item_product_portion, parent, false)
         return ViewHolder(
             view
         )
@@ -39,12 +39,12 @@ class ProductsPortionAdapter(private val portionChangeListener: (Int, Int) -> Un
 
         fun bindHolder(product: Product, portionChangeListener: (Int, Int) -> Unit) {
             itemView.tvProductName.text = product.name
-            itemView.numberPickerProductPortion.minValue = product.portion.min
-            itemView.numberPickerProductPortion.maxValue = product.portion.max
-            itemView.numberPickerProductPortion.value = product.portion.value
-            itemView.numberPickerProductPortion.wrapSelectorWheel = false
+            itemView.npRelaxDayCountValue.minValue = product.portion.min
+            itemView.npRelaxDayCountValue.maxValue = product.portion.max
+            itemView.npRelaxDayCountValue.value = product.portion.value
+            itemView.npRelaxDayCountValue.wrapSelectorWheel = false
 
-            itemView.numberPickerProductPortion.setOnValueChangedListener { _, _, newVal ->
+            itemView.npRelaxDayCountValue.setOnValueChangedListener { _, _, newVal ->
                 portionChangeListener(newVal, product.id)
             }
         }

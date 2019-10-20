@@ -6,7 +6,7 @@ import com.gmail.maystruks08.hikingfood.core.base.IView
 
 interface PortionContract {
 
-    interface View : IView{
+    interface View : IView {
 
         fun showProductPortionList(products: List<Product>)
     }
@@ -16,5 +16,7 @@ interface PortionContract {
         fun onPortionValueChanged(newValue: Int, productId: Int)
 
         fun onSearchQueryChanged(productName: String)
+
+        fun onNexStepClicked()
     }
 }

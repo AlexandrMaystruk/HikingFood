@@ -36,6 +36,18 @@ class CreateReceptionRepositoryImpl @Inject constructor(private val menuInfo: Me
         }
     }
 
+    override fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
+        return Completable.fromAction {
+            menuInfo.startInquirerInfo?.foodMeals?.get(typeOfMeal)?.loopProducts?.removeAll { it.id  == productId }
+        }
+    }
+
+    override fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
+        return Completable.fromAction {
+            menuInfo.startInquirerInfo?.foodMeals?.get(typeOfMeal)?.defProducts?.removeAll { it.id  == productId }
+        }
+    }
+
     override fun saveMenu(menu: Menu): Completable {
         //TODO implement with db
         return Completable.fromAction {

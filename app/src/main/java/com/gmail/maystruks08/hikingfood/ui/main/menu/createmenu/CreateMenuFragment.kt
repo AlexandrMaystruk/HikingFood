@@ -1,5 +1,6 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,8 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.navigation.Screens
+import com.gmail.maystruks08.hikingfood.ui.calendar.SelectDateDialog
 import kotlinx.android.synthetic.main.fragment_create_menu.*
 import java.util.*
 import javax.inject.Inject
@@ -54,62 +56,74 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
             }
         }
 
-
-        btnChangeGrammar.setOnClickListener {
-            if (etMenuName.text.isNotEmpty()) {
-                presenter.onIngredientPortionClicked()
+        etMenuName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                presenter.onNameMenuChanged(s.toString())
             }
-        }
 
-        etMenuName.addTextChangedListener(
-            object : TextWatcher {
-                override fun afterTextChanged(s: Editable) {
-                    presenter.onNameMenuChanged(s.toString())
-                }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
-            })
 
-        tvRelaxDayCountValue.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (position >= 0) {
-                    presenter.onRelaxDayCountChanged(parent.selectedItem.toString().toInt())
-                }
+        npRelaxDayCountValue.minValue = 0
+        npRelaxDayCountValue.value = 0
+        npRelaxDayCountValue.maxValue = 10
+
+        npReceptionCountValue.minValue = 1
+        npReceptionCountValue.value = 1
+        npReceptionCountValue.maxValue = 50
+
+        npPeopleCountValue.minValue = 1
+        npPeopleCountValue.value = 1
+        npPeopleCountValue.maxValue = 50
+
+        npRelaxDayCountValue.setOnValueChangedListener { picker, _, _ ->
+            picker.value
+            if (picker.value >= 0) {
+                presenter.onRelaxDayCountChanged(picker.value)
             }
         }
 
-        spinnerDayCount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (position >= 0) {
-                    presenter.onDayCountChanged(parent.selectedItem.toString().toInt())
-                }
+        npReceptionCountValue.setOnValueChangedListener { picker, _, _ ->
+            picker.value
+            if (picker.value >= 0) {
+                presenter.onDayCountChanged(picker.value)
             }
         }
 
-        spinnerCountOfPeople.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (position >= 0) {
-                    presenter.onCountOfPeopleChanged(parent.selectedItem.toString().toInt())
-                }
+        npPeopleCountValue.setOnValueChangedListener { picker, _, _ ->
+            picker.value
+            if (picker.value >= 0) {
+                presenter.onCountOfPeopleChanged(picker.value)
             }
         }
 
-        spinnerStartMenu.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (position >= 0) {
-                    presenter.onTimeMenuStartChanged(parent.selectedItemPosition)
-                }
+        rgStartReception.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rbBreakfast -> presenter.onTimeMenuStartChanged(0)
+                R.id.rbLunch -> presenter.onTimeMenuStartChanged(1)
+                R.id.rbDinner -> presenter.onTimeMenuStartChanged(2)
             }
         }
 
-        cvDateOfHike.setOnDateChangeListener { _, _, _, _ ->
-            presenter.onDateMenuStartChanged(Date(cvDateOfHike.date))
+        tvDateOfStartMenu.setOnClickListener {
+            presenter.onSetDateStartMenuClicked()
         }
+    }
+
+    override fun showCalendarDialog() {
+        SelectDateDialog.getInstance("Выберите дату старта раскладки:", ::onDateSelected)
+            .show(childFragmentManager, Screens.SELECT_DATE_DIALOG)
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun showDateOfStartReception(date: String) {
+        tvDateOfStartMenu.text = "${getString(R.string.date_of_start)} $date"
+    }
+
+    private fun onDateSelected(date: Date) {
+        presenter.onDateMenuStartChanged(date)
     }
 
     override fun onDestroy() {

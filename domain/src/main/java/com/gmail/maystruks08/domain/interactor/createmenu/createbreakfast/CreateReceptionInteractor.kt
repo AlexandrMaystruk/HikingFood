@@ -23,4 +23,8 @@ interface CreateReceptionInteractor {
 
     /**This is list of product ids */
     fun onLoopProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable
+
+    fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable
+
+    fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable
 }

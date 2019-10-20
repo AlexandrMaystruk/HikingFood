@@ -9,20 +9,21 @@
         android:id="@+id/allIngredientPortionRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateMenuNextStep"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/fabCreateNewIngredient"
-        android:layout_width="@dimen/size_fab_min"
-        android:layout_height="@dimen/size_fab_min"
-        android:layout_marginEnd="@dimen/margin_m"
-        android:layout_marginBottom="@dimen/margin_m"
-        android:background="@drawable/bg_circle"
-        android:foreground="@drawable/ic_add"
+        android:id="@+id/btnCreateMenuNextStep"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/margin_min"
+        android:background="@color/colorPrimary"
+        android:text="Далее"
+        android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

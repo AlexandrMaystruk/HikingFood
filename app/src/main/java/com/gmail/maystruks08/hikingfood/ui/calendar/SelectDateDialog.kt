@@ -46,7 +46,6 @@ class SelectDateDialog : DialogFragment() {
         )
     }
 
-
     companion object {
 
         const val CALENDAR = "calendar_header_text"

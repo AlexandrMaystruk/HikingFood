@@ -33,7 +33,7 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        setAdapter()
+        initViews()
     }
 
     override fun configToolbar() {
@@ -50,6 +50,13 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         initSearch(menu, inflater)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun initViews() {
+        setAdapter()
+        btnCreateMenuNextStep.setOnClickListener {
+            presenter.onNexStepClicked()
+        }
     }
 
     private fun initSearch(menu: Menu, inflater: MenuInflater) {
@@ -69,8 +76,7 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
 
     private fun setAdapter() {
         productsPortionAdapter = ProductsPortionAdapter(::portionValueChanged)
-        allIngredientPortionRecyclerView.layoutManager =
-            LinearLayoutManager(allIngredientPortionRecyclerView.context)
+        allIngredientPortionRecyclerView.layoutManager = LinearLayoutManager(allIngredientPortionRecyclerView.context)
         allIngredientPortionRecyclerView.adapter = productsPortionAdapter
     }
 
@@ -83,12 +89,12 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
     }
 
     override fun onDestroyView() {
-        presenter.end()
         allIngredientPortionRecyclerView.adapter = null
         super.onDestroyView()
     }
 
     override fun onDestroy() {
+        presenter.end()
         App.clearPortionComponent()
         super.onDestroy()
     }

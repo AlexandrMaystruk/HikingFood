@@ -1,6 +1,7 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu
 
 import android.util.Log
+import com.gmail.maystruks08.domain.CalendarHelper
 import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 class CreateMenuPresenter @Inject constructor(
     private val router: Router,
-    private val interactor: CreateMenuInteractor
+    private val interactor: CreateMenuInteractor,
+    private val calendarHelper: CalendarHelper
 ) :
     CreateMenuContract.Presenter, BasePresenter<CreateMenuContract.View>() {
 
@@ -43,6 +45,7 @@ class CreateMenuPresenter @Inject constructor(
 
     override fun onDateMenuStartChanged(date: Date) {
         this.dateOfStartMenu = date
+        view?.showDateOfStartReception(calendarHelper.format(date, CalendarHelper.DATE_FORMAT))
     }
 
     override fun onIngredientPortionClicked() {
@@ -63,12 +66,16 @@ class CreateMenuPresenter @Inject constructor(
             interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
                 .subscribe({
                     Log.d(CreateMenuPresenter::class.java.name, "Save start inquirer data success")
-                    router.navigateTo(Screens.CreateReceptionScreen())
+                    router.navigateTo(Screens.ChangeIngredientPortionScreen())
                 }, {
                     view?.showError(it)
                     it.printStackTrace()
                 })
         )
+    }
+
+    override fun onSetDateStartMenuClicked() {
+        view?.showCalendarDialog()
     }
 
     override fun end() {

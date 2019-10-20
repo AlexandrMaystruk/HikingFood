@@ -3,10 +3,15 @@ package com.gmail.maystruks08.hikingfood.ui.main.menu.portion
 import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.domain.interactor.dose.ProductPortionInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
+import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class ProductPortionForOnePeoplePresenter @Inject constructor(private val interactor: ProductPortionInteractor) :
+class ProductPortionForOnePeoplePresenter @Inject constructor(
+    private val interactor: ProductPortionInteractor,
+    private val router: Router
+) :
     PortionContract.Presenter, BasePresenter<PortionContract.View>() {
 
     private var products = mutableListOf<Product>()
@@ -50,5 +55,9 @@ class ProductPortionForOnePeoplePresenter @Inject constructor(private val intera
             val filteredProducts = products.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
             view?.showProductPortionList(filteredProducts)
         }
+    }
+
+    override fun onNexStepClicked() {
+        router.navigateTo(Screens.CreateReceptionScreen())
     }
 }

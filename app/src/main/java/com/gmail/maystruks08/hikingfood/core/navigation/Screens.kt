@@ -38,5 +38,8 @@ object Screens {
 
     const val SELECT_PRODUCTS_DIALOG = "SELECT_PRODUCTS_DIALOG"
 
+    const val SELECT_DATE_DIALOG = "SELECT_DATE_DIALOG"
+
+
 }
 

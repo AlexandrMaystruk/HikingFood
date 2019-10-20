@@ -6,7 +6,12 @@ import java.util.*
 
 interface CreateMenuContract {
 
-    interface View : IView
+    interface View : IView {
+
+        fun showCalendarDialog()
+
+        fun showDateOfStartReception(date: String)
+    }
 
     interface Presenter : IPresenter<View> {
 
@@ -25,5 +30,7 @@ interface CreateMenuContract {
         fun onDateMenuStartChanged(date: Date)
 
         fun onIngredientPortionClicked()
+
+        fun onSetDateStartMenuClicked()
     }
 }

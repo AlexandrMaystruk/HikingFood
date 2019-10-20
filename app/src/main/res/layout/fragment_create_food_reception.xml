@@ -58,7 +58,6 @@
             android:text="На 1 ч"
             android:textColor="@color/colorOrange" />
 
-
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -73,7 +72,6 @@
             android:paddingEnd="@dimen/margin_s"
             android:text="Вес"
             android:textColor="@color/colorOrange" />
-
     </LinearLayout>
 
     <Button
@@ -99,7 +97,6 @@
         app:layout_constraintTop_toBottomOf="@id/layoutCreateFoodReceptionDefHeader"
         app:layout_constraintVertical_bias="0.0" />
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
         style="@style/GuidelineHorizontalComponent"
@@ -117,7 +114,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal">
-
 
         <TextView
             style="@style/TextOrderItemTitle"
@@ -144,7 +140,6 @@
             android:paddingEnd="@dimen/margin_min"
             android:text="На 1 ч"
             android:textColor="@color/colorOrange" />
-
 
         <View
             android:layout_width="1dp"
@@ -175,7 +170,6 @@
         app:layout_constraintTop_toBottomOf="@id/layoutCreateFoodReceptionHeader"
         app:layout_constraintVertical_bias="0.0" />
 
-
     <Button
         android:id="@+id/fabAddLoopProducts"
         android:layout_width="@dimen/size_fab_min"
@@ -186,7 +180,6 @@
         android:foreground="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@id/btnCreateFoodReceiptNextStep"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
     <Button
         android:id="@+id/btnCreateFoodReceiptNextStep"

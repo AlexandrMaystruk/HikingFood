@@ -30,7 +30,7 @@
             android:textColor="@color/colorOrange"
             android:textSize="@dimen/text_l"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toStartOf="@+id/numberPickerProductPortion"
+            card_view:layout_constraintEnd_toStartOf="@+id/npRelaxDayCountValue"
             card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <NumberPicker
-            android:id="@+id/numberPickerProductPortion"
+            android:id="@+id/npRelaxDayCountValue"
             android:layout_width="wrap_content"
             android:layout_height="85dp"
             android:descendantFocusability="blocksDescendants"
