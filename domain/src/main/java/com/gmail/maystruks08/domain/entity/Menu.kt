@@ -17,15 +17,23 @@ data class Menu(
     companion object {
         fun create(startInfo: StartInquirerInfo): Menu {
             return startInfo.let { inquirerInfo ->
-
+                val countReceptionInDay = 3
                 val dayList = mutableListOf<Day>()
                 var indexBreakfast = 0
                 var indexLunch = 0
                 var indexDinner = 0
                 var dayNumber = 1
-                var day = Day(dayNumber)
+                val relaxDayNumber =
+                    if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
+                var day = Day(dayNumber, inquirerInfo.dateOfStartMenu)
                 for (number in 0 until inquirerInfo.numberOfReceptions) {
-                    when ((number + 3) % 3) {
+                    //need to shift index if menu start from lunch or dinner
+                    val index = if (dayNumber != 1) {
+                        (number + countReceptionInDay) % countReceptionInDay
+                    } else {
+                        (number + inquirerInfo.timeOfStartMenu.ordinal + countReceptionInDay) % countReceptionInDay
+                    }
+                    when (index) {
                         0 -> {
                             inquirerInfo.foodMeals[TypeOfMeal.BREAKFAST]?.let { foodMeal ->
                                 day.addProducts(TypeOfMeal.BREAKFAST, foodMeal.defProducts)
@@ -82,10 +90,14 @@ data class Menu(
                         }
                     }
 
-                    if (day.isDayComplete() || number == inquirerInfo.numberOfReceptions - 1) {
+                    if (day.isDayComplete(startInfo.timeOfStartMenu) || number == inquirerInfo.numberOfReceptions - 1) {
                         dayList.add(day)
                         dayNumber++
-                        day = Day(dayNumber)
+                        day = if (dayNumber != relaxDayNumber) {
+                            Day(dayNumber, Date())
+                        } else {
+                            RelaxDay(dayNumber, Date())
+                        }
                     }
                 }
 

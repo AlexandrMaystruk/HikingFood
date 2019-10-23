@@ -68,7 +68,7 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
 
         npRelaxDayCountValue.minValue = 0
         npRelaxDayCountValue.value = 0
-        npRelaxDayCountValue.maxValue = 10
+        npRelaxDayCountValue.maxValue = 5
 
         npReceptionCountValue.minValue = 1
         npReceptionCountValue.value = 1
@@ -76,7 +76,7 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
 
         npPeopleCountValue.minValue = 1
         npPeopleCountValue.value = 1
-        npPeopleCountValue.maxValue = 50
+        npPeopleCountValue.maxValue = 25
 
         npRelaxDayCountValue.setOnValueChangedListener { picker, _, _ ->
             picker.value

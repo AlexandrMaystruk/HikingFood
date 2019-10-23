@@ -447,7 +447,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
 
     private fun getDefaultTitles(): List<String> {
         return mutableListOf<String>().apply {
-            add(context.getString(R.string.breackfast))
+            add(context.getString(R.string.breakfast))
             add(context.getString(R.string.lunch))
             add(context.getString(R.string.dinner))
         }

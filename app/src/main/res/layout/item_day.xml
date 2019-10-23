@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvDay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,14 +14,13 @@
             style="@style/CircleNumberImage"
             android:layout_marginStart="@dimen/size_xs"
             android:layout_marginTop="@dimen/size_xs"
-            android:text="1"
             android:textColor="@color/colorOrange"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
-            android:id="@+id/tvProductName"
+            android:id="@+id/tvDayName"
             style="@style/TextM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,6 @@
             style="@style/TextXS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100g"
             app:layout_constraintBottom_toBottomOf="@+id/tvTotalWeight"
             app:layout_constraintEnd_toEndOf="@+id/tvTotalWeightForAllValue"
             app:layout_constraintHorizontal_bias="1.0"
@@ -80,7 +79,6 @@
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_xs"
             android:layout_marginEnd="@dimen/size_xs"
-            android:text="1000g"
             app:layout_constraintBottom_toBottomOf="@+id/tvTotalWeightForAll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

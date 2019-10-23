@@ -57,6 +57,7 @@ class DayPagerFragment : Fragment(), DayPagerContract.View {
             }
         })
         dayViewPager?.currentItem = selectedPosition
+        controller.changeToolbarTitle("День ${days[selectedPosition].number}", activity as ConfigToolbar)
     }
 
     override fun onDestroyView() {

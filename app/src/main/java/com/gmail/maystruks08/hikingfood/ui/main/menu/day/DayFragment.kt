@@ -90,8 +90,7 @@ class DayFragment : Fragment() {
         tvDayLunchValue.text = number
         tvLunchSumWeightValue.text = totalWeight
 
-        lunchAdapter =
-            ProductAdapter { itemClicked(it) }
+        lunchAdapter = ProductAdapter { itemClicked(it) }
         rvLunch.layoutManager = LinearLayoutManager(context)
         rvLunch.adapter = lunchAdapter
         lunchAdapter.productList = products

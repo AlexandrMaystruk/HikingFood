@@ -38,7 +38,7 @@ class ProductsPortionAdapter(private val portionChangeListener: (Int, Int) -> Un
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindHolder(product: Product, portionChangeListener: (Int, Int) -> Unit) {
-            itemView.tvProductName.text = product.name
+            itemView.tvDayName.text = product.name
             itemView.npRelaxDayCountValue.minValue = product.portion.min
             itemView.npRelaxDayCountValue.maxValue = product.portion.max
             itemView.npRelaxDayCountValue.value = product.portion.value

@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import kotlinx.android.synthetic.main.item_day.view.*
@@ -36,6 +37,13 @@ class DayAdapter(private val clickListener: (DayView) -> Unit) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindHolder(dayView: DayView, clickListener: (DayView) -> Unit) {
+            if (dayView.isRelaxDay) {
+                itemView.cvDay.setCardBackgroundColor(ContextCompat.getColor(itemView.context, (R.color.colorGrey)))
+                itemView.tvDayName.text = itemView.context.getString(R.string.relax_day)
+            } else {
+                itemView.cvDay.setCardBackgroundColor(null)
+                itemView.tvDayName.text = itemView.context.getString(R.string.day)
+            }
             itemView.tvDayNumberValue.text = dayView.number.toString()
             itemView.tvTotalWeightValue.text = (dayView.breakfastTotalWeight + dayView.lunchTotalWeight + dayView.dinnerTotalWeight).toString()
             itemView.tvTotalWeightForAllValue.text = (dayView.breakfastTotalWeightForAll + dayView.lunchTotalWeightForAll + dayView.dinnerTotalWeightForAll).toString()

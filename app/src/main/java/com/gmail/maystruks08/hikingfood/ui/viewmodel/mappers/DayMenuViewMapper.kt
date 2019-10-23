@@ -18,6 +18,7 @@ class DayMenuViewMapper @Inject constructor(private val productViewMapper: Produ
             dinnerTotalWeight = day.weightTotalsForOne[TypeOfMeal.DINNER] ?: 0,
             breakfastTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.BREAKFAST] ?: 0,
             lunchTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.LUNCH] ?: 0,
-            dinnerTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.DINNER] ?: 0
+            dinnerTotalWeightForAll = day.weightTotalsForAll[TypeOfMeal.DINNER] ?: 0,
+            isRelaxDay = day is RelaxDay
         )
 }

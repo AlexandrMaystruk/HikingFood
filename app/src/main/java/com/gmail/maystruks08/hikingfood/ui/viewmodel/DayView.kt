@@ -14,7 +14,8 @@ class DayView(
     val dinnerTotalWeight: Int,
     val breakfastTotalWeightForAll: Int,
     val lunchTotalWeightForAll: Int,
-    val dinnerTotalWeightForAll: Int
+    val dinnerTotalWeightForAll: Int,
+    val isRelaxDay: Boolean = false
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -28,7 +29,8 @@ class DayView(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readByte() != 0.toByte()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -43,6 +45,7 @@ class DayView(
         parcel.writeInt(breakfastTotalWeightForAll)
         parcel.writeInt(lunchTotalWeightForAll)
         parcel.writeInt(dinnerTotalWeightForAll)
+        parcel.writeByte(if (isRelaxDay) 1 else 0)
     }
 
     override fun describeContents(): Int {

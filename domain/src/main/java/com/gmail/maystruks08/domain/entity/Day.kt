@@ -1,16 +1,28 @@
 package com.gmail.maystruks08.domain.entity
 
-class Day(
+import java.util.*
+
+open class Day(
     val number: Int,
+    val date: Date,
     val products: MutableMap<TypeOfMeal, MutableList<Product>> = mutableMapOf(),
     val weightTotalsForOne: MutableMap<TypeOfMeal, Int> = mutableMapOf(),
     val weightTotalsForAll: MutableMap<TypeOfMeal, Int> = mutableMapOf()
 ) {
 
-    fun isDayComplete(): Boolean {
-        return (products[TypeOfMeal.BREAKFAST]?.isNotEmpty() ?: false) &&
-                (products[TypeOfMeal.LUNCH]?.isNotEmpty() ?: false) &&
-                (products[TypeOfMeal.DINNER]?.isNotEmpty() ?: false)
+    fun isDayComplete(startFrom: TypeOfMeal = TypeOfMeal.BREAKFAST): Boolean {
+        val isBreakfastComplete = products[TypeOfMeal.BREAKFAST]?.isNotEmpty() ?: false
+        val isLunchComplete = products[TypeOfMeal.LUNCH]?.isNotEmpty() ?: false
+        val isDinnerComplete = products[TypeOfMeal.DINNER]?.isNotEmpty() ?: false
+        return if (number == 1) {
+            when (startFrom) {
+                TypeOfMeal.BREAKFAST -> isBreakfastComplete && isLunchComplete && isDinnerComplete
+                TypeOfMeal.LUNCH -> isLunchComplete && isDinnerComplete
+                TypeOfMeal.DINNER -> isDinnerComplete
+            }
+        } else {
+            isBreakfastComplete && isLunchComplete && isDinnerComplete
+        }
     }
 
 
