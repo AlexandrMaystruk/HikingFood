@@ -12,7 +12,7 @@ import com.gmail.maystruks08.hikingfood.utils.extensions.toPx
 
 
 abstract class SwipeActionHelper(context: Context)
-    : ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+    : ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.LEFT) {
 
     private val deleteIcon: Drawable? =
         ContextCompat.getDrawable(context, R.drawable.ic_trash)
@@ -56,5 +56,5 @@ abstract class SwipeActionHelper(context: Context)
         }
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
-
+    
 }
