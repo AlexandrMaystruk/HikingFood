@@ -16,7 +16,7 @@ class ProductViewMapper @Inject constructor() {
                     name = pr.name,
                     portionForOnePeople = pr.portion.value,
                     portionForAllPeople = pr.portion.portionForAllPeople,
-                    unit = pr.unit,
+                    unit = pr.portion.unit,
                     products = pr.products.map { fromProduct(it, true) }
                 )
             }
@@ -25,7 +25,7 @@ class ProductViewMapper @Inject constructor() {
                 name = pr.name,
                 portionForOnePeople = pr.portion.value,
                 portionForAllPeople = pr.portion.portionForAllPeople,
-                unit = pr.unit,
+                unit = pr.portion.unit,
                 isChild = isChild,
                 isSelected = false
             )

@@ -13,7 +13,7 @@ class MenuRepositoryImpl @Inject constructor(private val menuInfo: MenuInfo) : M
         return Single.create {
             val menu = menuInfo.menuList.find { it.id == menuId }
             if (menu != null) {
-                it.onSuccess(menu.menu)
+                it.onSuccess(menu.days)
             } else {
                 it.onError(MenuNotFoundException())
             }

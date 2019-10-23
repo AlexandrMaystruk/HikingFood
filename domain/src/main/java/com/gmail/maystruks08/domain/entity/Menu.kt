@@ -11,7 +11,8 @@ data class Menu(
     var dateOfStartMenu: Date,
     var startFrom: TypeOfMeal,
     var defaultProductList: List<Product>,
-    var menu: List<Day>
+    var days: List<Day>,
+    val purchaseList: PurchaseList
 ) {
 
     companion object {
@@ -27,7 +28,7 @@ data class Menu(
                     if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
                 var day = Day(dayNumber, inquirerInfo.dateOfStartMenu)
                 for (number in 0 until inquirerInfo.numberOfReceptions) {
-                    //need to shift index if menu start from lunch or dinner
+                    //need to shift index if days start from lunch or dinner
                     val index = if (dayNumber != 1) {
                         (number + countReceptionInDay) % countReceptionInDay
                     } else {
@@ -110,7 +111,8 @@ data class Menu(
                     dateOfStartMenu = inquirerInfo.dateOfStartMenu,
                     startFrom = inquirerInfo.timeOfStartMenu,
                     defaultProductList = inquirerInfo.products,
-                    menu = dayList
+                    days = dayList,
+                    purchaseList = PurchaseList.generatePurchaseList(dayList)
                 )
             }
         }
