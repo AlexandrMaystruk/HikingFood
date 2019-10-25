@@ -51,12 +51,15 @@ class MenuFragment : Fragment(), MenuContract.View {
     private fun init() {
         setAdapter()
         arguments?.getLong(MENU_ID)?.let { presenter.initFragment(it) }
+
+        btnGetPurchaseList.setOnClickListener {
+            presenter.onShowPurchaseList()
+        }
     }
 
     private fun setAdapter() {
         daysAdapter = DayAdapter { dayItemClicked(it) }
-        daysRecyclerView.layoutManager =
-            GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
+        daysRecyclerView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
         daysRecyclerView.adapter = daysAdapter
         daysRecyclerView.addItemDecoration(
             GridSpacingItemDecoration(

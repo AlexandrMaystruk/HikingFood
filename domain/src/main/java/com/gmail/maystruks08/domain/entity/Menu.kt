@@ -2,7 +2,7 @@ package com.gmail.maystruks08.domain.entity
 
 import java.util.*
 
-data class Menu(
+class Menu private constructor(
     val id: Long,
     var name: String,
     var peopleCount: Int,
@@ -10,13 +10,45 @@ data class Menu(
     var restDayCount: Int,
     var dateOfStartMenu: Date,
     var startFrom: TypeOfMeal,
-    var defaultProductList: List<Product>,
-    var days: List<Day>,
-    val purchaseList: PurchaseList
+    val defaultProductList: MutableList<Product> = mutableListOf(),
+    val days: MutableList<Day> = mutableListOf(),
+    var purchaseList: PurchaseList,
+    var totalWeight: Int = 0
 ) {
 
+    fun deleteDay(day: Day) {
+        days.remove(day)
+        purchaseList = PurchaseList.generatePurchaseList(days)
+        totalWeight -= day.getDayTotalWeightForAll()
+    }
+
+    fun deleteProductFromAllDays(product: Product) {
+        defaultProductList.remove(product)
+        days.forEach { it.removeProductFromDay(product) }
+        totalWeight -= purchaseList.removeItem(product)
+    }
+
+    fun deleteProductFromDayByTypeOfMeal(dayNumber: Int, typeOfMeal: TypeOfMeal, product: Product) {
+        days.find { it.number == dayNumber }?.let {
+            val index = days.indexOf(it)
+            days[index].removeProductFromMeal(typeOfMeal, product)
+            totalWeight -= purchaseList.decreaseProduct(product)
+        }
+    }
+
+    fun deleteProductFromDay(dayNumber: Int, product: Product) {
+        days.find { it.number == dayNumber }?.let {
+            val index = days.indexOf(it)
+            days[index].removeProductFromDay(product)
+            for (count in 0..it.getDayMealCount()) {
+                totalWeight -= purchaseList.decreaseProduct(product)
+            }
+        }
+    }
+
     companion object {
-        fun create(startInfo: StartInquirerInfo): Menu {
+
+        fun generateMenu(startInfo: StartInquirerInfo): Menu {
             return startInfo.let { inquirerInfo ->
                 val countReceptionInDay = 3
                 val dayList = mutableListOf<Day>()
