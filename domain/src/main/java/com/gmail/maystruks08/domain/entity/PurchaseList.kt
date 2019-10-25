@@ -8,7 +8,7 @@ class PurchaseList private constructor(val purchaseListItems: MutableList<Purcha
             days.forEach { day ->
                 day.products.values.forEach { list ->
                     list.forEach {
-                        purchaseList.updateProductTotalWeight(it)
+                        purchaseList.updateTotalWeight(it)
                     }
                 }
             }
@@ -16,13 +16,11 @@ class PurchaseList private constructor(val purchaseListItems: MutableList<Purcha
         }
     }
 
-    fun updateProductTotalWeight(product: Product) {
-        val purchaseListItem = purchaseListItems.find { it.product == product }
-        if (purchaseListItem != null) {
-            val index = purchaseListItems.indexOf(purchaseListItem)
-            purchaseListItems[index].increaseWeight(product.portion.portionForAllPeople)
+    fun updateTotalWeight(product: Product) {
+        if (product is ProductSet) {
+            product.products.forEach { updateProductTotalWeight(it) }
         } else {
-            purchaseListItems.add(PurchaseListItem(product, product.portion.portionForAllPeople))
+            updateProductTotalWeight(product)
         }
     }
 
@@ -37,7 +35,7 @@ class PurchaseList private constructor(val purchaseListItems: MutableList<Purcha
         return totalRemovedWeight
     }
 
-    fun decreaseProduct(product: Product): Int  {
+    fun decreaseProduct(product: Product): Int {
         purchaseListItems.find { it.product == product }?.apply {
             decreaseWeight(this.product.portion.portionForAllPeople)
         }?.let {
@@ -45,5 +43,15 @@ class PurchaseList private constructor(val purchaseListItems: MutableList<Purcha
             return product.portion.portionForAllPeople
         }
         return 0
+    }
+
+    private fun updateProductTotalWeight(product: Product) {
+        val purchaseListItem = purchaseListItems.find { it.product.id == product.id }
+        if (purchaseListItem != null) {
+            val index = purchaseListItems.indexOf(purchaseListItem)
+            purchaseListItems[index].increaseWeight(product.portion.portionForAllPeople)
+        } else {
+            purchaseListItems.add(PurchaseListItem(product, product.portion.portionForAllPeople))
+        }
     }
 }

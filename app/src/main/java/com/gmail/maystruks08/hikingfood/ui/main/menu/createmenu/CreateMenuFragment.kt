@@ -65,19 +65,6 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-
-        npRelaxDayCountValue.minValue = 0
-        npRelaxDayCountValue.value = 0
-        npRelaxDayCountValue.maxValue = 5
-
-        npReceptionCountValue.minValue = 1
-        npReceptionCountValue.value = 1
-        npReceptionCountValue.maxValue = 50
-
-        npPeopleCountValue.minValue = 1
-        npPeopleCountValue.value = 1
-        npPeopleCountValue.maxValue = 25
-
         npRelaxDayCountValue.setOnValueChangedListener { picker, _, _ ->
             picker.value
             if (picker.value >= 0) {

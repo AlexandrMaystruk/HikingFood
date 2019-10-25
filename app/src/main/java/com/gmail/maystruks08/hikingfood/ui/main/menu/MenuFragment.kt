@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.utils.GridSpacingItemDecoration
-import kotlinx.android.synthetic.main.fragment_menu.*
+ import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
 
 class MenuFragment : Fragment(), MenuContract.View {

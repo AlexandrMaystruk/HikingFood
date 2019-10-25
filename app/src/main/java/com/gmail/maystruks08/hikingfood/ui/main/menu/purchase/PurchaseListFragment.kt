@@ -25,25 +25,20 @@ class PurchaseListFragment : Fragment(), PurchaseListContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         App.purchaseListComponent?.inject(this)
         arguments?.getParcelableArrayList<PurchaseListItemView>(PURCHASE_LIST)?.let {
             presenter.saveInitData(it.toMutableList())
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_purchase_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.bindView(this)
         initViews()
+        presenter.bindView(this)
     }
 
     override fun configToolbar() {
@@ -115,12 +110,12 @@ class PurchaseListFragment : Fragment(), PurchaseListContract.View {
 
 
     companion object {
-        private const val PURCHASE_LIST = "menuId"
+        private const val PURCHASE_LIST = "PURCHASE_LIST"
 
-        fun getInstance(purchaseList: List<PurchaseListItemView>): MenuFragment =
-            MenuFragment().apply {
+        fun getInstance(purchaseList: List<PurchaseListItemView>): PurchaseListFragment =
+            PurchaseListFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelableArray(PURCHASE_LIST, purchaseList.toTypedArray())
+                    putParcelableArrayList(PURCHASE_LIST, purchaseList.toArrayList())
                 }
             }
     }

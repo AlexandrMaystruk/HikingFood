@@ -20,7 +20,7 @@
 
 
         <TextView
-            android:id="@+id/tvDayName"
+            android:id="@+id/tvProductName"
             style="@style/TextM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

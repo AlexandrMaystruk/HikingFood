@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gmail.maystruks08.domain.entity.PurchaseListItem
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.PurchaseListItemView
 import kotlinx.android.synthetic.main.item_purchase_list.view.*
@@ -24,17 +23,22 @@ class PurchaseListItemAdapter(private val clickListener: (PurchaseListItemView) 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindHolder(purchaseListItems[holder.adapterPosition], holder.adapterPosition, clickListener)
+        holder.bindHolder(purchaseListItems[holder.adapterPosition], clickListener)
     }
 
     override fun getItemCount(): Int = purchaseListItems.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindHolder(item: PurchaseListItemView, position: Int, clickListener: (PurchaseListItemView) -> Unit) {
-            //TODO implement
-            itemView.tvDayName.text = item.name
+        fun bindHolder(item: PurchaseListItemView, clickListener: (PurchaseListItemView) -> Unit) {
+            itemView.tvProductName.text = item.name
+            itemView.tvTotalWeight.text = item.totalWeight.toString()
+            itemView.tvUnit.text = item.unit.type
             itemView.setOnClickListener { clickListener(item) }
+            itemView.cbPurchaseState.isChecked = item.isPurchased
+            itemView.cbPurchaseState.setOnCheckedChangeListener { _, isChecked ->
+                item.isPurchased = isChecked
+            }
         }
     }
 }
