@@ -13,6 +13,8 @@ class SelectDateDialog : DialogFragment() {
 
     private lateinit var listener: (Date) -> Unit
 
+    private val calendar: Calendar = GregorianCalendar()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,8 +32,12 @@ class SelectDateDialog : DialogFragment() {
         arguments?.getString(CALENDAR)?.let {
             tvCalendarHeader.text = it
         }
+
+        cvDate.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            calendar.set(year + 1900, month, dayOfMonth)
+        }
         btnDateSelected?.setOnClickListener {
-            listener.invoke(Date(cvDate.date))
+            listener.invoke(calendar.time)
             this.dismiss()
         }
 

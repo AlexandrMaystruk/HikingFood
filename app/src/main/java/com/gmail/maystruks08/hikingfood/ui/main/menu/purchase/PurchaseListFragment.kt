@@ -5,9 +5,7 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gmail.maystruks08.domain.entity.PurchaseList
 import com.gmail.maystruks08.hikingfood.*
-import com.gmail.maystruks08.hikingfood.ui.main.menu.MenuFragment
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.PurchaseListItemView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toArrayList
 import kotlinx.android.synthetic.main.fragment_purchase_list.*

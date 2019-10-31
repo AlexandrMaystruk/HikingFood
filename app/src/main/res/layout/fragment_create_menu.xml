@@ -13,9 +13,8 @@
         android:layout_marginTop="@dimen/margin_m"
         android:hint="Название раскладки"
         android:inputType="text"
-        android:text="Без названия..."
         android:textColorHint="@color/colorGrey_700"
-        android:textSize="28sp"
+        android:textSize="@dimen/text_l"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -84,7 +83,7 @@
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npRelaxDayCountValue"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="38dp"
         android:layout_marginStart="@dimen/margin_min"
         android:layout_marginTop="@dimen/margin_m"
         android:layout_marginEnd="@dimen/margin_min"
@@ -104,7 +103,7 @@
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npReceptionCountValue"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="38dp"
         android:layout_margin="@dimen/margin_min"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
@@ -121,7 +120,7 @@
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npPeopleCountValue"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="38dp"
         android:layout_margin="@dimen/margin_min"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
@@ -174,7 +173,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height"
         android:layout_margin="@dimen/margin_min"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryInactive"
         android:text="Далее"
         android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"

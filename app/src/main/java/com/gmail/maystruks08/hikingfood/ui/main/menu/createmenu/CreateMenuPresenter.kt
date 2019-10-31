@@ -16,7 +16,7 @@ class CreateMenuPresenter @Inject constructor(
 ) :
     CreateMenuContract.Presenter, BasePresenter<CreateMenuContract.View>() {
 
-    private var name: String = "Test. Remove hardcode!"
+    private var name: String = ""
     private var dayCount: Int = 1
     private var relaxDayCount: Int = 0
     private var peopleCount: Int = 1

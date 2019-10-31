@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.calendar.SelectDateDialog
+import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_create_menu.*
 import java.util.*
 import javax.inject.Inject
@@ -43,7 +45,7 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
             ToolbarDescriptor.Builder()
                 .visibility(true)
                 .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Создание меню")
+                .title("Создание раскладки")
                 .build(),
             activity as ConfigToolbar
         )
@@ -53,34 +55,33 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
         btnCreateMenuNextStep.setOnClickListener {
             if (etMenuName.text.isNotEmpty()) {
                 presenter.createNewMenuClicked()
+            } else {
+                context?.toast("Укажите название раскладки!")
             }
         }
 
         etMenuName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
+            enableNextStepButton(s.isNotEmpty())
                 presenter.onNameMenuChanged(s.toString())
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         npRelaxDayCountValue.setOnValueChangedListener { picker, _, _ ->
-            picker.value
             if (picker.value >= 0) {
                 presenter.onRelaxDayCountChanged(picker.value)
             }
         }
 
         npReceptionCountValue.setOnValueChangedListener { picker, _, _ ->
-            picker.value
             if (picker.value >= 0) {
                 presenter.onDayCountChanged(picker.value)
             }
         }
 
         npPeopleCountValue.setOnValueChangedListener { picker, _, _ ->
-            picker.value
             if (picker.value >= 0) {
                 presenter.onCountOfPeopleChanged(picker.value)
             }
@@ -117,6 +118,17 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
         presenter.end()
         App.clearCreateMenuComponent()
         super.onDestroy()
+    }
+
+    private fun enableNextStepButton(enable: Boolean){
+        context?.let {
+            val background = if (enable) {
+                ContextCompat.getColor(it, R.color.colorPrimary)
+            } else {
+                ContextCompat.getColor(it, R.color.colorPrimaryInactive)
+            }
+            btnCreateMenuNextStep.setBackgroundColor(background)
+        }
     }
 
     override fun showLoading() {}
