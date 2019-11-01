@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_all_menu_list.*
 import javax.inject.Inject
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import kotlinx.android.synthetic.main.layout_no_data.*
 
 class AllMenuFragment : Fragment(), AllMenuContract.View {
 
@@ -29,7 +30,11 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         App.allMenuComponent?.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.fragment_all_menu_list, container, false)
     }
 
@@ -52,6 +57,7 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 presenter.onSearchQueryChanged(newText)
                 return false
@@ -71,7 +77,7 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     private fun init() {
         setAdapter()
-        fabCreateNewMenu.setOnClickListener {
+        btnCreateNewMenu.setOnClickListener {
             presenter.createNewMenuClicked()
         }
     }
@@ -115,6 +121,20 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     private fun menuItemClicked(menu: MenuView) {
         presenter.onMenuItemClicked(menu)
+    }
+
+    override fun showNoData(enable: Boolean) {
+        if (enable) {
+            if (ivSadCat.visibility == View.GONE || tvNoData.visibility == View.GONE) {
+                ivSadCat.visibility = View.VISIBLE
+                tvNoData.visibility = View.VISIBLE
+            }
+        } else {
+            if (ivSadCat.visibility == View.VISIBLE || tvNoData.visibility == View.VISIBLE) {
+                ivSadCat.visibility = View.GONE
+                tvNoData.visibility = View.GONE
+            }
+        }
     }
 
     override fun onDestroyView() {

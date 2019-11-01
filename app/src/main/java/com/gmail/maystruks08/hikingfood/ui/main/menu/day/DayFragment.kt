@@ -25,7 +25,12 @@ class DayFragment : Fragment() {
             dayView = it
         }
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.fragment_day, container, false)
     }
 
@@ -45,7 +50,8 @@ class DayFragment : Fragment() {
             if (it.breakfastProducts.isNotEmpty()) {
                 showBreakfastProducts(
                     (it.number).toString(),
-                    it.breakfastTotalWeight.toString(),
+                    "Вес на 1 ч: ${it.breakfastTotalWeight}",
+                    "Всего: ${it.breakfastTotalWeightForAll}",
                     it.breakfastProducts
                 )
             }
@@ -53,7 +59,8 @@ class DayFragment : Fragment() {
             if (it.lunchProducts.isNotEmpty()) {
                 showLunchProducts(
                     (it.number).toString(),
-                    it.lunchTotalWeight.toString(),
+                    "Вес на 1 ч: ${it.lunchTotalWeight}",
+                    "Всего: ${it.lunchTotalWeightForAll}",
                     it.lunchProducts
                 )
             }
@@ -61,7 +68,8 @@ class DayFragment : Fragment() {
             if (it.dinnerProducts.isNotEmpty()) {
                 showDinnerProducts(
                     (it.number).toString(),
-                    it.dinnerTotalWeight.toString(),
+                    "Вес на 1 ч: ${it.dinnerTotalWeight}",
+                    "Всего: ${it.dinnerTotalWeightForAll}",
                     it.dinnerProducts
                 )
             }
@@ -71,10 +79,12 @@ class DayFragment : Fragment() {
     private fun showBreakfastProducts(
         number: String,
         totalWeight: String,
+        totalWeightForAll: String,
         products: MutableList<ProductView>
     ) {
         tvDayBreakfastValue.text = number
-        tvBreakfastReceiptSumWeightValue.text = totalWeight
+        tvBreakfastReceiptSumWeightForOne.text = totalWeight
+        tvBreakfastReceiptSumWeightForAll.text = totalWeightForAll
 
         breakfastAdapter = ProductAdapter { itemClicked(it) }
         rvBreakfast.layoutManager = LinearLayoutManager(context)
@@ -85,10 +95,12 @@ class DayFragment : Fragment() {
     private fun showLunchProducts(
         number: String,
         totalWeight: String,
+        totalWeightForAll: String,
         products: MutableList<ProductView>
     ) {
         tvDayLunchValue.text = number
-        tvLunchSumWeightValue.text = totalWeight
+        tvLunchReceiptSumWeightForOne.text = totalWeight
+        tvLunchReceiptSumWeightForAll.text = totalWeightForAll
 
         lunchAdapter = ProductAdapter { itemClicked(it) }
         rvLunch.layoutManager = LinearLayoutManager(context)
@@ -99,10 +111,12 @@ class DayFragment : Fragment() {
     private fun showDinnerProducts(
         number: String,
         totalWeight: String,
+        totalWeightForAll: String,
         products: MutableList<ProductView>
     ) {
         tvDayDinnerValue.text = number
-        tvDinnerReceiptSumWeightValue.text = totalWeight
+        tvDinnerReceiptSumWeightForOne.text = totalWeight
+        tvDinnerReceiptSumWeightForAll.text = totalWeightForAll
 
         dinnerAdapter = ProductAdapter { itemClicked(it) }
         rvDinner.layoutManager = LinearLayoutManager(context)

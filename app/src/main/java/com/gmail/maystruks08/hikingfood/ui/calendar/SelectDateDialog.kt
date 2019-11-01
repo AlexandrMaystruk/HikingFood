@@ -34,7 +34,7 @@ class SelectDateDialog : DialogFragment() {
         }
 
         cvDate.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            calendar.set(year + 1900, month, dayOfMonth)
+            calendar.set(year, month, dayOfMonth)
         }
         btnDateSelected?.setOnClickListener {
             listener.invoke(calendar.time)

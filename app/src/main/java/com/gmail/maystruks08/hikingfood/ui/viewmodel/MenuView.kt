@@ -12,7 +12,8 @@ data class MenuView(
     var countOfReceptions: Int,
     var relaxDayCount: Int,
     var dateOfStartMenu: Date,
-    var startFrom: TypeOfMeal
+    var startFrom: TypeOfMeal,
+    var totalWeight: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
@@ -21,7 +22,8 @@ data class MenuView(
         parcel.readInt(),
         parcel.readInt(),
         Date(parcel.readLong()),
-        TypeOfMeal.fromValue(parcel.readInt())
+        TypeOfMeal.fromValue(parcel.readInt()),
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -32,6 +34,7 @@ data class MenuView(
         parcel.writeInt(relaxDayCount)
         parcel.writeLong(dateOfStartMenu.time)
         parcel.writeInt(startFrom.type)
+        parcel.writeInt(totalWeight)
     }
 
     override fun describeContents(): Int {

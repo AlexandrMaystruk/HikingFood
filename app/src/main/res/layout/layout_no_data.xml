@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/ivSadCat"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/size_xxl"
+        android:src="@drawable/holder_sad_cat"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNoData"
+        style="@style/TextL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Список пуст.Создать новую раскладку?"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/ivSadCat"
+        app:layout_constraintStart_toStartOf="@+id/ivSadCat"
+        app:layout_constraintTop_toBottomOf="@+id/ivSadCat" />
+
+</merge>

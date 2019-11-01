@@ -56,6 +56,7 @@ class Menu private constructor(
                 var indexLunch = 0
                 var indexDinner = 0
                 var dayNumber = 1
+                var totalWeight = 0
                 val relaxDayNumber =
                     if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
                 var day = Day(dayNumber, inquirerInfo.dateOfStartMenu)
@@ -124,6 +125,7 @@ class Menu private constructor(
                     }
 
                     if (day.isDayComplete(startInfo.timeOfStartMenu) || number == inquirerInfo.numberOfReceptions - 1) {
+                        totalWeight += day.getDayTotalWeightForAll()
                         dayList.add(day)
                         dayNumber++
                         day = if (dayNumber != relaxDayNumber) {
@@ -144,7 +146,8 @@ class Menu private constructor(
                     startFrom = inquirerInfo.timeOfStartMenu,
                     defaultProductList = inquirerInfo.products,
                     days = dayList,
-                    purchaseList = PurchaseList.generatePurchaseList(dayList)
+                    purchaseList = PurchaseList.generatePurchaseList(dayList),
+                    totalWeight = totalWeight
                 )
             }
         }
