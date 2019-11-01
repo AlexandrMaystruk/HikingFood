@@ -2,9 +2,9 @@ package com.gmail.maystruks08.domain.entity
 
 enum class Category(val type: String) {
 
-    PORRIGE("Каша"),
+    PORRIDGE("Каша"),
     SOUP("Суп"),
-    DRY_LANCH("Сухой обед"),
+    DRY_LUNCH("Сухой обед"),
     SWEET("Сладкое"),
     CAMP("Привальные"),
     ADDITIONALLY("Дополнительно");
@@ -13,7 +13,7 @@ enum class Category(val type: String) {
     companion object {
 
         fun fromOrdinal(value: Int): Category {
-            return values().firstOrNull { it.ordinal == value }?:PORRIGE
+            return values().firstOrNull { it.ordinal == value }?:PORRIDGE
         }
     }
 }

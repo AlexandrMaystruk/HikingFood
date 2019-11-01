@@ -21,7 +21,7 @@
             style="@style/GuidelineVerticalComponent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_begin="0dp" />
 
         <TextView
             android:id="@+id/tvMenuName"
@@ -122,6 +122,28 @@
             android:text="12"
             app:layout_constraintEnd_toEndOf="@+id/tvMenuName"
             app:layout_constraintTop_toBottomOf="@+id/tvMenuDateStartValue" />
+
+        <TextView
+            android:id="@+id/tvTotalWeightMenu"
+            style="@style/TextS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Вес:"
+            android:layout_marginTop="@dimen/margin_xs"
+            app:layout_constraintEnd_toStartOf="@+id/tvStartMenuValue"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvStartMenu" />
+
+        <TextView
+            android:id="@+id/tvTotalWeightMenuValue"
+            style="@style/TextS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="35432"
+            app:layout_constraintEnd_toEndOf="@+id/tvMenuName"
+            app:layout_constraintTop_toBottomOf="@+id/tvStartMenuValue" />
 
         <TextView
             android:id="@+id/tvCountOfReceptions"

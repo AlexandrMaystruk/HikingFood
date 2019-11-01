@@ -91,7 +91,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
 
     override fun onFinishCreateReception(): Completable {
         return repository.getStartInquirerInfo().flatMapCompletable {
-            repository.saveMenu(Menu.create(it))
+            repository.saveMenu(Menu.generateMenu(it))
         }
     }
 }

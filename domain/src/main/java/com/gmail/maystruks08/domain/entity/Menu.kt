@@ -2,7 +2,7 @@ package com.gmail.maystruks08.domain.entity
 
 import java.util.*
 
-data class Menu(
+class Menu private constructor(
     val id: Long,
     var name: String,
     var peopleCount: Int,
@@ -10,12 +10,45 @@ data class Menu(
     var restDayCount: Int,
     var dateOfStartMenu: Date,
     var startFrom: TypeOfMeal,
-    var defaultProductList: List<Product>,
-    var menu: List<Day>
+    val defaultProductList: MutableList<Product> = mutableListOf(),
+    val days: MutableList<Day> = mutableListOf(),
+    var purchaseList: PurchaseList,
+    var totalWeight: Int = 0
 ) {
 
+    fun deleteDay(day: Day) {
+        days.remove(day)
+        purchaseList = PurchaseList.generatePurchaseList(days)
+        totalWeight -= day.getDayTotalWeightForAll()
+    }
+
+    fun deleteProductFromAllDays(product: Product) {
+        defaultProductList.remove(product)
+        days.forEach { it.removeProductFromDay(product) }
+        totalWeight -= purchaseList.removeItem(product)
+    }
+
+    fun deleteProductFromDayByTypeOfMeal(dayNumber: Int, typeOfMeal: TypeOfMeal, product: Product) {
+        days.find { it.number == dayNumber }?.let {
+            val index = days.indexOf(it)
+            days[index].removeProductFromMeal(typeOfMeal, product)
+            totalWeight -= purchaseList.decreaseProduct(product)
+        }
+    }
+
+    fun deleteProductFromDay(dayNumber: Int, product: Product) {
+        days.find { it.number == dayNumber }?.let {
+            val index = days.indexOf(it)
+            days[index].removeProductFromDay(product)
+            for (count in 0..it.getDayMealCount()) {
+                totalWeight -= purchaseList.decreaseProduct(product)
+            }
+        }
+    }
+
     companion object {
-        fun create(startInfo: StartInquirerInfo): Menu {
+
+        fun generateMenu(startInfo: StartInquirerInfo): Menu {
             return startInfo.let { inquirerInfo ->
                 val countReceptionInDay = 3
                 val dayList = mutableListOf<Day>()
@@ -23,11 +56,12 @@ data class Menu(
                 var indexLunch = 0
                 var indexDinner = 0
                 var dayNumber = 1
+                var totalWeight = 0
                 val relaxDayNumber =
                     if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
                 var day = Day(dayNumber, inquirerInfo.dateOfStartMenu)
                 for (number in 0 until inquirerInfo.numberOfReceptions) {
-                    //need to shift index if menu start from lunch or dinner
+                    //need to shift index if days start from lunch or dinner
                     val index = if (dayNumber != 1) {
                         (number + countReceptionInDay) % countReceptionInDay
                     } else {
@@ -91,6 +125,7 @@ data class Menu(
                     }
 
                     if (day.isDayComplete(startInfo.timeOfStartMenu) || number == inquirerInfo.numberOfReceptions - 1) {
+                        totalWeight += day.getDayTotalWeightForAll()
                         dayList.add(day)
                         dayNumber++
                         day = if (dayNumber != relaxDayNumber) {
@@ -110,7 +145,9 @@ data class Menu(
                     dateOfStartMenu = inquirerInfo.dateOfStartMenu,
                     startFrom = inquirerInfo.timeOfStartMenu,
                     defaultProductList = inquirerInfo.products,
-                    menu = dayList
+                    days = dayList,
+                    purchaseList = PurchaseList.generatePurchaseList(dayList),
+                    totalWeight = totalWeight
                 )
             }
         }

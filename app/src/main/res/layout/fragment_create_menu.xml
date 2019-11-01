@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvStartMenu2"
-        style="@style/TextM"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/number_spinner_height"
-        android:layout_marginTop="@dimen/margin_m"
-        android:gravity="center"
-        android:text="Старт раскладки:"
-        app:layout_constraintStart_toStartOf="@+id/tvPeopleCount"
-        app:layout_constraintTop_toBottomOf="@+id/npPeopleCountValue" />
-
     <EditText
         android:id="@+id/etMenuName"
         style="@style/TextL"
@@ -24,8 +13,8 @@
         android:layout_marginTop="@dimen/margin_m"
         android:hint="Название раскладки"
         android:inputType="text"
-        android:text="Без названия..."
         android:textColorHint="@color/colorGrey_700"
+        android:textSize="@dimen/text_l"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +38,7 @@
         android:text="Количество приемов:"
         app:layout_constraintBottom_toBottomOf="@+id/npReceptionCountValue"
         app:layout_constraintStart_toStartOf="@+id/tvCountOfRelaxDay"
-        app:layout_constraintTop_toBottomOf="@+id/npRelaxDayCountValue" />
+        app:layout_constraintTop_toTopOf="@+id/npReceptionCountValue" />
 
     <TextView
         android:id="@+id/tvPeopleCount"
@@ -60,7 +49,7 @@
         android:text="Количество человек:"
         app:layout_constraintBottom_toBottomOf="@+id/npPeopleCountValue"
         app:layout_constraintStart_toStartOf="@+id/tvMenuDateStart"
-        app:layout_constraintTop_toBottomOf="@+id/npReceptionCountValue" />
+        app:layout_constraintTop_toTopOf="@+id/npPeopleCountValue" />
 
     <TextView
         android:id="@+id/tvStartMenu"
@@ -70,56 +59,88 @@
         android:layout_marginTop="@dimen/margin_m"
         android:gravity="center"
         android:text="Старт раскладки:"
-        app:layout_constraintStart_toStartOf="@+id/tvPeopleCount"
-        app:layout_constraintTop_toBottomOf="@+id/npPeopleCountValue" />
+        app:layout_constraintStart_toStartOf="@+id/tvDateOfStartMenu"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateOfStartMenu" />
 
     <TextView
         android:id="@+id/tvDateOfStartMenu"
         style="@style/TextM"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/number_spinner_height"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/margin_m"
         android:gravity="center"
         android:text="Указать дату старта"
-        app:layout_constraintStart_toStartOf="@+id/rgStartReception"
-        app:layout_constraintTop_toBottomOf="@+id/rgStartReception" />
+        app:layout_constraintStart_toStartOf="@+id/tvPeopleCount"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeopleCount" />
 
-    <NumberPicker
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npRelaxDayCountValue"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:descendantFocusability="blocksDescendants"
-        android:textColor="@color/colorOrange"
-        android:theme="@style/AppTheme.Picker"
-        app:layout_constraintEnd_toEndOf="@+id/etMenuName"
-        app:layout_constraintTop_toBottomOf="@+id/etMenuName" />
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="@dimen/margin_min"
+        android:layout_marginTop="@dimen/margin_m"
+        android:layout_marginEnd="@dimen/margin_min"
+        android:layout_marginBottom="@dimen/margin_min"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintTop_toBottomOf="@+id/etMenuName"
+        app:np_dividerColor="@color/colorOrange40"
+        app:np_max="5"
+        app:np_min="0"
+        app:np_orientation="horizontal"
+        app:np_selectedTextColor="@color/colorOrange"
+        app:np_selectedTextSize="@dimen/text_l"
+        app:np_textColor="@color/colorOrangeInactive"
+        app:np_textSize="@dimen/text_s" />
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npReceptionCountValue"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:descendantFocusability="blocksDescendants"
-        android:textColor="@color/colorOrange"
-        android:theme="@style/AppTheme.Picker"
-        app:layout_constraintEnd_toEndOf="@+id/etMenuName"
-        app:layout_constraintTop_toBottomOf="@+id/npRelaxDayCountValue" />
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_margin="@dimen/margin_min"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintTop_toBottomOf="@+id/npRelaxDayCountValue"
+        app:np_dividerColor="@color/colorOrange40"
+        app:np_max="50"
+        app:np_min="1"
+        app:np_orientation="horizontal"
+        app:np_selectedTextColor="@color/colorOrange"
+        app:np_selectedTextSize="@dimen/text_l"
+        app:np_textColor="@color/colorOrangeInactive"
+        app:np_textSize="@dimen/text_s" />
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npPeopleCountValue"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:descendantFocusability="blocksDescendants"
-        android:textColor="@color/colorOrange"
-        android:theme="@style/AppTheme.Picker"
-        app:layout_constraintEnd_toEndOf="@+id/etMenuName"
-        app:layout_constraintTop_toBottomOf="@+id/npReceptionCountValue" />
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_margin="@dimen/margin_min"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintTop_toBottomOf="@+id/npReceptionCountValue"
+        app:np_dividerColor="@color/colorOrange40"
+        app:np_max="25"
+        app:np_min="1"
+        app:np_orientation="horizontal"
+        app:np_selectedTextColor="@color/colorOrange"
+        app:np_selectedTextSize="@dimen/text_l"
+        app:np_textColor="@color/colorOrangeInactive"
+        app:np_textSize="@dimen/text_s" />
 
     <RadioGroup
         android:id="@+id/rgStartReception"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_xs"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/npPeopleCountValue"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvStartMenu"
         app:layout_constraintTop_toBottomOf="@+id/tvStartMenu">
 
@@ -152,7 +173,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height"
         android:layout_margin="@dimen/margin_min"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryInactive"
         android:text="Далее"
         android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"

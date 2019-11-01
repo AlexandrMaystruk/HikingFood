@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#300606</color>
+    <color name="colorPrimaryInactive">#8F300606</color>
     <color name="colorPrimaryDark">#310303</color>
     <color name="colorHint">#FFEB3B</color>
     <color name="colorAccent">#0BB10E</color>
@@ -9,6 +10,9 @@
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#BD1515</color>
     <color name="colorOrange">#FF5722</color>
+    <color name="colorOrangeInactive">#B2FF5722</color>
+    <color name="colorOrange40">#65FF5722</color>
+
     <color name="colorGrey">#cb444869</color>
     <color name="colorGrey_700">#616161</color>
 

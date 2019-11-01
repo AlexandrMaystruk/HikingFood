@@ -42,14 +42,14 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
             position: Int,
             clickListener: (ProductView) -> Unit
         ) {
-            itemView.tvDayName.text = product.name
+            itemView.tvProductName.text = product.name
             itemView.tvProductWeightForOnePeople.text = product.portionForOnePeople.toString()
             itemView.tvProductWeightForAllPeople.text = product.portionForAllPeople.toString()
 
             itemView.background = if (product is SetProductView) {
-                itemView.tvProductNumber.text = (position + 1).toString()
+                itemView.cbPurchaseState.text = (position + 1).toString()
                 itemView.ivProductSetIcon.visibility = View.VISIBLE
-                itemView.tvDayName.setTypeface(null, Typeface.BOLD)
+                itemView.tvProductName.setTypeface(null, Typeface.BOLD)
                 itemView.tvProductWeightForOnePeople.setTypeface(null, Typeface.BOLD)
                 itemView.tvProductWeightForAllPeople.setTypeface(null, Typeface.BOLD)
                 if (product.isSelected) {
@@ -70,18 +70,18 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
 
                 ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_set)
             } else {
-                itemView.tvProductNumber.text = ""
+                itemView.cbPurchaseState.text = ""
                 itemView.ivProductSetIcon.visibility = View.GONE
                 if (product.isChild) {
-                    itemView.tvDayName.setTypeface(null, Typeface.ITALIC)
+                    itemView.tvProductName.setTypeface(null, Typeface.ITALIC)
                     itemView.tvProductWeightForOnePeople.setTypeface(null, Typeface.ITALIC)
                     itemView.tvProductWeightForAllPeople.setTypeface(null, Typeface.ITALIC)
                     ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_set_child)
                 } else {
-                    itemView.tvDayName.typeface = Typeface.DEFAULT
+                    itemView.tvProductName.typeface = Typeface.DEFAULT
                     itemView.tvProductWeightForOnePeople.typeface = Typeface.DEFAULT
                     itemView.tvProductWeightForAllPeople.typeface = Typeface.DEFAULT
-                    itemView.tvProductNumber.text = (position + 1).toString()
+                    itemView.cbPurchaseState.text = (position + 1).toString()
                     if (position % 2 == 0) {
                         ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_dark)
                     } else {

@@ -39,10 +39,10 @@ class DayAdapter(private val clickListener: (DayView) -> Unit) :
         fun bindHolder(dayView: DayView, clickListener: (DayView) -> Unit) {
             if (dayView.isRelaxDay) {
                 itemView.cvDay.setCardBackgroundColor(ContextCompat.getColor(itemView.context, (R.color.colorGrey)))
-                itemView.tvDayName.text = itemView.context.getString(R.string.relax_day)
+                itemView.tvProductName.text = itemView.context.getString(R.string.relax_day)
             } else {
                 itemView.cvDay.setCardBackgroundColor(null)
-                itemView.tvDayName.text = itemView.context.getString(R.string.day)
+                itemView.tvProductName.text = itemView.context.getString(R.string.day)
             }
             itemView.tvDayNumberValue.text = dayView.number.toString()
             itemView.tvTotalWeightValue.text = (dayView.breakfastTotalWeight + dayView.lunchTotalWeight + dayView.dinnerTotalWeight).toString()

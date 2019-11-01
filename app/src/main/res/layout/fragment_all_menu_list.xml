@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/allMenuLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,20 +11,23 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_min"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCreateNewMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/fabCreateNewMenu"
-        android:layout_width="@dimen/size_fab_min"
-        android:layout_height="@dimen/size_fab_min"
-        android:layout_marginEnd="@dimen/margin_m"
-        android:layout_marginBottom="@dimen/margin_m"
-        android:background="@drawable/bg_circle"
-        android:foreground="@drawable/ic_add"
+        android:id="@+id/btnCreateNewMenu"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/margin_min"
+        android:background="@color/colorPrimary"
+        android:text="Создать раскладку"
+        android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include layout="@layout/layout_no_data" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

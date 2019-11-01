@@ -12,6 +12,7 @@ import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception
 import com.gmail.maystruks08.hikingfood.core.di.application.main.portion.ProductPortionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.day.DayComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.purchase.PurchaseListComponent
 
 class App : Application() {
 
@@ -47,6 +48,13 @@ class App : Application() {
                 return field
             }
 
+        var purchaseListComponent: PurchaseListComponent? = null
+            get() {
+                if (field == null)
+                    field = menuComponent?.purchaseListComponent()
+                return field
+            }
+
         var dayComponent: DayComponent? = null
             get() {
                 if (field == null)
@@ -72,6 +80,10 @@ class App : Application() {
 
         fun clearPortionComponent() {
             portionComponent = null
+        }
+
+        fun clearPurchaseListComponent() {
+            purchaseListComponent = null
         }
 
         fun clearAllMenuComponent() {

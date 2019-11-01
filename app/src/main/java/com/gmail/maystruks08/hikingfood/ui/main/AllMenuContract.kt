@@ -15,6 +15,8 @@ interface AllMenuContract {
         fun showAllMenuList(allMenuList: List<MenuView>)
 
         fun showMenuInserted(position: Int, menuView: MenuView)
+
+        fun showNoData(enable: Boolean)
     }
 
     interface Presenter : IPresenter<View> {

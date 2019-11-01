@@ -12,7 +12,6 @@ import com.gmail.maystruks08.hikingfood.ui.main.menu.MenuPresenter
 @Module
 class MenuModule {
 
-
     @Provides
     @MenuScope
     fun interactor(menuInteractorImpl: MenuInteractorImpl): MenuInteractor = menuInteractorImpl

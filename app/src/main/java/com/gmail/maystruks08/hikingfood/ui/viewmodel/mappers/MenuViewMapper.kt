@@ -14,6 +14,7 @@ class MenuViewMapper @Inject constructor() {
             menu.numberOfReceptions,
             menu.restDayCount,
             menu.dateOfStartMenu,
-            menu.startFrom
+            menu.startFrom,
+            menu.totalWeight
         )
 }

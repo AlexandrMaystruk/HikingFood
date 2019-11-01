@@ -25,10 +25,12 @@ class AllMenuPresenter @Inject constructor(
                 .subscribe({ list ->
                     menuViews.clear()
                     menuViews.addAll(list.map { menuViewMapper.fromMenu(it) })
+                    view.showNoData(menuViews.isEmpty())
                     view.showAllMenuList(menuViews)
                     view.configToolbar()
                     view.hideLoading()
                 }, {
+                    view.showNoData(menuViews.isEmpty())
                     view.hideLoading()
                     it.printStackTrace()
                 })
@@ -49,6 +51,7 @@ class AllMenuPresenter @Inject constructor(
             interactor.removeMenu(menuView.id)
                 .subscribe({
                     menuViews.remove(menuView)
+                    view?.showNoData(menuViews.isEmpty())
                     view?.hideLoading()
                 }, {
                     view?.hideLoading()
@@ -60,12 +63,14 @@ class AllMenuPresenter @Inject constructor(
 
     override fun onSearchQueryChanged(menuName: String) {
         if (menuName.isEmpty()) {
+            view?.showNoData(menuViews.isEmpty())
             view?.showAllMenuList(menuViews)
         } else {
             view?.showLoading()
             //this pattern use for avoid kotlin crash with regular expression
             val pattern = ".*${menuName.isolateSpecialSymbolsForRegex().toLowerCase()}.*".toRegex()
             val filteredProducts = menuViews.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
+            view?.showNoData(filteredProducts.isEmpty())
             view?.showAllMenuList(filteredProducts)
         }
     }

@@ -9,6 +9,6 @@ open class Product(
 ) {
 
    open fun calculatePortionForAllPeople(peopleCount: Int) {
-        portion.portionForAllPeople = portion.value * peopleCount
+        portion.updatePortionForAllPeople(peopleCount)
     }
 }

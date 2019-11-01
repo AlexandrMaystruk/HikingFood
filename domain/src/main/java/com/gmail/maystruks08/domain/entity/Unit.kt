@@ -2,7 +2,8 @@ package com.gmail.maystruks08.domain.entity
 
 enum class Unit(val type: String) {
     GRAM("Гр."),
-    KILOGRAM("Кг.");
+    KILOGRAM("Кг."),
+    COUNT("Шт.");
 
     companion object {
 
