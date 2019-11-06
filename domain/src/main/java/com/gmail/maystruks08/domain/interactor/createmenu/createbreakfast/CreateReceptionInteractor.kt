@@ -11,7 +11,9 @@ interface CreateReceptionInteractor {
 
     fun getAllDefaultProducts(typeOfMeal: TypeOfMeal): Single<FoodMeal>
 
-    fun getDefaultLoopProducts(typeOfMeal: TypeOfMeal): Single<List<Product>>
+    fun getDefaultStaticProducts(): Single<List<Product>>
+
+    fun getDefaultLoopProducts(): Single<List<Product>>
 
     fun getProductById(productId: Int): Product?
 
@@ -22,6 +24,8 @@ interface CreateReceptionInteractor {
     fun onFinishCreateReception(): Completable
 
     /**This is list of product ids */
+    fun onStaticProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable
+
     fun onLoopProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable
 
     fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable

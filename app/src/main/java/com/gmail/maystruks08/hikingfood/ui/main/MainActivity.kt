@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    private var onBackHandler: Runnable? = null
-
     private var lastBackPressTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,11 +81,9 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
 
     private fun navigateBack() {
         when {
-            onBackHandler != null -> onBackHandler!!.run()
             supportFragmentManager.backStackEntryCount > 0 -> router.exit()
             lastBackPressTime < System.currentTimeMillis() - PRESS_TWICE_INTERVAL -> {
-                Toast.makeText(this, R.string.toast_exit_app_warning_text, Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, R.string.toast_exit_app_warning_text, Toast.LENGTH_SHORT).show()
                 lastBackPressTime = System.currentTimeMillis()
             }
             else -> router.exit()
@@ -96,8 +92,7 @@ class MainActivity : AppCompatActivity(), ConfigToolbar {
 
     private fun hideSoftKeyboard() {
         if (currentFocus != null) {
-            val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
     }

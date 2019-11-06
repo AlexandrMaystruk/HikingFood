@@ -13,15 +13,13 @@ import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectProductsDialog
-import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectLoopProductsListener
+import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectNewProductsListener
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_create_food_reception.*
 import javax.inject.Inject
 
-class CreateFoodReceptionFragment : Fragment(),
-    CreateFoodReceptionContract.View,
-    SelectLoopProductsListener {
+class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View, SelectNewProductsListener {
 
     @Inject
     lateinit var presenter: CreateFoodReceptionContract.Presenter
@@ -73,24 +71,23 @@ class CreateFoodReceptionFragment : Fragment(),
             )
         }
 
+        fabNewDefaultProduct.setOnClickListener {
+            presenter.onAddStaticProductClicked()
+        }
+
         fabAddLoopProducts.setOnClickListener {
-            presenter.onAddVariableProductClicked()
+            presenter.onAddLoopProductClicked()
         }
     }
 
     private fun setStaticProductAdapter() {
-        adapterStaticProducts =
-            ProductAdapter {
-                adapterItemOnLongClicked(it)
-            }
+        adapterStaticProducts = ProductAdapter { adapterItemOnLongClicked(it)  }
         staticProductsRecyclerView.layoutManager = LinearLayoutManager(context)
         staticProductsRecyclerView.adapter = adapterStaticProducts
     }
 
     private fun setLoopProductAdapter() {
-        adapterLoopProducts = ProductAdapter {
-                adapterItemOnLongClicked(it)
-            }
+        adapterLoopProducts = ProductAdapter { adapterItemOnLongClicked(it) }
         loopProductRecyclerView.layoutManager = LinearLayoutManager(context)
         loopProductRecyclerView.adapter = adapterLoopProducts
     }
@@ -138,8 +135,8 @@ class CreateFoodReceptionFragment : Fragment(),
         adapterLoopProducts.productList = products.toMutableList()
     }
 
-    override fun showSelectProductFragment(products: List<ProductView>) {
-        SelectProductsDialog.getInstance(products)
+    override fun showSelectProductFragment(products: List<ProductView>,  isStaticProducts: Boolean) {
+        SelectProductsDialog.getInstance(products, isStaticProducts)
             .show(childFragmentManager, Screens.SELECT_PRODUCTS_DIALOG)
     }
 
@@ -176,12 +173,15 @@ class CreateFoodReceptionFragment : Fragment(),
         adapterStaticProducts.notifyItemChanged(position, adapterStaticProducts.itemCount)
     }
 
-
-    override fun onLoopProductsSelected(products: List<ProductView>) {
-        presenter.onVariableProductsSelected(products)
+    override fun onStaticProductsSelected(products: List<ProductView>) {
+        presenter.onStaticProductsSelected(products)
     }
 
-    override fun showVariableProductInserted(product: ProductView) {
+    override fun onLoopProductsSelected(products: List<ProductView>) {
+        presenter.onLoopProductsSelected(products)
+    }
+
+    override fun showLoopProductInserted(product: ProductView) {
         adapterLoopProducts.productList.add(product)
         adapterLoopProducts.notifyItemInserted(adapterLoopProducts.productList.indexOf(product))
     }

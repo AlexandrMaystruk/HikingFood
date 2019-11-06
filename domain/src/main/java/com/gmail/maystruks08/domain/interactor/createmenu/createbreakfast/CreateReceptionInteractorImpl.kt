@@ -22,9 +22,21 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
-
-    override fun getDefaultLoopProducts(typeOfMeal: TypeOfMeal): Single<List<Product>> {
-        return repository.getDefaultVariableMealProducts(typeOfMeal).flatMap { list ->
+    override fun getDefaultStaticProducts(): Single<List<Product>> {
+        return repository.getDefaultStaticProducts().flatMap { list ->
+            return@flatMap Single.create<List<Product>> { emitter ->
+                val startInquirerInfo = repository.getStartInquirerInfo().blockingGet()
+                return@create emitter.onSuccess(
+                    list.map {
+                        it.apply { this.calculatePortionForAllPeople(startInquirerInfo.peopleCount) }
+                    })
+            }
+        }
+            .subscribeOn(executor.mainExecutor)
+            .observeOn(executor.postExecutor)
+    }
+    override fun getDefaultLoopProducts(): Single<List<Product>> {
+        return repository.getDefaultLoopProducts().flatMap { list ->
             return@flatMap Single.create<List<Product>> { emitter ->
                 val startInquirerInfo = repository.getStartInquirerInfo().blockingGet()
                 return@create emitter.onSuccess(
@@ -43,6 +55,15 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .observeOn(executor.postExecutor)
     }
 
+    override fun onStaticProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable {
+        return Completable.fromAction {
+            val startInfo = repository.getStartInquirerInfo().blockingGet()
+            val products = productIds.mapNotNull { id ->
+                repository.getProductById(id)?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
+            }
+            startInfo.foodMeals[typeOfMeal]?.defProducts?.addAll(products)
+        }
+    }
 
     override fun onLoopProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable {
         return Completable.fromAction {

@@ -18,8 +18,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <CheckBox
+            android:id="@+id/cbSelectedState"
+            style="@style/TextOrderItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:clickable="false"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_min" />
+
         <TextView
-            android:id="@+id/cbPurchaseState"
+            android:id="@+id/tvPosition"
             style="@style/TextOrderItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

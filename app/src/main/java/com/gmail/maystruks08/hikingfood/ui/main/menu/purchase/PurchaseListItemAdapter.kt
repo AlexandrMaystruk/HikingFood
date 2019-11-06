@@ -34,12 +34,12 @@ class PurchaseListItemAdapter(private val clickListener: (PurchaseListItemView) 
             itemView.tvProductName.text = item.name
             itemView.tvTotalWeight.text = item.totalWeight.toString()
             itemView.tvUnit.text = item.unit.type
-            itemView.cbPurchaseState.isChecked = item.isPurchased
+            itemView.tvPosition.isChecked = item.isPurchased
             itemView.setOnClickListener {
                 val index = purchaseListItems.indexOf(item)
                 if (index != -1){
                     purchaseListItems[index].isPurchased = !item.isPurchased
-                    itemView.cbPurchaseState.isChecked = !itemView.cbPurchaseState.isChecked
+                    itemView.tvPosition.isChecked = !itemView.tvPosition.isChecked
                 }
                 clickListener(item)
             }
