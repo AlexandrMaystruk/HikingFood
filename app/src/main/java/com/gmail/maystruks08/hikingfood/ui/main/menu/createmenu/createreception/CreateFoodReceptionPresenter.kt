@@ -46,7 +46,8 @@ class CreateFoodReceptionPresenter @Inject constructor(
                 .doOnSubscribe { view?.showLoading() }
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe({ list ->
-                    val newProducts = productViewMapper.fromProducts(list).mapNotNull { productView ->
+                    val newProducts =
+                        productViewMapper.fromProducts(list).mapNotNull { productView ->
                             if (staticProducts.find { it.id == productView.id } != null) {
                                 null
                             } else {
@@ -66,7 +67,8 @@ class CreateFoodReceptionPresenter @Inject constructor(
                 .doOnSubscribe { view?.showLoading() }
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe({ list ->
-                    val newProducts = productViewMapper.fromProducts(list).mapNotNull { productView ->
+                    val newProducts =
+                        productViewMapper.fromProducts(list).mapNotNull { productView ->
                             if (loopProducts.find { it.id == productView.id } != null) {
                                 null
                             } else {
@@ -89,7 +91,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
                     {
                         view?.showStaticProductRemoved(position)
                         interactor.getProductById(productView.id)?.let {
-                            if(it is ProductSet){
+                            if (it is ProductSet && productView.isSelected) {
                                 repeat(it.products.size) { view?.showStaticProductRemoved(position) }
                             }
                         }
@@ -108,7 +110,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
                     {
                         view?.showVariableProductRemoved(position)
                         interactor.getProductById(productView.id)?.let {
-                            if(it is ProductSet){
+                            if (it is ProductSet && productView.isSelected) {
                                 repeat(it.products.size) { view?.showVariableProductRemoved(position) }
                             }
                         }

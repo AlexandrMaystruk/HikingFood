@@ -110,9 +110,11 @@ class ProductAdapter(private var hasCheckbox: Boolean = false, private val click
                 }
             } else {
                 itemView.setOnClickListener {
-                    val state = !product.isSelected
-                    itemView.cbSelectedState.isChecked = state
-                    productList[position].isSelected = state
+                    if (hasCheckbox && !product.isChild) {
+                        val state = !product.isSelected
+                        itemView.cbSelectedState.isChecked = state
+                        productList[position].isSelected = state
+                    }
                     clickListener(product)
                 }
             }
