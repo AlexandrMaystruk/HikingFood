@@ -30,7 +30,7 @@
 
     <!--Launcher size-->
     <dimen name="button_width">270dp</dimen>
-    <dimen name="button_height">35dp</dimen>
+    <dimen name="button_height">40dp</dimen>
     <dimen name="button_margin_bottom">130dp</dimen>
 
     <dimen name="number_spinner_width">80dp</dimen>

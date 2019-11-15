@@ -36,9 +36,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_min"
             android:layout_weight="0.11"
-            android:gravity="center"
-            android:textColor="@color/colorOrange" />
-
+            android:gravity="center" />
 
         <ImageView
             android:id="@+id/ivProductSetIcon"
@@ -57,8 +55,7 @@
             android:layout_weight="0.9"
             android:gravity="start"
             android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:paddingEnd="@dimen/margin_s" />
 
         <TextView
             android:id="@+id/tvProductWeightForOnePeople"
@@ -69,8 +66,7 @@
             android:layout_weight="0.3"
             android:gravity="end"
             android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:paddingEnd="@dimen/margin_s" />
 
         <TextView
             android:id="@+id/tvProductWeightForAllPeople"
@@ -81,8 +77,7 @@
             android:layout_weight="0.3"
             android:gravity="end"
             android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:paddingEnd="@dimen/margin_s" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,15 +7,12 @@ import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.DayMenuViewMapper
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.PurchaseListItemViewMapper
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class MenuPresenter @Inject constructor(
     private val menuInteractorImpl: MenuInteractorImpl,
     private val dayMenuViewMapper: DayMenuViewMapper,
-    private val purchaseListItemViewMapper: PurchaseListItemViewMapper,
-    private val router: Router
-) :
+    private val purchaseListItemViewMapper: PurchaseListItemViewMapper) :
     MenuContract.Presenter, BasePresenter<MenuContract.View>() {
 
     private val actualFoodDays = mutableListOf<DayView>()

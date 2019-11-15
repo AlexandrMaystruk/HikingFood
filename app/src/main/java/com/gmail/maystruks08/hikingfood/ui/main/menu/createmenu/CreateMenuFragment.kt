@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.calendar.SelectDateDialog
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
@@ -17,19 +17,12 @@ import kotlinx.android.synthetic.main.fragment_create_menu.*
 import java.util.*
 import javax.inject.Inject
 
-class CreateMenuFragment : Fragment(), CreateMenuContract.View {
+class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
 
     @Inject
     lateinit var presenter: CreateMenuContract.Presenter
 
-    @Inject
-    lateinit var controller: ToolBarController
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         App.createMenuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_create_menu, container, false)
     }
@@ -37,21 +30,18 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        init()
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Создание раскладки")
-                .build(),
-            activity as ConfigToolbar
-        )
+    override fun builder(): FragmentToolbar {
+        val onCLick = View.OnClickListener { presenter.onBackClicked() }
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbar)
+            .withTitle( R.string.fragment_create_menu_name)
+            .withNavigationIcon(R.drawable.ic_arrow_back, onCLick)
+            .build()
     }
 
-    private fun init() {
+    override fun initViews() {
         btnCreateMenuNextStep.setOnClickListener {
             if (etMenuName.text.isNotEmpty()) {
                 presenter.createNewMenuClicked()
@@ -122,12 +112,11 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
 
     private fun enableNextStepButton(enable: Boolean){
         context?.let {
-            val background = if (enable) {
-                ContextCompat.getColor(it, R.color.colorPrimary)
+            btnCreateMenuNextStep.background =  if (enable) {
+                ContextCompat.getDrawable(it, R.drawable.bg_main_btn)
             } else {
-                ContextCompat.getColor(it, R.color.colorPrimaryInactive)
+                ContextCompat.getDrawable(it, R.drawable.bg_main_inactive_btn)
             }
-            btnCreateMenuNextStep.setBackgroundColor(background)
         }
     }
 

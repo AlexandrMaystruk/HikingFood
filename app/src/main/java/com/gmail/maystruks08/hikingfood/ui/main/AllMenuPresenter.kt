@@ -6,12 +6,10 @@ import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.MenuViewMapper
 import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class AllMenuPresenter @Inject constructor(
     private val interactor: AllMenuInteractor,
-    private val router: Router,
     private val menuViewMapper: MenuViewMapper
 ) : AllMenuContract.Presenter, BasePresenter<AllMenuContract.View>() {
 
@@ -27,7 +25,6 @@ class AllMenuPresenter @Inject constructor(
                     menuViews.addAll(list.map { menuViewMapper.fromMenu(it) })
                     view.showNoData(menuViews.isEmpty())
                     view.showAllMenuList(menuViews)
-                    view.configToolbar()
                     view.hideLoading()
                 }, {
                     view.showNoData(menuViews.isEmpty())
@@ -69,7 +66,8 @@ class AllMenuPresenter @Inject constructor(
             view?.showLoading()
             //this pattern use for avoid kotlin crash with regular expression
             val pattern = ".*${menuName.isolateSpecialSymbolsForRegex().toLowerCase()}.*".toRegex()
-            val filteredProducts = menuViews.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
+            val filteredProducts =
+                menuViews.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
             view?.showNoData(filteredProducts.isEmpty())
             view?.showAllMenuList(filteredProducts)
         }

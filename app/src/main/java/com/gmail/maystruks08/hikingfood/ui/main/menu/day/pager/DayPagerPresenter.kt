@@ -4,8 +4,7 @@ import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import javax.inject.Inject
 
-class DayPagerPresenter @Inject constructor() : DayPagerContract.Presenter,
-    BasePresenter<DayPagerContract.View>() {
+class DayPagerPresenter @Inject constructor() : DayPagerContract.Presenter, BasePresenter<DayPagerContract.View>() {
 
     override fun bindView(view: DayPagerContract.View, days: List<DayView>, selectedPosition: Int) {
         super.bindView(view)

@@ -10,6 +10,8 @@ interface IPresenter <T: IView> {
 
     fun bindView(view: T)
 
+    fun onBackClicked()
+
     fun end ()
 
 }

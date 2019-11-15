@@ -1,7 +1,6 @@
 package com.gmail.maystruks08.hikingfood.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,15 +11,13 @@ import kotlinx.android.synthetic.main.fragment_all_menu_list.*
 import javax.inject.Inject
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import kotlinx.android.synthetic.main.layout_no_data.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
+import com.gmail.maystruks08.hikingfood.utils.extensions.setVisibilityIfNeed
 
-class AllMenuFragment : Fragment(), AllMenuContract.View {
+class AllMenuFragment : BaseFragment(), AllMenuContract.View {
 
     @Inject
     lateinit var presenter: AllMenuContract.Presenter
-
-    @Inject
-    lateinit var controller: ToolBarController
 
     private lateinit var allMenuAdapter: AllMenuAdapter
 
@@ -30,27 +27,16 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
         App.allMenuComponent?.inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_all_menu_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        init()
-        initCardSwipe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        initSearch(menu, inflater)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    private fun initSearch(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search, menu)
         val searchView = menu.findItem(R.id.action_search)?.actionView as? SearchView
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -63,32 +49,20 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
                 return false
             }
         })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .title("Раскладка")
-                .build(),
-            activity as ConfigToolbar
-        )
+    override fun builder(): FragmentToolbar {
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbar)
+            .withTitle(R.string.all_menu_fragment_name)
+            .build()
     }
 
-    private fun init() {
-        setAdapter()
-        btnCreateNewMenu.setOnClickListener {
-            presenter.createNewMenuClicked()
-        }
-    }
-
-    private fun setAdapter() {
+    override fun initViews() {
         allMenuAdapter = AllMenuAdapter { menuItemClicked(it) }
         allMenuRecyclerView.layoutManager = LinearLayoutManager(allMenuRecyclerView.context)
         allMenuRecyclerView.adapter = allMenuAdapter
-    }
-
-    private fun initCardSwipe() {
         context?.let {
             val swipeHelper = object : SwipeActionHelper(it) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -99,6 +73,9 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
                 }
             }
             ItemTouchHelper(swipeHelper).attachToRecyclerView(allMenuRecyclerView)
+        }
+        btnCreateNewMenu.setOnClickListener {
+            presenter.createNewMenuClicked()
         }
     }
 
@@ -125,15 +102,9 @@ class AllMenuFragment : Fragment(), AllMenuContract.View {
 
     override fun showNoData(enable: Boolean) {
         if (enable) {
-            if (ivSadCat.visibility == View.GONE || tvNoData.visibility == View.GONE) {
-                ivSadCat.visibility = View.VISIBLE
-                tvNoData.visibility = View.VISIBLE
-            }
+            viewNoData.setVisibilityIfNeed(View.VISIBLE)
         } else {
-            if (ivSadCat.visibility == View.VISIBLE || tvNoData.visibility == View.VISIBLE) {
-                ivSadCat.visibility = View.GONE
-                tvNoData.visibility = View.GONE
-            }
+            viewNoData.setVisibilityIfNeed(View.GONE)
         }
     }
 

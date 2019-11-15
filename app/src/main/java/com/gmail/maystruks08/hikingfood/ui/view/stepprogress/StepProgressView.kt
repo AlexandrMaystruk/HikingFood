@@ -33,7 +33,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
     @ColorInt
     private var textNodeColor = ContextCompat.getColor(context, R.color.colorGreen)
     @ColorInt
-    private var nodeColor = ContextCompat.getColor(context, R.color.colorOrange)
+    private var nodeColor = ContextCompat.getColor(context, R.color.colorPrimary)
     @ColorInt
     private var arcColor = ContextCompat.getColor(context, R.color.colorAccent)
     @ColorInt

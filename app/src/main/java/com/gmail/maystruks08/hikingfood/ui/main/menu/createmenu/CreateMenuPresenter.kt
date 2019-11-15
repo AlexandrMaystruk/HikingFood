@@ -5,16 +5,13 @@ import com.gmail.maystruks08.domain.CalendarHelper
 import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
-import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
 
 class CreateMenuPresenter @Inject constructor(
-    private val router: Router,
     private val interactor: CreateMenuInteractor,
     private val calendarHelper: CalendarHelper
-) :
-    CreateMenuContract.Presenter, BasePresenter<CreateMenuContract.View>() {
+) : CreateMenuContract.Presenter, BasePresenter<CreateMenuContract.View>() {
 
     private var name: String = ""
     private var dayCount: Int = 1

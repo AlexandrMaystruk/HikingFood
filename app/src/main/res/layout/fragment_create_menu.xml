@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_toolbar" />
+
     <EditText
         android:id="@+id/etMenuName"
         style="@style/TextL"
@@ -13,11 +15,11 @@
         android:layout_marginTop="@dimen/margin_m"
         android:hint="Название раскладки"
         android:inputType="text"
-        android:textColorHint="@color/colorGrey_700"
+        android:textColorHint="@color/colorGrey700"
         android:textSize="@dimen/text_l"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/tvCountOfRelaxDay"
@@ -82,57 +84,31 @@
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npRelaxDayCountValue"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="@dimen/margin_min"
+        style="@style/HorizontalNumberPicker"
         android:layout_marginTop="@dimen/margin_m"
-        android:layout_marginEnd="@dimen/margin_min"
-        android:layout_marginBottom="@dimen/margin_min"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toBottomOf="@+id/etMenuName"
-        app:np_dividerColor="@color/colorOrange40"
         app:np_max="5"
-        app:np_min="0"
-        app:np_orientation="horizontal"
-        app:np_selectedTextColor="@color/colorOrange"
-        app:np_selectedTextSize="@dimen/text_l"
-        app:np_textColor="@color/colorOrangeInactive"
-        app:np_textSize="@dimen/text_s" />
+        app:np_min="0" />
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npReceptionCountValue"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_margin="@dimen/margin_min"
+        style="@style/HorizontalNumberPicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toBottomOf="@+id/npRelaxDayCountValue"
-        app:np_dividerColor="@color/colorOrange40"
         app:np_max="50"
-        app:np_min="1"
-        app:np_orientation="horizontal"
-        app:np_selectedTextColor="@color/colorOrange"
-        app:np_selectedTextSize="@dimen/text_l"
-        app:np_textColor="@color/colorOrangeInactive"
-        app:np_textSize="@dimen/text_s" />
+        app:np_min="1" />
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npPeopleCountValue"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_margin="@dimen/margin_min"
+        style="@style/HorizontalNumberPicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toBottomOf="@+id/npReceptionCountValue"
-        app:np_dividerColor="@color/colorOrange40"
         app:np_max="25"
-        app:np_min="1"
-        app:np_orientation="horizontal"
-        app:np_selectedTextColor="@color/colorOrange"
-        app:np_selectedTextSize="@dimen/text_l"
-        app:np_textColor="@color/colorOrangeInactive"
-        app:np_textSize="@dimen/text_s" />
+        app:np_min="1" />
 
     <RadioGroup
         android:id="@+id/rgStartReception"
@@ -170,12 +146,8 @@
 
     <Button
         android:id="@+id/btnCreateMenuNextStep"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/button_height"
-        android:layout_margin="@dimen/margin_min"
-        android:background="@color/colorPrimaryInactive"
+        style="@style/MainButtonInactive"
         android:text="Далее"
-        android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

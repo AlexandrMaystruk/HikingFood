@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_toolbar" />
+
     <com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
         android:id="@+id/vStepProgress"
         android:layout_width="0dp"
@@ -14,7 +16,7 @@
         app:arcPadding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:nodeHeight="35dp"
         app:stepsCount="3"
         app:textNodeColor="@color/colorGreen"
@@ -40,13 +42,12 @@
             android:gravity="start"
             android:paddingStart="@dimen/margin_s"
             android:paddingEnd="@dimen/margin_s"
-            android:text="Продукты по умолчанию"
-            android:textColor="@color/colorOrange" />
+            android:text="Продукты по умолчанию" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            android:background="@color/colorGrey700" />
 
         <TextView
             style="@style/TextOrderItemTitle"
@@ -55,13 +56,12 @@
             android:layout_weight="0.27"
             android:gravity="end"
             android:paddingEnd="@dimen/margin_min"
-            android:text="На 1 ч"
-            android:textColor="@color/colorOrange" />
+            android:text="На 1 ч" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            android:background="@color/colorGrey700" />
 
         <TextView
             style="@style/TextOrderItemTitle"
@@ -70,8 +70,7 @@
             android:layout_weight="0.26"
             android:gravity="end"
             android:paddingEnd="@dimen/margin_s"
-            android:text="Вес"
-            android:textColor="@color/colorOrange" />
+            android:text="Вес" />
     </LinearLayout>
 
     <Button
@@ -123,13 +122,12 @@
             android:gravity="start"
             android:paddingStart="@dimen/margin_s"
             android:paddingEnd="@dimen/margin_s"
-            android:text="Изменяющиеся"
-            android:textColor="@color/colorOrange" />
+            android:text="Изменяющиеся" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            android:background="@color/colorGrey700" />
 
         <TextView
             style="@style/TextOrderItemTitle"
@@ -138,13 +136,12 @@
             android:layout_weight="0.27"
             android:gravity="end"
             android:paddingEnd="@dimen/margin_min"
-            android:text="На 1 ч"
-            android:textColor="@color/colorOrange" />
+            android:text="На 1 ч" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            android:background="@color/colorGrey700" />
 
         <TextView
             style="@style/TextOrderItemTitle"
@@ -153,8 +150,7 @@
             android:layout_weight="0.27"
             android:gravity="end"
             android:paddingEnd="@dimen/margin_s"
-            android:text="Вес"
-            android:textColor="@color/colorOrange" />
+            android:text="Вес" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

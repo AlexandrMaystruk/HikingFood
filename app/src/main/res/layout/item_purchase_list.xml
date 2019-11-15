@@ -24,8 +24,7 @@
             android:layout_gravity="center"
             android:clickable="false"
             android:layout_marginEnd="@dimen/margin_min"
-            android:gravity="center"
-            android:textColor="@color/colorOrange" />
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/tvProductName"
@@ -36,8 +35,7 @@
             android:layout_weight="0.9"
             android:gravity="start"
             android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:paddingEnd="@dimen/margin_s" />
 
         <TextView
             android:id="@+id/tvTotalWeight"
@@ -46,8 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.25"
-            android:gravity="end"
-            android:textColor="@color/colorOrange" />
+            android:gravity="end" />
 
         <TextView
             android:id="@+id/tvUnit"
@@ -56,8 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.1"
-            android:gravity="end"
-            android:textColor="@color/colorOrange" />
+            android:gravity="end" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

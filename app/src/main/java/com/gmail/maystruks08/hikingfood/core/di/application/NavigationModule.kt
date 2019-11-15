@@ -2,7 +2,6 @@ package com.gmail.maystruks08.hikingfood.core.di.application
 
 import dagger.Module
 import dagger.Provides
-import com.gmail.maystruks08.hikingfood.ToolBarController
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -20,9 +19,5 @@ class NavigationModule {
     @Provides
     @Singleton
     fun navigatorHolder(): NavigatorHolder = cicerone.navigatorHolder
-
-    @Provides
-    @Singleton
-    fun toolbarController(): ToolBarController = ToolBarController()
 
 }

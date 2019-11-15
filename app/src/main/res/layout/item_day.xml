@@ -14,7 +14,6 @@
             style="@style/CircleNumberImage"
             android:layout_marginStart="@dimen/size_xs"
             android:layout_marginTop="@dimen/size_xs"
-            android:textColor="@color/colorOrange"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -7,16 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_portions.*
 import javax.inject.Inject
 
-class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
+class ProductPortionForOnePeopleFragment : BaseFragment(), PortionContract.View {
 
     @Inject
     lateinit var presenter: PortionContract.Presenter
-
-    @Inject
-    lateinit var controller: ToolBarController
 
     private lateinit var productsPortionAdapter: ProductsPortionAdapter
 
@@ -33,30 +31,27 @@ class ProductPortionForOnePeopleFragment : Fragment(), PortionContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        initViews()
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Грамовка")
-                .build(),
-            activity as ConfigToolbar
-        )
+    override fun builder(): FragmentToolbar {
+        val onCLick = View.OnClickListener { presenter.onBackClicked() }
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbar)
+            .withTitle( R.string.fragment_portions_name)
+            .withNavigationIcon(R.drawable.ic_arrow_back, onCLick)
+            .build()
+    }
+
+    override fun initViews() {
+        setAdapter()
+        btnCreateMenuNextStep.setOnClickListener {
+            presenter.onNexStepClicked()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         initSearch(menu, inflater)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    private fun initViews() {
-        setAdapter()
-        btnCreateMenuNextStep.setOnClickListener {
-            presenter.onNexStepClicked()
-        }
     }
 
     private fun initSearch(menu: Menu, inflater: MenuInflater) {

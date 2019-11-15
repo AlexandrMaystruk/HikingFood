@@ -7,15 +7,12 @@ import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.ProductViewMapper
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-
 class CreateFoodReceptionPresenter @Inject constructor(
-    private val router: Router, private val interactor: CreateReceptionInteractor,
+    private val interactor: CreateReceptionInteractor,
     private val productViewMapper: ProductViewMapper
-) :
-    CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
+) : CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
 
     private var typeOfMeal: TypeOfMeal = TypeOfMeal.BREAKFAST
     private var staticProducts = mutableListOf<ProductView>()

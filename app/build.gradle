@@ -69,6 +69,8 @@ dependencies {
 
     implementation presentationDependencies.cicerone
 
+    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
+
     testImplementation presentationTestDependencies.junit
     testImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.espresso

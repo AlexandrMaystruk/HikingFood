@@ -1,21 +1,18 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.day.pager
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toArrayList
 import kotlinx.android.synthetic.main.fragment_day_tabs.*
 import javax.inject.Inject
 
-class DayPagerFragment : Fragment(), DayPagerContract.View {
-
-    @Inject
-    lateinit var controller: ToolBarController
+class DayPagerFragment : BaseFragment(), DayPagerContract.View {
 
     @Inject
     lateinit var presenter: DayPagerContract.Presenter
@@ -36,15 +33,16 @@ class DayPagerFragment : Fragment(), DayPagerContract.View {
         }
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .build(),
-            activity as ConfigToolbar
-        )
+    override fun builder(): FragmentToolbar {
+        val onCLick = View.OnClickListener { presenter.onBackClicked() }
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbar)
+            .withTitle( R.string.fragment_create_menu_name)
+            .withNavigationIcon(R.drawable.ic_arrow_back, onCLick)
+            .build()
     }
+
+    override fun initViews() {}
 
     override fun setupViewPager(days: List<DayView>, selectedPosition: Int) {
         dayPagerAdapter = DayPagerAdapter(childFragmentManager, days)
@@ -53,11 +51,11 @@ class DayPagerFragment : Fragment(), DayPagerContract.View {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
-                controller.changeToolbarTitle("День ${days[position].number}", activity as ConfigToolbar)
+                this@DayPagerFragment.toolbarManager.changeToolbarTitle("День ${days[position].number}")
             }
         })
         dayViewPager?.currentItem = selectedPosition
-        controller.changeToolbarTitle("День ${days[selectedPosition].number}", activity as ConfigToolbar)
+        this@DayPagerFragment.toolbarManager.changeToolbarTitle("День ${days[selectedPosition].number}")
     }
 
     override fun onDestroyView() {

@@ -2,7 +2,6 @@ package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectProductsDialog
@@ -19,13 +19,10 @@ import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_create_food_reception.*
 import javax.inject.Inject
 
-class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View, SelectNewProductsListener {
+class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.View, SelectNewProductsListener {
 
     @Inject
     lateinit var presenter: CreateFoodReceptionContract.Presenter
-
-    @Inject
-    lateinit var controller: ToolBarController
 
     private lateinit var adapterLoopProducts: ProductAdapter
 
@@ -39,21 +36,18 @@ class CreateFoodReceptionFragment : Fragment(), CreateFoodReceptionContract.View
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        init()
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Создание приемов пищи")
-                .build(),
-            activity as ConfigToolbar
-        )
+    override fun builder(): FragmentToolbar {
+        val onCLick = View.OnClickListener { presenter.onBackClicked() }
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbar)
+            .withTitle( R.string.fragment_create_food_reception_name)
+            .withNavigationIcon(R.drawable.ic_arrow_back, onCLick)
+            .build()
     }
 
-    private fun init() {
+    override fun initViews() {
         setStaticProductAdapter()
         setLoopProductAdapter()
         initStaticCardSwipe()
