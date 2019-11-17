@@ -20,5 +20,6 @@
     <color name="textWhiteUnselected">#A3FFFFFF</color>
     <color name="textWhiteSelected">#ffffff</color>
     <color name="colorHint">#FFEB3B</color>
+    <color name="colorCard">#332E4E</color>
 
 </resources>

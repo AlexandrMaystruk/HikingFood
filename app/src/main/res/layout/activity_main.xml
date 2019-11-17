@@ -5,5 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mainContainer"
-    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity"/>
