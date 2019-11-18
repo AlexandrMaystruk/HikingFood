@@ -91,9 +91,9 @@ class ProductAdapter(private var hasCheckbox: Boolean = false, private val click
                     itemView.tvProductWeightForAllPeople.typeface = Typeface.DEFAULT
                     itemView.tvPosition.text = (position + 1).toString()
                     if (position % 2 == 0) {
-                        ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_dark)
-                    } else {
                         ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_light)
+                    } else {
+                        ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_dark)
                     }
                 }
             }

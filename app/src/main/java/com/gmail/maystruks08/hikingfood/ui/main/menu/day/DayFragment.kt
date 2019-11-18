@@ -1,5 +1,6 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.day
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,8 +45,8 @@ class DayFragment : Fragment() {
             if (it.breakfastProducts.isNotEmpty()) {
                 showBreakfastProducts(
                     (it.number).toString(),
-                    "Вес на 1 ч: ${it.breakfastTotalWeight}",
-                    "Всего: ${it.breakfastTotalWeightForAll}",
+                    "Вес на одного: ${it.breakfastTotalWeight}",
+                    "Вес на всех: ${it.breakfastTotalWeightForAll}",
                     it.breakfastProducts
                 )
             }
@@ -53,8 +54,8 @@ class DayFragment : Fragment() {
             if (it.lunchProducts.isNotEmpty()) {
                 showLunchProducts(
                     (it.number).toString(),
-                    "Вес на 1 ч: ${it.lunchTotalWeight}",
-                    "Всего: ${it.lunchTotalWeightForAll}",
+                    "Вес на одного: ${it.lunchTotalWeight}",
+                    "Вес на всех: ${it.lunchTotalWeightForAll}",
                     it.lunchProducts
                 )
             }
@@ -62,21 +63,22 @@ class DayFragment : Fragment() {
             if (it.dinnerProducts.isNotEmpty()) {
                 showDinnerProducts(
                     (it.number).toString(),
-                    "Вес на 1 ч: ${it.dinnerTotalWeight}",
-                    "Всего: ${it.dinnerTotalWeightForAll}",
+                    "Вес на одного: ${it.dinnerTotalWeight}",
+                    "Вес на всех: ${it.dinnerTotalWeightForAll}",
                     it.dinnerProducts
                 )
             }
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showBreakfastProducts(
         number: String,
         totalWeight: String,
         totalWeightForAll: String,
         products: MutableList<ProductView>
     ) {
-        tvDayBreakfastValue.text = number
+        tvDayBreakfast.text =  "${tvDayBreakfast.text} $number"
         tvBreakfastReceiptSumWeightForOne.text = totalWeight
         tvBreakfastReceiptSumWeightForAll.text = totalWeightForAll
 
@@ -86,13 +88,14 @@ class DayFragment : Fragment() {
         breakfastAdapter.productList = products
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showLunchProducts(
         number: String,
         totalWeight: String,
         totalWeightForAll: String,
         products: MutableList<ProductView>
     ) {
-        tvDayLunchValue.text = number
+        tvDayLunch.text = "${tvDayLunch.text} $number"
         tvLunchReceiptSumWeightForOne.text = totalWeight
         tvLunchReceiptSumWeightForAll.text = totalWeightForAll
 
@@ -102,13 +105,14 @@ class DayFragment : Fragment() {
         lunchAdapter.productList = products
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showDinnerProducts(
         number: String,
         totalWeight: String,
         totalWeightForAll: String,
         products: MutableList<ProductView>
     ) {
-        tvDayDinnerValue.text = number
+        tvDayDinner.text = "${tvDayDinner.text} $number"
         tvDinnerReceiptSumWeightForOne.text = totalWeight
         tvDinnerReceiptSumWeightForAll.text = totalWeightForAll
 

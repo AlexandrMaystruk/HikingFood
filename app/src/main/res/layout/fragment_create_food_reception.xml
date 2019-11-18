@@ -35,42 +35,28 @@
         app:layout_constraintTop_toBottomOf="@id/vStepProgress">
 
         <TextView
-            style="@style/TextOrderItemTitle"
+            style="@style/TextM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Продукты по умолчанию" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey700" />
+            android:text="Постоянные продукты" />
 
         <TextView
-            style="@style/TextOrderItemTitle"
+            style="@style/TextM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.27"
             android:gravity="end"
-            android:paddingEnd="@dimen/margin_min"
-            android:text="На 1 ч" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey700" />
+            android:text="На 1" />
 
         <TextView
-            style="@style/TextOrderItemTitle"
+            style="@style/TextM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.26"
+            android:layout_weight="0.35"
             android:gravity="end"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Вес" />
+            android:text="На всех" />
     </LinearLayout>
 
     <Button
@@ -115,42 +101,28 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal">
 
         <TextView
-            style="@style/TextOrderItemTitle"
+            style="@style/TextM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Изменяющиеся" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey700" />
+            android:text="Чередующиеся продукты" />
 
         <TextView
-            style="@style/TextOrderItemTitle"
+            style="@style/TextM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.27"
             android:gravity="end"
-            android:paddingEnd="@dimen/margin_min"
-            android:text="На 1 ч" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey700" />
+            android:text="На 1" />
 
         <TextView
-            style="@style/TextOrderItemTitle"
+            style="@style/TextM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.27"
+            android:layout_weight="0.35"
             android:gravity="end"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Вес" />
+            android:text="На всех" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -179,15 +151,10 @@
 
     <Button
         android:id="@+id/btnCreateFoodReceiptNextStep"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/button_height"
-        android:layout_margin="@dimen/margin_min"
-        android:background="@color/colorPrimary"
+        style="@style/MainButton"
         android:text="Далее"
-        android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loopProductRecyclerView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

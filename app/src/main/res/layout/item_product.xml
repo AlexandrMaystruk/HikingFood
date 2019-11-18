@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/margin_xs"
         android:paddingTop="@dimen/margin_xs"
-        android:paddingEnd="@dimen/margin_xs"
         android:paddingBottom="@dimen/margin_xs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +43,6 @@
             android:src="@drawable/ic_arrow_right"
             android:visibility="gone" />
 
-
         <TextView
             android:id="@+id/tvProductName"
             style="@style/TextOrderItemTitle"
@@ -53,9 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.9"
-            android:gravity="start"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s" />
+            android:gravity="start" />
 
         <TextView
             android:id="@+id/tvProductWeightForOnePeople"
@@ -64,9 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.3"
-            android:gravity="end"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s" />
+            android:gravity="end" />
 
         <TextView
             android:id="@+id/tvProductWeightForAllPeople"
@@ -74,10 +67,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:gravity="end"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s" />
+            android:layout_weight="0.35"
+            android:paddingEnd="@dimen/margin_xs"
+            android:gravity="end" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

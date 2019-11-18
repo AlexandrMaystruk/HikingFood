@@ -37,7 +37,7 @@ class PurchaseListFragment : BaseFragment(), PurchaseListContract.View {
 
     override fun builder(): FragmentToolbar {
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbar)
+            .withId(R.id.toolbarPurchaseList)
             .withTitle(R.string.fragment_purchase_list_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()

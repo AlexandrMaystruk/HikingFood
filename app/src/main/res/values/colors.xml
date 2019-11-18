@@ -10,9 +10,8 @@
     <color name="colorRed">#BD1515</color>
     <color name="colorGrey">#cb444869</color>
     <color name="colorGrey700">#616161</color>
-    <color name="colorDarkItem">#E0D4D4</color>
-    <color name="colorLightItem">#F3EAEA</color>
-    <color name="colorProductSet">#DBCECE</color>
+    <color name="colorLightItem">#494561</color>
+    <color name="colorProductSet">#75494561</color>
 
 <!--Text-->
     <color name="colorText">@color/colorWhite</color>

@@ -34,7 +34,7 @@ class MenuFragment : BaseFragment(), MenuContract.View {
     }
     override fun builder(): FragmentToolbar {
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbar)
+            .withId(R.id.toolbarMenu)
             .withTitle( R.string.fragment_menu_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()
