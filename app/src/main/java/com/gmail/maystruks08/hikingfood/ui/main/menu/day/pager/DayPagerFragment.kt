@@ -50,11 +50,11 @@ class DayPagerFragment : BaseFragment(), DayPagerContract.View {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
-                this@DayPagerFragment.toolbarManager.changeToolbarTitle("День ${days[position].number}")
+                this@DayPagerFragment.toolbarManager?.changeToolbarTitle("День ${days[position].number}")
             }
         })
         dayViewPager?.currentItem = selectedPosition
-        this@DayPagerFragment.toolbarManager.changeToolbarTitle("День ${days[selectedPosition].number}")
+        this@DayPagerFragment.toolbarManager?.changeToolbarTitle("День ${days[selectedPosition].number}")
     }
 
     override fun onDestroyView() {
