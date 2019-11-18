@@ -45,7 +45,6 @@
         android:layout_marginEnd="@dimen/margin_m"
         android:background="@color/colorCard"
         android:focusableInTouchMode="true"
-        android:paddingBottom="@dimen/margin_m"
         android:translationZ="-1dp"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateMenuNextStep"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +114,8 @@
             style="@style/TextM"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/number_spinner_height"
-            android:layout_marginTop="@dimen/margin_m"
+            android:layout_marginTop="@dimen/margin_s"
+            android:layout_marginBottom="@dimen/margin_s"
             android:gravity="center"
             android:text="Старт раскладки:"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -178,13 +178,12 @@
             style="@style/Widget.AppCompat.Spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_min"
             android:background="@drawable/spinner_bg"
             android:dropDownWidth="wrap_content"
             android:popupBackground="@color/colorPrimary"
             android:popupElevation="3dp"
             android:stateListAnimator="@drawable/spinner_sla"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStartMenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/tvStartMenu" />
@@ -201,8 +200,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnCreateMenuNextStep"

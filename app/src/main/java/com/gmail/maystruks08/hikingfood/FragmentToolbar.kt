@@ -1,7 +1,6 @@
 package com.gmail.maystruks08.hikingfood
 
 import android.view.MenuItem
-import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
@@ -12,29 +11,26 @@ class FragmentToolbar(
     @StringRes val title: Int,
     @MenuRes val menuId: Int,
     @DrawableRes val navigationIcon: Int,
-    val navigationIconClickListener: View.OnClickListener?,
+    val navigationIconClickListener: (() -> Unit)?,
+    val searchViewTextChangeListener: ((String) -> Unit)?,
     val menuItems: MutableList<Int>,
     val menuClicks: MutableList<MenuItem.OnMenuItemClickListener?>
 ) {
-
-    companion object {
-        const val NO_TOOLBAR = -1
-    }
-
     class Builder {
-        private var resId: Int = -1
-        private var menuId: Int = -1
-        private var title: Int = -1
-        private var navigationIcon: Int = -1
-        private var navigationIconClickListener: View.OnClickListener? = null
+        private var resId: Int = NO_TOOLBAR
+        private var menuId: Int = NO_TOOLBAR
+        private var title: Int = NO_TOOLBAR
+        private var navigationIcon: Int = NO_TOOLBAR
+        private var navigationIconClickListener:  (() -> Unit)? = null
         private var menuItems: MutableList<Int> = mutableListOf()
         private var menuClicks: MutableList<MenuItem.OnMenuItemClickListener?> = mutableListOf()
+        private var searchViewTextChangeListener: ((String) -> Unit)? = null
 
         fun withId(@IdRes resId: Int) = apply { this.resId = resId }
 
         fun withTitle(title: Int) = apply { this.title = title }
 
-        fun withNavigationIcon(@DrawableRes navigationIconId: Int, navigationIconClickListener: View.OnClickListener? = null) =
+        fun withNavigationIcon(@DrawableRes navigationIconId: Int, navigationIconClickListener: () -> Unit) =
             apply {
                 this.navigationIcon = navigationIconId
                 this.navigationIconClickListener = navigationIconClickListener
@@ -42,10 +38,11 @@ class FragmentToolbar(
 
         fun withMenu(@MenuRes menuId: Int) = apply { this.menuId = menuId }
 
-        fun withMenuItems(
-            menuItems: MutableList<Int>,
-            menuClicks: MutableList<MenuItem.OnMenuItemClickListener?>
-        ) = apply {
+        fun withMenuSearch(searchViewTextChangeListener: (String) -> Unit) = apply {
+            this.searchViewTextChangeListener = searchViewTextChangeListener
+        }
+
+        fun withMenuItems(menuItems: MutableList<Int>, menuClicks: MutableList<MenuItem.OnMenuItemClickListener?>) = apply {
             this.menuItems.addAll(menuItems)
             this.menuClicks.addAll(menuClicks)
         }
@@ -56,8 +53,13 @@ class FragmentToolbar(
             menuId,
             navigationIcon,
             navigationIconClickListener,
+            searchViewTextChangeListener,
             menuItems,
             menuClicks
         )
+    }
+
+    companion object {
+        const val NO_TOOLBAR = -1
     }
 }

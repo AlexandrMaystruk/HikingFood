@@ -34,11 +34,10 @@ class DayPagerFragment : BaseFragment(), DayPagerContract.View {
     }
 
     override fun builder(): FragmentToolbar {
-        val onCLick = View.OnClickListener { presenter.onBackClicked() }
         return FragmentToolbar.Builder()
             .withId(R.id.toolbar)
             .withTitle( R.string.fragment_create_menu_name)
-            .withNavigationIcon(R.drawable.ic_arrow_back, onCLick)
+            .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()
     }
 

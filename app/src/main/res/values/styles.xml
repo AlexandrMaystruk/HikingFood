@@ -163,11 +163,12 @@
         <item name="android:layout_marginTop">@dimen/margin_min</item>
         <item name="android:layout_marginEnd">@dimen/margin_min</item>
         <item name="android:layout_marginBottom">@dimen/margin_min</item>
-        <item name="np_dividerColor">@color/colorTextInactive</item>
+        <item name="np_dividerColor">@color/colorDivider</item>
         <item name="np_dividerDistance">38dp</item>
+        <item name="np_dividerThickness">1dp</item>
         <item name="np_orientation">horizontal</item>
         <item name="np_selectedTextColor">@color/colorWhite</item>
-        <item name="np_selectedTextSize">@dimen/text_l</item>
+        <item name="np_selectedTextSize">@dimen/text_m</item>
         <item name="np_textColor">@color/colorTextInactive</item>
         <item name="np_textSize">@dimen/text_s</item>
     </style>
