@@ -15,6 +15,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
 ) : CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
 
     private lateinit var initConfig: CreateReceptionInteractor.Config
+    private var shift = 0
     private var staticProducts = mutableListOf<ProductView>()
     private var loopProducts = mutableListOf<ProductView>()
 
@@ -23,6 +24,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
         compositeDisposable.add(interactor.getInitConfig()
             .flatMap {
                 initConfig = it
+                shift = it.startFrom.type
                 interactor.getAllDefaultProducts(initConfig.startFrom)
             }
             .doOnSubscribe { view.showLoading() }
@@ -141,7 +143,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
     }
 
     override fun onStepSelected(step: Int) {
-        initConfig.startFrom = TypeOfMeal.fromValue(step, initConfig.startFrom.type)
+        initConfig.startFrom = TypeOfMeal.fromValue(step, shift)
         initFragment()
     }
 
