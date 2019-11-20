@@ -3,9 +3,9 @@
 -keepattributes SourceFile,LineNumberTable
 
 #Dissable Android logging
-#-assumenosideeffects class android.util.Log {
-#    public static *** d(...);
-#}
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+}
 
 -keep, includedescriptorclasses class in.uncod.android.bypass.Document { *; }
 -keep, includedescriptorclasses class in.uncod.android.bypass.Element { *; }
