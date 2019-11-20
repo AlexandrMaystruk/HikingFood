@@ -59,7 +59,6 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
         setLoopProductAdapter()
         initStaticCardSwipe()
         initVariableCardSwipe()
-        presenter.initFragment()
 
         btnCreateFoodReceiptNextStep.setOnClickListener {
             presenter.onFoodReceptionCreationComplete(

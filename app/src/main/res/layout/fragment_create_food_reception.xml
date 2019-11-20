@@ -35,7 +35,7 @@
                 android:layout_marginEnd="@dimen/margin_m"
                 app:arcPadding="5dp"
                 app:nodeHeight="35dp"
-                app:stepsCount="3"
+                app:stepsCount="1"
                 app:textNodeColor="@color/colorWhite"
                 app:textNodeSize="@dimen/text_l" />
 

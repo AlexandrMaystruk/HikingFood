@@ -140,8 +140,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
                 //Measure titles for step (node) views
                 //Text takes a width equal to node size + allowed overflow size
                 it is TextView && (it.tag as String == STEP_TITLE_TAG) -> {
-                    val wSpecToMeasure =
-                        MeasureSpec.makeMeasureSpec(nodeSize + textOverflow, MeasureSpec.AT_MOST)
+                    val wSpecToMeasure = MeasureSpec.makeMeasureSpec(nodeSize + textOverflow, MeasureSpec.AT_MOST)
                     val hSpecToMeasure = MeasureSpec.makeMeasureSpec(hSize, MeasureSpec.AT_MOST)
                     it.measure(wSpecToMeasure, hSpecToMeasure)
                     //save measuring results to use them onLayout
@@ -156,8 +155,7 @@ class StepProgressView : ViewGroup, View.OnClickListener {
                     //
                     //measures arc view
                     val arcWSpec = MeasureSpec.makeMeasureSpec(arcWidth, MeasureSpec.EXACTLY)
-                    val arcHSpec =
-                        MeasureSpec.makeMeasureSpec(arcHeight.toInt(), MeasureSpec.EXACTLY)
+                    val arcHSpec = MeasureSpec.makeMeasureSpec(arcHeight.toInt(), MeasureSpec.EXACTLY)
                     if (!hasNodeOverflow) {
                         (it.layoutParams as LinearLayout.LayoutParams).setMargins(
                             arcPadding.toInt(), 0, arcPadding.toInt(), 0
@@ -308,7 +306,6 @@ class StepProgressView : ViewGroup, View.OnClickListener {
 
     private fun textViewForStep(stepPosition: Int, isActive: Boolean): TextView {
         return TextView(context).apply {
-            //            val position = (stepPosition + startFrom + 3) % 3
             text = try {
                 nodeTextList[stepPosition]
             } catch (e: IndexOutOfBoundsException) {
@@ -411,10 +408,12 @@ class StepProgressView : ViewGroup, View.OnClickListener {
         check(!(stepsCount < 0 || stepsCount > 3 || startFrom > 3)) { "Steps count can't be a negative number or more that 3" }
         this.stepsCount = stepsCount
         this.startFrom = startFrom
-        if (startFrom != 0) {
-            for (i in 0 until startFrom) {
-                nodeTextList.add(nodeTextList.removeAt(0))
-            }
+        for (i in 0 until startFrom) {
+            nodeTextList.add(nodeTextList.removeAt(0))
+        }
+
+        while (nodeTextList.lastIndex >= stepsCount){
+            nodeTextList.removeAt(nodeTextList.lastIndex)
         }
         resetView()
         invalidate()

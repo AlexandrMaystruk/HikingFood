@@ -34,5 +34,5 @@ interface CreateReceptionInteractor {
 
     fun getInitConfig(): Single<Config>
 
-    class Config(val countOfReceipt: Int, val startFrom: TypeOfMeal)
+    class Config(val countOfReceipt: Int, var startFrom: TypeOfMeal)
 }

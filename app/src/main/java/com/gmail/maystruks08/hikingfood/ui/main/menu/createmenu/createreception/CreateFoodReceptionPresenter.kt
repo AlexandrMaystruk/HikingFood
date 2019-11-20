@@ -14,10 +14,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
     private val productViewMapper: ProductViewMapper
 ) : CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
 
-    private var initConfig: CreateReceptionInteractor.Config? = null
-    private var typeOfMeal: TypeOfMeal = TypeOfMeal.BREAKFAST
-    private var shift = 0
-    private var receiptCount = 3
+    private lateinit var initConfig: CreateReceptionInteractor.Config
     private var staticProducts = mutableListOf<ProductView>()
     private var loopProducts = mutableListOf<ProductView>()
 
@@ -26,8 +23,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
         compositeDisposable.add(interactor.getInitConfig()
             .flatMap {
                 initConfig = it
-                receiptCount = if (it.countOfReceipt > 3) 3 else it.countOfReceipt
-                interactor.getAllDefaultProducts(typeOfMeal)
+                interactor.getAllDefaultProducts(initConfig.startFrom)
             }
             .doOnSubscribe { view.showLoading() }
             .doAfterTerminate { view.hideLoading() }
@@ -35,7 +31,8 @@ class CreateFoodReceptionPresenter @Inject constructor(
                 staticProducts = productViewMapper.fromProducts(meal.defProducts)
                 loopProducts = productViewMapper.fromProducts(meal.loopProducts)
                 view.run {
-                    showStepProgressView(receiptCount, typeOfMeal)
+                    val stepCount = if (initConfig.countOfReceipt  > 3) 3 else initConfig.countOfReceipt
+                    showStepProgressView(stepCount, initConfig.startFrom)
                     showStaticProducts(staticProducts)
                     showLoopProducts(loopProducts)
                 }
@@ -45,9 +42,9 @@ class CreateFoodReceptionPresenter @Inject constructor(
         )
     }
 
-    override fun initFragment() {
+    private fun initFragment() {
         compositeDisposable.add(
-            interactor.getAllDefaultProducts(typeOfMeal)
+            interactor.getAllDefaultProducts(initConfig.startFrom)
                 .doOnSubscribe { view?.showLoading() }
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe({ meal ->
@@ -107,7 +104,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
 
     override fun onDeleteStaticProductClicked(position: Int, productView: ProductView) {
         compositeDisposable.add(
-            interactor.removeStaticProduct(typeOfMeal, productView.id)
+            interactor.removeStaticProduct(initConfig.startFrom, productView.id)
                 .doOnSubscribe { view?.showLoading() }
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe(
@@ -126,7 +123,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
 
     override fun onDeleteVariableProductClicked(position: Int, productView: ProductView) {
         compositeDisposable.add(
-            interactor.removeLoopProduct(typeOfMeal, productView.id)
+            interactor.removeLoopProduct(initConfig.startFrom, productView.id)
                 .doOnSubscribe { view?.showLoading() }
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe(
@@ -144,17 +141,14 @@ class CreateFoodReceptionPresenter @Inject constructor(
     }
 
     override fun onStepSelected(step: Int) {
-        typeOfMeal = TypeOfMeal.fromValue(step, shift)
+        initConfig.startFrom = TypeOfMeal.fromValue(step, initConfig.startFrom.type)
         initFragment()
     }
 
-    override fun onFoodReceptionCreationComplete(
-        staticProductList: List<ProductView>,
-        loopProductList: List<ProductView>
-    ) {
+    override fun onFoodReceptionCreationComplete(staticProductList: List<ProductView>, loopProductList: List<ProductView>) {
         compositeDisposable.add(
             interactor.onFoodReceptionCreationComplete(
-                typeOfMeal,
+                initConfig.startFrom,
                 staticProductList.mapNotNull {
                     if (it.isChild) {
                         return@mapNotNull null
@@ -179,7 +173,9 @@ class CreateFoodReceptionPresenter @Inject constructor(
 
     override fun onStaticProductsSelected(products: List<ProductView>) {
         compositeDisposable.add(
-            interactor.onStaticProductsAdded(typeOfMeal, products.map { it.id }).subscribe({
+            interactor.onStaticProductsAdded(
+                initConfig.startFrom,
+                products.map { it.id }).subscribe({
                 products.forEach {
                     val productView = it.apply { isSelected = false }
                     staticProducts.add(productView)
@@ -193,7 +189,9 @@ class CreateFoodReceptionPresenter @Inject constructor(
 
     override fun onLoopProductsSelected(products: List<ProductView>) {
         compositeDisposable.add(
-            interactor.onLoopProductsAdded(typeOfMeal, products.map { it.id }).subscribe({
+            interactor.onLoopProductsAdded(
+                initConfig.startFrom,
+                products.map { it.id }).subscribe({
                 products.forEach {
                     val productView = it.apply { isSelected = false }
                     loopProducts.add(productView)

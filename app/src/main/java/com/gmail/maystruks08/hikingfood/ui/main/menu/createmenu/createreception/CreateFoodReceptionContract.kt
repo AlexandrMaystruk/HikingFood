@@ -33,8 +33,6 @@ interface CreateFoodReceptionContract {
 
     interface Presenter : IPresenter<View> {
 
-        fun initFragment()
-
         fun onAddStaticProductClicked()
 
         fun onAddLoopProductClicked()
