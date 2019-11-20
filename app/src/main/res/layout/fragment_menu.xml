@@ -42,8 +42,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_m"
         android:layout_marginEnd="@dimen/margin_m"
-        android:layout_marginBottom="@dimen/margin_m"
-        android:background="@color/colorCard"
+        android:layout_marginBottom="@dimen/margin_xs"
+        android:background="@drawable/bg_layout"
         android:focusableInTouchMode="true"
         android:paddingBottom="@dimen/margin_m"
         android:translationZ="-1dp"
@@ -52,7 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appBarLayout"
         app:layout_constraintVertical_bias="0.0">
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/daysRecyclerView"

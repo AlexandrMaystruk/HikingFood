@@ -44,7 +44,7 @@
         android:layout_marginStart="@dimen/margin_m"
         android:layout_marginEnd="@dimen/margin_m"
         android:layout_marginBottom="@dimen/margin_m"
-        android:background="@color/colorCard"
+        android:background="@drawable/bg_layout"
         android:focusableInTouchMode="true"
         android:paddingBottom="@dimen/margin_m"
         android:translationZ="-1dp"
