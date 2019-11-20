@@ -1,6 +1,5 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
@@ -19,7 +19,8 @@ import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_create_food_reception.*
 import javax.inject.Inject
 
-class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.View, SelectNewProductsListener {
+class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.View,
+    SelectNewProductsListener {
 
     @Inject
     lateinit var presenter: CreateFoodReceptionContract.Presenter
@@ -40,10 +41,17 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
 
     override fun builder(): FragmentToolbar {
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbar)
-            .withTitle( R.string.fragment_create_food_reception_name)
+            .withId(R.id.toolbarCreateReception)
+            .withTitle(R.string.fragment_create_food_reception_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()
+    }
+
+    override fun showStepProgressView(stepCount: Int, startFrom: TypeOfMeal) {
+        vStepProgress.setStepsCount(stepCount, startFrom.type)
+        vStepProgress.onStepSelected = {
+            presenter.onStepSelected(it)
+        }
     }
 
     override fun initViews() {
@@ -52,10 +60,6 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
         initStaticCardSwipe()
         initVariableCardSwipe()
         presenter.initFragment()
-
-        vStepProgress.onStepSelected = {
-            presenter.onStepSelected(it)
-        }
 
         btnCreateFoodReceiptNextStep.setOnClickListener {
             presenter.onFoodReceptionCreationComplete(
@@ -74,7 +78,7 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
     }
 
     private fun setStaticProductAdapter() {
-        adapterStaticProducts = ProductAdapter { adapterItemOnLongClicked(it)  }
+        adapterStaticProducts = ProductAdapter { adapterItemOnLongClicked(it) }
         staticProductsRecyclerView.layoutManager = LinearLayoutManager(context)
         staticProductsRecyclerView.adapter = adapterStaticProducts
     }
@@ -128,7 +132,7 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
         adapterLoopProducts.productList = products.toMutableList()
     }
 
-    override fun showSelectProductFragment(products: List<ProductView>,  isStaticProducts: Boolean) {
+    override fun showSelectProductFragment(products: List<ProductView>, isStaticProducts: Boolean) {
         SelectProductsDialog.getInstance(products, isStaticProducts)
             .show(childFragmentManager, Screens.SELECT_PRODUCTS_DIALOG)
     }
@@ -148,7 +152,6 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
     }
 
     override fun showFinishButton() {
-        btnCreateFoodReceiptNextStep.setBackgroundColor(Color.GREEN)
         btnCreateFoodReceiptNextStep.text = "Завершить"
         btnCreateFoodReceiptNextStep.setOnClickListener {
             presenter.onFinishClicked()
@@ -196,6 +199,7 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
         App.clearCreateReceptionComponent()
         super.onDestroy()
     }
+
     override fun showLoading() {}
 
     override fun hideLoading() {}

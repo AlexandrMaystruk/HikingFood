@@ -2,6 +2,7 @@ package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu
 
 import android.util.Log
 import com.gmail.maystruks08.domain.CalendarHelper
+import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
@@ -13,43 +14,53 @@ class CreateMenuPresenter @Inject constructor(
     private val calendarHelper: CalendarHelper
 ) : CreateMenuContract.Presenter, BasePresenter<CreateMenuContract.View>() {
 
-    private var name: String = ""
-    private var dayCount: Int = 1
-    private var relaxDayCount: Int = 0
-    private var peopleCount: Int = 1
-    private var timeOfStartMenu: Int = 0
-    private var dateOfStartMenu: Date = Date()
+    private var initConfig: CreateMenuInteractor.Config? = null
+
+    override fun bindView(view: CreateMenuContract.View) {
+        super.bindView(view)
+        compositeDisposable.add(
+            interactor.getInitInfo().subscribe({
+                initConfig = it
+                view.showInitInfo(it)
+            }, {
+                it.printStackTrace()
+            })
+        )
+    }
 
     override fun onNameMenuChanged(menuName: String) {
-        this.name = menuName
+        initConfig?.name = menuName
     }
 
     override fun onRelaxDayCountChanged(relaxDayCount: Int) {
-        this.relaxDayCount = relaxDayCount
+        initConfig?.relaxDayCount = relaxDayCount
     }
 
-    override fun onDayCountChanged(dayCount: Int) {
-        this.dayCount = dayCount
+    override fun onReceptionCountCountChanged(receptionCount: Int) {
+        initConfig?.receptionCount = receptionCount
     }
 
     override fun onCountOfPeopleChanged(countOfPeople: Int) {
-        this.peopleCount = countOfPeople
+        initConfig?.peopleCount = countOfPeople
     }
 
     override fun onTimeMenuStartChanged(time: Int) {
-        this.timeOfStartMenu = time
+        initConfig?.timeOfStartMenu = TypeOfMeal.fromValue(time)
     }
 
     override fun onDateMenuStartChanged(date: Date) {
-        this.dateOfStartMenu = date
+        initConfig?.dateOfStartMenu = date
         view?.showDateOfStartReception(calendarHelper.format(date, CalendarHelper.DATE_FORMAT))
     }
 
     override fun onIngredientPortionClicked() {
         compositeDisposable.add(
-            interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
+            interactor.saveStartInquirerData(initConfig!!)
                 .subscribe({
-                    Log.d(CreateMenuPresenter::class.java.name, "Save start inquirer data success, navigateTo(Screens.ChangeIngredientPortionScreen")
+                    Log.d(
+                        CreateMenuPresenter::class.java.name,
+                        "Save start inquirer data success, navigateTo(Screens.ChangeIngredientPortionScreen"
+                    )
                     router.navigateTo(Screens.ChangeIngredientPortionScreen())
                 }, {
                     view?.showError(it)
@@ -60,7 +71,7 @@ class CreateMenuPresenter @Inject constructor(
 
     override fun createNewMenuClicked() {
         compositeDisposable.add(
-            interactor.saveStartInquirerData(name, dayCount, relaxDayCount, peopleCount, timeOfStartMenu, dateOfStartMenu)
+            interactor.saveStartInquirerData(initConfig!!)
                 .subscribe({
                     Log.d(CreateMenuPresenter::class.java.name, "Save start inquirer data success")
                     router.navigateTo(Screens.ChangeIngredientPortionScreen())

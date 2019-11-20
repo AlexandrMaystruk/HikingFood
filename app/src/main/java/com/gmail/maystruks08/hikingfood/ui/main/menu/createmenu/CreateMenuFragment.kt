@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.fragment_create_menu.*
 import java.util.*
 import javax.inject.Inject
 import android.widget.ArrayAdapter
+import com.gmail.maystruks08.domain.CalendarHelper
+import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor
 import kotlinx.android.synthetic.main.fragment_create_menu.btnCreateMenuNextStep
 import kotlinx.android.synthetic.main.fragment_create_menu.inputLayout
 import kotlinx.android.synthetic.main.fragment_create_menu.npPeopleCountValue
@@ -30,6 +32,9 @@ class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
     @Inject
     lateinit var presenter: CreateMenuContract.Presenter
 
+    @Inject
+    lateinit var calendarHelper: CalendarHelper
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         App.createMenuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_create_menu, container, false)
@@ -41,12 +46,23 @@ class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
     }
 
     override fun builder(): FragmentToolbar {
-        val onCLick = View.OnClickListener { presenter.onBackClicked() }
         return FragmentToolbar.Builder()
             .withId(R.id.toolbarCreate)
             .withTitle(R.string.fragment_create_menu_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun showInitInfo(config: CreateMenuInteractor.Config) {
+        config.run {
+            etMenuName.setText(name)
+            npPeopleCountValue.value = peopleCount
+            npReceptionCountValue.value = receptionCount
+            npRelaxDayCountValue.value = relaxDayCount
+            rgStartReception.setSelection(timeOfStartMenu.type)
+            tvDateOfStartMenu.text = "${getString(R.string.date_of_start)} ${calendarHelper.format(dateOfStartMenu, CalendarHelper.DATE_FORMAT)}"
+        }
     }
 
     override fun initViews() {
@@ -77,7 +93,7 @@ class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
 
         npReceptionCountValue.setOnValueChangedListener { picker, _, _ ->
             if (picker.value >= 0) {
-                presenter.onDayCountChanged(picker.value)
+                presenter.onReceptionCountCountChanged(picker.value)
             }
         }
 

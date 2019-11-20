@@ -31,4 +31,8 @@ interface CreateReceptionInteractor {
     fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable
 
     fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable
+
+    fun getInitConfig(): Single<Config>
+
+    class Config(val countOfReceipt: Int, val startFrom: TypeOfMeal)
 }

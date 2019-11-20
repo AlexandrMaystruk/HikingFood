@@ -1,5 +1,6 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception
 
+import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.hikingfood.core.base.IPresenter
 import com.gmail.maystruks08.hikingfood.core.base.IView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
@@ -25,6 +26,8 @@ interface CreateFoodReceptionContract {
         fun showStaticProductRemoved(position: Int)
 
         fun showVariableProductRemoved(position: Int)
+
+        fun showStepProgressView(stepCount: Int, startFrom: TypeOfMeal)
     }
 
 

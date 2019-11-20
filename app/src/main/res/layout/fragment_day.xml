@@ -11,16 +11,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardBreakfast"
+            android:background="@color/colorCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_min"
-            android:layout_marginTop="@dimen/margin_min"
-            android:layout_marginEnd="@dimen/margin_min"
+            android:layout_marginStart="@dimen/margin_xs"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:layout_marginEnd="@dimen/margin_xs"
             android:elevation="3dp">
 
             <LinearLayout
                 android:id="@+id/layoutProductsBreakfastTableHeader"
-                style="@style/ComponentBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_min"
@@ -29,12 +29,12 @@
 
                 <TextView
                     android:id="@+id/tvDayBreakfast"
-                    style="@style/TextM"
+                    style="@style/TextL"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Продукты на завтрак" />
+                    android:text="Завтрак" />
 
                 <TextView
                     style="@style/TextM"
@@ -55,16 +55,22 @@
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/viewSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_min"
+                android:background="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@+id/layoutProductsBreakfastTableHeader" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBreakfast"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_min"
-                android:layout_marginEnd="@dimen/margin_min"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutProductsBreakfastTableHeader"
+                app:layout_constraintTop_toBottomOf="@+id/viewSeparator"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -91,16 +97,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardLunch"
+            android:background="@color/colorCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_min"
-            android:layout_marginTop="@dimen/margin_min"
-            android:layout_marginEnd="@dimen/margin_min"
+            android:layout_marginStart="@dimen/margin_xs"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:layout_marginEnd="@dimen/margin_xs"
             android:elevation="3dp">
 
             <LinearLayout
                 android:id="@+id/layoutProductsLunchTableHeader"
-                style="@style/ComponentBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_min"
@@ -109,12 +115,12 @@
 
                 <TextView
                     android:id="@+id/tvDayLunch"
-                    style="@style/TextM"
+                    style="@style/TextL"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Продукты на обед" />
+                    android:text="Обед" />
 
                 <TextView
                     style="@style/TextM"
@@ -134,16 +140,22 @@
                     android:text="На всех" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/viewSeparator1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_min"
+                android:background="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@+id/layoutProductsLunchTableHeader" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvLunch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_min"
-                android:layout_marginEnd="@dimen/margin_min"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutProductsLunchTableHeader"
+                app:layout_constraintTop_toBottomOf="@+id/viewSeparator1"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -170,16 +182,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardDinner"
+            android:background="@color/colorCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_min"
-            android:layout_marginTop="@dimen/margin_min"
-            android:layout_marginEnd="@dimen/margin_min"
+            android:layout_margin="@dimen/margin_xs"
             android:elevation="3dp">
 
             <LinearLayout
                 android:id="@+id/layoutProductsDinnerTableHeader"
-                style="@style/ComponentBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_min"
@@ -188,12 +198,12 @@
 
                 <TextView
                     android:id="@+id/tvDayDinner"
-                    style="@style/TextM"
+                    style="@style/TextL"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Продукты на ужин" />
+                    android:text="Ужин" />
 
                 <TextView
                     style="@style/TextM"
@@ -213,15 +223,23 @@
                     android:text="На всех" />
             </LinearLayout>
 
+
+            <View
+                android:id="@+id/viewSeparator2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_min"
+                android:background="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@+id/layoutProductsDinnerTableHeader" />
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_min"
-                android:layout_marginEnd="@dimen/margin_min"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutProductsDinnerTableHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/viewSeparator2" />
 
             <TextView
                 android:id="@+id/tvDinnerReceiptSumWeightForOne"

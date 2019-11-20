@@ -57,8 +57,7 @@ class Menu private constructor(
                 var indexDinner = 0
                 var dayNumber = 1
                 var totalWeight = 0
-                val relaxDayNumber =
-                    if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
+                val relaxDayNumber = if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
                 var day = Day(dayNumber, inquirerInfo.dateOfStartMenu)
                 for (number in 0 until inquirerInfo.numberOfReceptions) {
                     //need to shift index if days start from lunch or dinner

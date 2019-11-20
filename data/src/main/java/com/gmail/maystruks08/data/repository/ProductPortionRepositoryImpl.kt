@@ -20,8 +20,8 @@ class ProductPortionRepositoryImpl @Inject constructor(private val menuInfo: Men
         return Single.just(
             menuInfo.startInquirerInfo ?: StartInquirerInfo(
                 name = "No name",
-                peopleCount = 1,
-                numberOfReceptions = 1,
+                peopleCount = 2,
+                numberOfReceptions = 3,
                 relaxDayCount = 0,
                 dateOfStartMenu = Date(),
                 timeOfStartMenu = TypeOfMeal.BREAKFAST,

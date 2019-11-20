@@ -6,28 +6,53 @@ import com.gmail.maystruks08.domain.exceptions.HasNotStartInquirerInfoException
 import com.gmail.maystruks08.domain.executor.ThreadExecutor
 import com.gmail.maystruks08.domain.repository.CreateMenuRepository
 import io.reactivex.Completable
+import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 
 class CreateMenuInteractorImpl @Inject constructor(
     private val executor: ThreadExecutor,
-    val repository: CreateMenuRepository
-) :
+    val repository: CreateMenuRepository) :
     CreateMenuInteractor {
 
-    override fun saveStartInquirerData(
-        name: String, dayCount: Int, relaxDayCount: Int,
-        peopleCount: Int, timeOfStartMenu: Int, dateOfStartMenu: Date
-    ): Completable {
+    override fun getInitInfo(): Single<CreateMenuInteractor.Config> {
+        return repository.getStartInquirerData().map {
+            CreateMenuInteractor.Config(
+                it.name,
+                it.peopleCount,
+                it.numberOfReceptions,
+                it.relaxDayCount,
+                it.dateOfStartMenu,
+                it.timeOfStartMenu
+            )
+        }.onErrorResumeNext {
+            Single.create<CreateMenuInteractor.Config> { emitter ->
+                if (it is HasNotStartInquirerInfoException) {
+                    emitter.onSuccess(
+                        CreateMenuInteractor.Config(
+                            "",
+                            4,
+                            3,
+                            0,
+                            Date(),
+                            TypeOfMeal.BREAKFAST
+                        )
+                    )
+                } else emitter.onError(it)
+            }
+        }
+    }
+
+    override fun saveStartInquirerData(initialConfig: CreateMenuInteractor.Config): Completable {
         return repository.getStartInquirerData()
             .flatMapCompletable {
                 val updatedStartInquirerData = it.apply {
-                    this.name = name
-                    this.numberOfReceptions = dayCount
-                    this.relaxDayCount = relaxDayCount
-                    this.peopleCount = peopleCount
-                    this.timeOfStartMenu = TypeOfMeal.fromValue(timeOfStartMenu)
-                    this.dateOfStartMenu = dateOfStartMenu
+                    this.name = initialConfig.name
+                    this.numberOfReceptions = initialConfig.receptionCount
+                    this.relaxDayCount = initialConfig.relaxDayCount
+                    this.peopleCount = initialConfig.peopleCount
+                    this.timeOfStartMenu = initialConfig.timeOfStartMenu
+                    this.dateOfStartMenu = initialConfig.dateOfStartMenu
                 }
                 updatedStartInquirerData.updatePortionValue()
                 repository.saveStartInquirerData(updatedStartInquirerData)
@@ -39,12 +64,12 @@ class CreateMenuInteractorImpl @Inject constructor(
                     val defaultSoupSets = repository.getDefaultSoupSet().blockingGet()
                     repository.saveStartInquirerData(
                         StartInquirerInfo(
-                            name = name,
-                            numberOfReceptions = dayCount,
-                            relaxDayCount = relaxDayCount,
-                            peopleCount = peopleCount,
-                            dateOfStartMenu = dateOfStartMenu,
-                            timeOfStartMenu = TypeOfMeal.fromValue(timeOfStartMenu),
+                            name = initialConfig.name,
+                            numberOfReceptions = initialConfig.receptionCount,
+                            relaxDayCount = initialConfig.relaxDayCount,
+                            peopleCount = initialConfig.peopleCount,
+                            dateOfStartMenu = initialConfig.dateOfStartMenu,
+                            timeOfStartMenu = initialConfig.timeOfStartMenu,
                             products = defaultProducts.toMutableList(),
                             productSets = defaultSoupSets,
                             foodMeals = defaultFoodMeals.toMutableMap()
@@ -52,7 +77,6 @@ class CreateMenuInteractorImpl @Inject constructor(
                             this.updatePortionValue()
                         }
                     )
-
                 } else {
                     Completable.error(throwable)
                 }

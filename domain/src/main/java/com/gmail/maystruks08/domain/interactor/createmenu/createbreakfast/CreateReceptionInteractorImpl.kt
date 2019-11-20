@@ -13,6 +13,12 @@ class CreateReceptionInteractorImpl @Inject constructor(
     private val repository: CreateReceptionRepository
 ) : CreateReceptionInteractor {
 
+    override fun getInitConfig(): Single<CreateReceptionInteractor.Config> {
+        return repository.getStartInquirerInfo().map {
+            CreateReceptionInteractor.Config(it.numberOfReceptions, it.timeOfStartMenu)
+        }
+    }
+
     override fun getProductById(productId: Int): Product? {
         return repository.getProductById(productId)
     }
@@ -22,6 +28,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
+
     override fun getDefaultStaticProducts(): Single<List<Product>> {
         return repository.getDefaultStaticProducts().flatMap { list ->
             return@flatMap Single.create<List<Product>> { emitter ->
@@ -35,6 +42,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
+
     override fun getDefaultLoopProducts(): Single<List<Product>> {
         return repository.getDefaultLoopProducts().flatMap { list ->
             return@flatMap Single.create<List<Product>> { emitter ->
@@ -59,7 +67,8 @@ class CreateReceptionInteractorImpl @Inject constructor(
         return Completable.fromAction {
             val startInfo = repository.getStartInquirerInfo().blockingGet()
             val products = productIds.mapNotNull { id ->
-                repository.getProductById(id)?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
+                repository.getProductById(id)
+                    ?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
             }
             startInfo.foodMeals[typeOfMeal]?.defProducts?.addAll(products)
         }
@@ -69,7 +78,8 @@ class CreateReceptionInteractorImpl @Inject constructor(
         return Completable.fromAction {
             val startInfo = repository.getStartInquirerInfo().blockingGet()
             val products = productIds.mapNotNull { id ->
-                repository.getProductById(id)?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
+                repository.getProductById(id)
+                    ?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
             }
             startInfo.foodMeals[typeOfMeal]?.loopProducts?.addAll(products)
         }

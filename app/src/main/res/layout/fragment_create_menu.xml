@@ -7,7 +7,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:background="@null"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0dp"
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_m"
-            android:layout_marginTop="135dp"
+            android:layout_marginTop="115dp"
             android:layout_marginEnd="@dimen/margin_m"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -171,7 +171,7 @@
             app:layout_constraintTop_toBottomOf="@+id/npReceptionCountValue"
             app:np_max="25"
             app:np_min="1"
-            app:np_value="2" />
+            app:np_value="4" />
 
         <Spinner
             android:id="@+id/rgStartReception"

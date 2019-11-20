@@ -14,12 +14,38 @@ class CreateFoodReceptionPresenter @Inject constructor(
     private val productViewMapper: ProductViewMapper
 ) : CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
 
+    private var initConfig: CreateReceptionInteractor.Config? = null
     private var typeOfMeal: TypeOfMeal = TypeOfMeal.BREAKFAST
+    private var shift = 0
+    private var receiptCount = 3
     private var staticProducts = mutableListOf<ProductView>()
     private var loopProducts = mutableListOf<ProductView>()
 
+    override fun bindView(view: CreateFoodReceptionContract.View) {
+        super.bindView(view)
+        compositeDisposable.add(interactor.getInitConfig()
+            .flatMap {
+                initConfig = it
+                receiptCount = if (it.countOfReceipt > 3) 3 else it.countOfReceipt
+                interactor.getAllDefaultProducts(typeOfMeal)
+            }
+            .doOnSubscribe { view.showLoading() }
+            .doAfterTerminate { view.hideLoading() }
+            .subscribe({ meal ->
+                staticProducts = productViewMapper.fromProducts(meal.defProducts)
+                loopProducts = productViewMapper.fromProducts(meal.loopProducts)
+                view.run {
+                    showStepProgressView(receiptCount, typeOfMeal)
+                    showStaticProducts(staticProducts)
+                    showLoopProducts(loopProducts)
+                }
+            }, {
+                it.printStackTrace()
+            })
+        )
+    }
+
     override fun initFragment() {
-        view?.showLoading()
         compositeDisposable.add(
             interactor.getAllDefaultProducts(typeOfMeal)
                 .doOnSubscribe { view?.showLoading() }
@@ -118,7 +144,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
     }
 
     override fun onStepSelected(step: Int) {
-        typeOfMeal = TypeOfMeal.fromValue(step)
+        typeOfMeal = TypeOfMeal.fromValue(step, shift)
         initFragment()
     }
 
