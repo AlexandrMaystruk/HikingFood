@@ -54,6 +54,9 @@ ext {
     ankoVersion = '0.10.4'
     ktxVersion = '0.3'
 
+    //pdf
+    textPDFVersion = '5.5.10'
+
     //Dependency Injection
     daggerVersion = '2.23.2'
 
@@ -89,7 +92,7 @@ ext {
             kotlinKtx       : "androidx.core:core-ktx:${androidXToolsVersion}",
             cicerone        : "ru.terrakok.cicerone:cicerone:${ciceroneVersion}",
             circleImageView : "de.hdodenhof:circleimageview:${circleImageViewVersion}",
-            androidCoreKTX : "androidx.core:core-ktx:${androidCoreKTXVersion}"
+            androidCoreKTX  : "androidx.core:core-ktx:${androidCoreKTXVersion}"
     ]
 
     presentationTestDependencies = [
@@ -113,20 +116,20 @@ ext {
     ]
 
     dataDependencies = [
-            annotations              : "androidx.annotation:annotation:${androidXToolsVersion}",
-            javaxAnnotation          : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject              : "javax.inject:javax.inject:${javaxInjectVersion}",
-            kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            rxJava                   : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxAndroid                : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            room                     : "androidx.room:room-runtime:$roomVersion",
-            roomCompiler             : "androidx.room:room-compiler:$roomVersion",
-            roomRxJava               : "androidx.room:room-rxjava2:$roomVersion",
+            annotations    : "androidx.annotation:annotation:${androidXToolsVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
+            kotlin         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            room           : "androidx.room:room-runtime:$roomVersion",
+            roomCompiler   : "androidx.room:room-compiler:$roomVersion",
+            roomRxJava     : "androidx.room:room-rxjava2:$roomVersion",
+            itextpdf       : "com.itextpdf:itextg:$textPDFVersion"
     ]
 
     dataTestDependencies = [
             junit  : "junit:junit:${jUnitVersion}",
             mockito: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}"
     ]
-
 }

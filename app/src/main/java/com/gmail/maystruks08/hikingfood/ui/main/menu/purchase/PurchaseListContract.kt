@@ -9,14 +9,18 @@ interface PurchaseListContract {
     interface View : IView {
 
         fun showPurchaseList(items: List<PurchaseListItemView>)
+
+        fun showMessage(message: String)
     }
 
     interface Presenter : IPresenter<View> {
 
-        fun saveInitData(items: MutableList<PurchaseListItemView>)
+        fun bindView(view: View, menuId: Long)
 
         fun onSearchQueryChanged(productName: String)
 
         fun onItemClicked(item: PurchaseListItemView)
+
+        fun onSavePurchaseListToPDF(menuName: String)
     }
 }

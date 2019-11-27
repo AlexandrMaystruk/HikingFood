@@ -11,8 +11,7 @@ import javax.inject.Inject
 
 class MenuPresenter @Inject constructor(
     private val menuInteractorImpl: MenuInteractorImpl,
-    private val dayMenuViewMapper: DayMenuViewMapper,
-    private val purchaseListItemViewMapper: PurchaseListItemViewMapper) :
+    private val dayMenuViewMapper: DayMenuViewMapper) :
     MenuContract.Presenter, BasePresenter<MenuContract.View>() {
 
     private val actualFoodDays = mutableListOf<DayView>()
@@ -33,11 +32,7 @@ class MenuPresenter @Inject constructor(
     }
 
     override fun onShowPurchaseList() {
-        menu?.let {
-            router.navigateTo(
-                Screens.PurchaseListScreen(purchaseListItemViewMapper.fromPurchaseListItems(it.purchaseList.purchaseListItems))
-            )
-        }
+        menu?.let { router.navigateTo(Screens.PurchaseListScreen(it.id, it.name)) }
     }
 
     override fun dayItemClicked(day: DayView) {

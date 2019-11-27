@@ -1,6 +1,8 @@
 package com.gmail.maystruks08.hikingfood.ui.main
 
+import android.Manifest.permission.*
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -14,9 +16,14 @@ import ru.terrakok.cicerone.commands.Command
 import javax.inject.Inject
 import com.gmail.maystruks08.hikingfood.App
 import com.gmail.maystruks08.hikingfood.utils.PRESS_TWICE_INTERVAL
-import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.core.navigation.AppNavigator
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.gmail.maystruks08.hikingfood.R
+import com.gmail.maystruks08.hikingfood.utils.extensions.toast
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,8 +58,39 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         navigatorHolder.setNavigator(navigator)
+        requestPermissions()
     }
 
+
+    private fun requestPermissions() {
+        if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, RECORD_AUDIO)) {
+                toast("Please grant permissions to write external storage ")
+                requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE), PERMISSIONS_READ_WRITE_EXTERNAL_STORAGE)
+            } else {
+                requestPermissions(
+                    this,
+                    arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE),
+                    PERMISSIONS_READ_WRITE_EXTERNAL_STORAGE
+                )
+            }
+        } else if (ContextCompat.checkSelfPermission(this, RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+          //do work
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSIONS_READ_WRITE_EXTERNAL_STORAGE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    toast("Permissions Denied to write external storage")
+                }
+                return
+            }
+        }
+    }
 
     override fun onPause() {
         super.onPause()
@@ -81,5 +119,11 @@ class MainActivity : AppCompatActivity() {
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
+    }
+
+    companion object{
+
+       private const val PERMISSIONS_READ_WRITE_EXTERNAL_STORAGE = 7
+
     }
 }

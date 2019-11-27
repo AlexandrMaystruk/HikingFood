@@ -2,6 +2,7 @@
     <string name="app_name">Hiking Food</string>
     <string name="toast_exit_app_warning_text">Tap again to exit</string>
     <string name="search">Search</string>
+    <string name="save">Save to PDF</string>
     <string name="close">Close</string>
     <string name="breakfast">Breakfast</string>
     <string name="lunch">Lunch</string>

@@ -33,8 +33,8 @@ object Screens {
         override fun getFragment() = ProductPortionForOnePeopleFragment()
     }
 
-    class PurchaseListScreen(private val purchaseListItems: List<PurchaseListItemView>) : AppScreen() {
-        override fun getFragment() = PurchaseListFragment.getInstance(purchaseListItems)
+    class PurchaseListScreen(private val menuId: Long, private val menuName: String) : AppScreen() {
+        override fun getFragment() = PurchaseListFragment.getInstance(menuId, menuName)
     }
 
     class DayPagerScreen(private val dayViews: List<DayView>, private val position: Int) : AppScreen() {
