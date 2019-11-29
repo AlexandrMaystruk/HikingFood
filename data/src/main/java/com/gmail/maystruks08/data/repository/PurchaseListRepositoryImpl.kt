@@ -20,7 +20,7 @@ class PurchaseListRepositoryImpl @Inject constructor(private val menuInfo: MenuI
 
     override fun exportDataToPDF(menuName: String, purchaseList: PurchaseList): Completable {
         return Completable.fromAction {
-            pdfHelper.exportPurchaseList(menuName, purchaseList)
+            pdfHelper.exportMenu(menuName, menuInfo.menuList[0])
         }
     }
 }
