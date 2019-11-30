@@ -19,7 +19,7 @@ class PurchaseListInteractorImpl @Inject constructor(
     }
 
     override fun exportDataToPDF(menuName: String, purchaseList: PurchaseList): Completable {
-        return repository.exportDataToPDF(menuName, purchaseList)
+        return repository.exportPurchaseListDataToPDF(menuName, purchaseList)
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }

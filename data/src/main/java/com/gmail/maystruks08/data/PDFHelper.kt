@@ -2,6 +2,7 @@ package com.gmail.maystruks08.data
 
 import android.os.Environment
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.domain.CalendarHelper
 import com.gmail.maystruks08.domain.entity.*
 import com.itextpdf.text.*
@@ -19,7 +20,7 @@ import com.itextpdf.text.Phrase
 class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) {
 
     fun exportPurchaseList(fileName: String, purchaseList: PurchaseList) {
-        val document = createDocument(fileName)
+        val document = createDocument("Список_$fileName")
         try {
             val table = PdfPTable(2)
             table.setWidths(intArrayOf(2, 1))
@@ -38,7 +39,7 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
     }
 
     fun exportPurchaseListGroupByFoodReception(fileName: String, purchaseList: PurchaseList) {
-        val document = createDocument(fileName)
+        val document = createDocument("Список_$fileName")
         try {
             val table = PdfPTable(2)
             table.setWidths(intArrayOf(2, 1))
@@ -57,14 +58,12 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
     }
 
 
-    fun exportMenu(fileName: String, menu: Menu) {
-        val document = createDocument(fileName)
+    fun exportMenu(menu: Menu) {
+        val document = createDocument("Раскладка_" + menu.name)
         try {
             val table = PdfPTable(1)
             table.addCell( createPdfPCell("${menu.name} ${calendarHelper.format(menu.dateOfStartMenu, CalendarHelper.DATE_FORMAT)}.${menu.startFrom.title} старт раскладки", Element.ALIGN_CENTER, true))
-            menu.days.forEach {
-                table.addCell(createDayTable(it))
-            }
+            menu.days.forEach { table.addCell(createDayTable(it)) }
             document.add(table)
         } catch (de: DocumentException) {
             Log.e("PDFCreator", "DocumentException:$de")
@@ -75,8 +74,7 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
 
     private fun createDayTable(day: Day): PdfPTable {
         return PdfPTable(3).apply {
-            val cellHeader = createPdfPCell("День ${day.number} ${calendarHelper.format(day.date, CalendarHelper.DATE_FORMAT)}", Element.ALIGN_CENTER, true)
-            cellHeader.colspan = 3
+            val cellHeader = createPdfPCell("День ${day.number} ${calendarHelper.format(day.date, CalendarHelper.DATE_FORMAT)}. Вес на одного ${day.getDayTotalWeightForOne()}. Вес на всех ${day.getDayTotalWeightForAll()}", Element.ALIGN_CENTER, true).apply { colspan = 3 }
             this.addCell(cellHeader)
 
             TypeOfMeal.values().forEach {
@@ -88,19 +86,28 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
 
     private fun createFoodReceiptTable(typeOfMeal: TypeOfMeal, products: List<Product>): PdfPTable {
         return PdfPTable(3).apply {
+            if(products.isEmpty()){
+                addCell(createPdfPCell("", Element.ALIGN_LEFT).apply { borderWidth = 0f })
+                addCell(createPdfPCell("", Element.ALIGN_LEFT).apply { borderWidth = 0f })
+                addCell(createPdfPCell("", Element.ALIGN_LEFT).apply { borderWidth = 0f })
+                return this
+            }
+
             addCell(createPdfPCell(typeOfMeal.title, Element.ALIGN_LEFT, true))
             addCell(createPdfPCell("На 1", Element.ALIGN_RIGHT, true))
             addCell(createPdfPCell("На всех", Element.ALIGN_RIGHT, true))
 
-            products.forEach {
-                addCell(createPdfPCell(it.name, Element.ALIGN_LEFT))
-                addCell(createPdfPCell(it.portion.value.toString(), Element.ALIGN_RIGHT))
-                addCell(
-                    createPdfPCell(
-                        it.portion.portionForAllPeople.toString(),
-                        Element.ALIGN_RIGHT
-                    )
-                )
+            products.forEach { product ->
+                addCell(createPdfPCell(product.name, Element.ALIGN_LEFT))
+                addCell(createPdfPCell(product.portion.value.toString(), Element.ALIGN_RIGHT))
+                addCell(createPdfPCell(product.portion.portionForAllPeople.toString(), Element.ALIGN_RIGHT))
+                if(product is ProductSet){
+                    product.products.forEach {
+                        addCell(createPdfPCell(it.name, Element.ALIGN_LEFT))
+                        addCell(createPdfPCell(it.portion.value.toString(), Element.ALIGN_RIGHT))
+                        addCell(createPdfPCell(it.portion.portionForAllPeople.toString(), Element.ALIGN_RIGHT))
+                    }
+                }
             }
         }
     }

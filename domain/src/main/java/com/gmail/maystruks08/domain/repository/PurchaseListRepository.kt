@@ -8,6 +8,6 @@ interface PurchaseListRepository {
 
     fun getPurchaseList(menuId: Long): Single<PurchaseList>
 
-    fun exportDataToPDF(menuName: String,  purchaseList: PurchaseList): Completable
+    fun exportPurchaseListDataToPDF(menuName: String, purchaseList: PurchaseList): Completable
 
 }

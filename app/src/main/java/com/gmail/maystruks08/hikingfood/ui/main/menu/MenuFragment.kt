@@ -2,6 +2,7 @@ package com.gmail.maystruks08.hikingfood.ui.main.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,7 +10,8 @@ import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.utils.GridSpacingItemDecoration
- import kotlinx.android.synthetic.main.fragment_menu.*
+import com.gmail.maystruks08.hikingfood.utils.extensions.toast
+import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
 
 class MenuFragment : BaseFragment(), MenuContract.View {
@@ -33,10 +35,16 @@ class MenuFragment : BaseFragment(), MenuContract.View {
         presenter.bindView(this)
     }
     override fun builder(): FragmentToolbar {
+        val menuItemClick = MenuItem.OnMenuItemClickListener {
+            presenter.onSaveMenuToPDF()
+            true
+        }
         return FragmentToolbar.Builder()
             .withId(R.id.toolbarMenu)
             .withTitle( R.string.fragment_menu_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
+            .withMenu(R.menu.menu_food_menu)
+            .withMenuItems(listOf(R.id.action_save_menu_to_pdf), listOf(menuItemClick))
             .build()
     }
 
@@ -64,6 +72,10 @@ class MenuFragment : BaseFragment(), MenuContract.View {
 
     override fun showFoodDays(days: List<DayView>) {
         daysAdapter.dayList = days.toMutableList()
+    }
+
+    override fun showMessage(message: String) {
+        context?.toast(message)
     }
 
     override fun onDestroyView() {
