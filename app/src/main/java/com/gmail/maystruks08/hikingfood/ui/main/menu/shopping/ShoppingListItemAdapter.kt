@@ -1,18 +1,18 @@
-package com.gmail.maystruks08.hikingfood.ui.main.menu.purchase
+package com.gmail.maystruks08.hikingfood.ui.main.menu.shopping
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gmail.maystruks08.hikingfood.R
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.PurchaseListItemView
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.ShoppingListItemView
 import kotlinx.android.synthetic.main.item_purchase_list.view.*
 import kotlin.properties.Delegates
 
-class PurchaseListItemAdapter(private val clickListener: (PurchaseListItemView) -> Unit) :
-    RecyclerView.Adapter<PurchaseListItemAdapter.ViewHolder>() {
+class ShoppingListItemAdapter(private val clickListener: (ShoppingListItemView) -> Unit) :
+    RecyclerView.Adapter<ShoppingListItemAdapter.ViewHolder>() {
 
-    var purchaseListItems: MutableList<PurchaseListItemView> by Delegates.observable(mutableListOf()) { _, _, _ ->
+    var shoppingListItems: MutableList<ShoppingListItemView> by Delegates.observable(mutableListOf()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
@@ -23,22 +23,22 @@ class PurchaseListItemAdapter(private val clickListener: (PurchaseListItemView) 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindHolder(purchaseListItems[holder.adapterPosition], clickListener)
+        holder.bindHolder(shoppingListItems[holder.adapterPosition], clickListener)
     }
 
-    override fun getItemCount(): Int = purchaseListItems.size
+    override fun getItemCount(): Int = shoppingListItems.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindHolder(item: PurchaseListItemView, clickListener: (PurchaseListItemView) -> Unit) {
+        fun bindHolder(item: ShoppingListItemView, clickListener: (ShoppingListItemView) -> Unit) {
             itemView.tvProductName.text = item.name
             itemView.tvTotalWeight.text = item.totalWeight.toString()
             itemView.tvUnit.text = item.unit.type
             itemView.tvPosition.isChecked = item.isPurchased
             itemView.setOnClickListener {
-                val index = purchaseListItems.indexOf(item)
+                val index = shoppingListItems.indexOf(item)
                 if (index != -1){
-                    purchaseListItems[index].isPurchased = !item.isPurchased
+                    shoppingListItems[index].isPurchased = !item.isPurchased
                     itemView.tvPosition.isChecked = !itemView.tvPosition.isChecked
                 }
                 clickListener(item)

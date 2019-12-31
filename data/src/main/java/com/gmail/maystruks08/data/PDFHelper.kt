@@ -2,7 +2,6 @@ package com.gmail.maystruks08.data
 
 import android.os.Environment
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.domain.CalendarHelper
 import com.gmail.maystruks08.domain.entity.*
 import com.itextpdf.text.*
@@ -19,51 +18,62 @@ import com.itextpdf.text.Phrase
 
 class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) {
 
-    fun exportPurchaseList(fileName: String, purchaseList: PurchaseList) {
-        val document = createDocument("Список_$fileName")
-        try {
-            val table = PdfPTable(2)
-            table.setWidths(intArrayOf(2, 1))
-            table.addCell(createPdfPCell("Продукты", Element.ALIGN_LEFT, true))
-            table.addCell(createPdfPCell("Вес", Element.ALIGN_RIGHT, true))
-            purchaseList.purchaseListItems.forEach {
-                table.addCell(createPdfPCell(it.product.name, Element.ALIGN_LEFT))
-                table.addCell(createPdfPCell(it.totalWeight.toString(), Element.ALIGN_RIGHT))
-            }
-            document.add(table)
-        } catch (de: DocumentException) {
-            Log.e("PDFCreator", "DocumentException:$de")
-        } finally {
-            document.close()
-        }
-    }
-
-    fun exportPurchaseListGroupByFoodReception(fileName: String, purchaseList: PurchaseList) {
-        val document = createDocument("Список_$fileName")
-        try {
-            val table = PdfPTable(2)
-            table.setWidths(intArrayOf(2, 1))
-            table.addCell(createPdfPCell("Продукты", Element.ALIGN_LEFT, true))
-            table.addCell(createPdfPCell("Вес", Element.ALIGN_RIGHT, true))
-            purchaseList.purchaseListItems.forEach {
-                table.addCell(createPdfPCell(it.product.name, Element.ALIGN_LEFT))
-                table.addCell(createPdfPCell(it.totalWeight.toString(), Element.ALIGN_RIGHT))
-            }
-            document.add(table)
-        } catch (de: DocumentException) {
-            Log.e("PDFCreator", "DocumentException:$de")
-        } finally {
-            document.close()
-        }
-    }
-
 
     fun exportMenu(menu: Menu) {
         val document = createDocument("Раскладка_" + menu.name)
         try {
             val table = PdfPTable(1)
-            table.addCell( createPdfPCell("${menu.name} ${calendarHelper.format(menu.dateOfStartMenu, CalendarHelper.DATE_FORMAT)}.${menu.startFrom.title} старт раскладки", Element.ALIGN_CENTER, true))
+            table.addCell(
+                createPdfPCell(
+                    "${menu.name} ${calendarHelper.format(
+                        menu.dateOfStartMenu,
+                        CalendarHelper.DATE_FORMAT
+                    )}.${menu.startFrom.title} старт раскладки", Element.ALIGN_CENTER, true
+                )
+            )
             menu.days.forEach { table.addCell(createDayTable(it)) }
+            document.add(table)
+        } catch (de: DocumentException) {
+            Log.e("PDFCreator", "DocumentException:$de")
+        } finally {
+            document.close()
+        }
+    }
+
+    fun exportPurchaseListGroupByProduct(fileName: String, data: List<ShoppingListItem>) {
+        val document = createDocument("Список_$fileName")
+        try {
+            val table = PdfPTable(2)
+            table.setWidths(intArrayOf(2, 1))
+            table.addCell(createPdfPCell("Продукты", Element.ALIGN_LEFT, true))
+            table.addCell(createPdfPCell("Вес", Element.ALIGN_RIGHT, true))
+            data.forEach {
+                table.addCell(createPdfPCell(it.product.name, Element.ALIGN_LEFT))
+                table.addCell(createPdfPCell(it.totalWeight.toString(), Element.ALIGN_RIGHT))
+            }
+            document.add(table)
+        } catch (de: DocumentException) {
+            Log.e("PDFCreator", "DocumentException:$de")
+        } finally {
+            document.close()
+        }
+    }
+
+    fun exportPurchaseListGroupByStoreDepartment(fileName: String, data: Map<StoreDepartment, List<ShoppingListItem>>) {
+        val document = createDocument("Список_$fileName")
+        try {
+            val table = PdfPTable(2)
+            table.setWidths(intArrayOf(2, 1))
+            table.addCell(createPdfPCell("Продукты", Element.ALIGN_LEFT, true))
+            table.addCell(createPdfPCell("Вес", Element.ALIGN_RIGHT, true))
+            data.forEach { entry ->
+                val cellHeader = createPdfPCell(entry.key.type, Element.ALIGN_CENTER, true).apply { colspan = 2 }
+                table.addCell(cellHeader)
+                entry.value.forEach {
+                    table.addCell(createPdfPCell(it.product.name, Element.ALIGN_LEFT))
+                    table.addCell(createPdfPCell(it.totalWeight.toString(), Element.ALIGN_RIGHT))
+                }
+            }
             document.add(table)
         } catch (de: DocumentException) {
             Log.e("PDFCreator", "DocumentException:$de")
@@ -74,7 +84,14 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
 
     private fun createDayTable(day: Day): PdfPTable {
         return PdfPTable(3).apply {
-            val cellHeader = createPdfPCell("День ${day.number} ${calendarHelper.format(day.date, CalendarHelper.DATE_FORMAT)}. Вес на одного ${day.getDayTotalWeightForOne()}. Вес на всех ${day.getDayTotalWeightForAll()}", Element.ALIGN_CENTER, true).apply { colspan = 3 }
+            val cellHeader = createPdfPCell(
+                "День ${day.number} ${calendarHelper.format(
+                    day.date,
+                    CalendarHelper.DATE_FORMAT
+                )}. Вес на одного ${day.getDayTotalWeightForOne()}. Вес на всех ${day.getDayTotalWeightForAll()}",
+                Element.ALIGN_CENTER,
+                true
+            ).apply { colspan = 3 }
             this.addCell(cellHeader)
 
             TypeOfMeal.values().forEach {
@@ -86,7 +103,7 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
 
     private fun createFoodReceiptTable(typeOfMeal: TypeOfMeal, products: List<Product>): PdfPTable {
         return PdfPTable(3).apply {
-            if(products.isEmpty()){
+            if (products.isEmpty()) {
                 addCell(createPdfPCell("", Element.ALIGN_LEFT).apply { borderWidth = 0f })
                 addCell(createPdfPCell("", Element.ALIGN_LEFT).apply { borderWidth = 0f })
                 addCell(createPdfPCell("", Element.ALIGN_LEFT).apply { borderWidth = 0f })
@@ -100,12 +117,22 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
             products.forEach { product ->
                 addCell(createPdfPCell(product.name, Element.ALIGN_LEFT))
                 addCell(createPdfPCell(product.portion.value.toString(), Element.ALIGN_RIGHT))
-                addCell(createPdfPCell(product.portion.portionForAllPeople.toString(), Element.ALIGN_RIGHT))
-                if(product is ProductSet){
+                addCell(
+                    createPdfPCell(
+                        product.portion.portionForAllPeople.toString(),
+                        Element.ALIGN_RIGHT
+                    )
+                )
+                if (product is ProductSet) {
                     product.products.forEach {
                         addCell(createPdfPCell(it.name, Element.ALIGN_LEFT))
                         addCell(createPdfPCell(it.portion.value.toString(), Element.ALIGN_RIGHT))
-                        addCell(createPdfPCell(it.portion.portionForAllPeople.toString(), Element.ALIGN_RIGHT))
+                        addCell(
+                            createPdfPCell(
+                                it.portion.portionForAllPeople.toString(),
+                                Element.ALIGN_RIGHT
+                            )
+                        )
                     }
                 }
             }
@@ -113,7 +140,7 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
     }
 
     private fun createDocument(fileName: String): Document {
-        return Document(PageSize.A2, 50f, 50f, 50f, 50f).apply {
+        return Document(PageSize.A3, 50f, 50f, 50f, 50f).apply {
             try {
                 val path = Environment.getExternalStorageDirectory().absolutePath + "/HikingFood"
                 val dir = File(path)

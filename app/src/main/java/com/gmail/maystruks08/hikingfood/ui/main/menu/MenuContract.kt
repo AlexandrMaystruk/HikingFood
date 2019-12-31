@@ -19,7 +19,7 @@ interface MenuContract {
 
         fun dayItemClicked(day: DayView)
 
-        fun onShowPurchaseList()
+        fun onShowShoppingList()
 
         fun onSaveMenuToPDF()
     }

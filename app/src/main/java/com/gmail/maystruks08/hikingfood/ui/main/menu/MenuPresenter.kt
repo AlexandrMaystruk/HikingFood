@@ -31,8 +31,8 @@ class MenuPresenter @Inject constructor(
         )
     }
 
-    override fun onShowPurchaseList() {
-        menu?.let { router.navigateTo(Screens.PurchaseListScreen(it.id, it.name)) }
+    override fun onShowShoppingList() {
+        menu?.let { router.navigateTo(Screens.ShoppingListScreen(it.id, it.name)) }
     }
 
     override fun onSaveMenuToPDF() {

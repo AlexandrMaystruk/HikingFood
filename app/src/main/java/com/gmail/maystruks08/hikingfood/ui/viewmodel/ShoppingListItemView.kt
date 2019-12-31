@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.gmail.maystruks08.domain.entity.Unit
 
-open class PurchaseListItemView(
+open class ShoppingListItemView(
     val productId: Int,
     val name: String,
     val totalWeight: Int,
@@ -34,12 +34,12 @@ open class PurchaseListItemView(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<PurchaseListItemView> {
-        override fun createFromParcel(parcel: Parcel): PurchaseListItemView {
-            return PurchaseListItemView(parcel)
+    companion object CREATOR : Parcelable.Creator<ShoppingListItemView> {
+        override fun createFromParcel(parcel: Parcel): ShoppingListItemView {
+            return ShoppingListItemView(parcel)
         }
 
-        override fun newArray(size: Int): Array<PurchaseListItemView?> {
+        override fun newArray(size: Int): Array<ShoppingListItemView?> {
             return arrayOfNulls(size)
         }
     }

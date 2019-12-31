@@ -1,14 +1,14 @@
-package com.gmail.maystruks08.hikingfood.ui.main.menu.purchase
+package com.gmail.maystruks08.hikingfood.ui.main.menu.shopping
 
 import com.gmail.maystruks08.hikingfood.core.base.IPresenter
 import com.gmail.maystruks08.hikingfood.core.base.IView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.PurchaseListItemView
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.ShoppingListItemView
 
-interface PurchaseListContract {
+interface ShoppingListContract {
 
     interface View : IView {
 
-        fun showPurchaseList(items: List<PurchaseListItemView>)
+        fun showShoppingList(items: List<ShoppingListItemView>)
 
         fun showMessage(message: String)
     }
@@ -19,8 +19,8 @@ interface PurchaseListContract {
 
         fun onSearchQueryChanged(productName: String)
 
-        fun onItemClicked(item: PurchaseListItemView)
+        fun onItemClicked(item: ShoppingListItemView)
 
-        fun onSavePurchaseListToPDF(menuName: String)
+        fun onSaveShoppingListToPDF(menuId: Long, menuName: String)
     }
 }

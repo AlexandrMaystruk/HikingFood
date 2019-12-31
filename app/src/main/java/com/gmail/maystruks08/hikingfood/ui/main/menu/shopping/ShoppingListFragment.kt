@@ -1,27 +1,32 @@
-package com.gmail.maystruks08.hikingfood.ui.main.menu.purchase
+package com.gmail.maystruks08.hikingfood.ui.main.menu.shopping
 
 import android.os.Bundle
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.PurchaseListItemView
+import com.gmail.maystruks08.hikingfood.ui.viewmodel.ShoppingListItemView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
-import kotlinx.android.synthetic.main.fragment_purchase_list.*
+import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import javax.inject.Inject
 
-class PurchaseListFragment : BaseFragment(), PurchaseListContract.View {
+class ShoppingListFragment : BaseFragment(), ShoppingListContract.View {
 
     @Inject
-    lateinit var presenter: PurchaseListContract.Presenter
+    lateinit var presenter: ShoppingListContract.Presenter
 
-    private lateinit var adapter: PurchaseListItemAdapter
+    private lateinit var adapter: ShoppingListItemAdapter
 
     private lateinit var menuName: String
+    private var menuId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.purchaseListComponent?.inject(this)
+        arguments?.run {
+            menuName = getString(MENU_NAME_FOR_SHOPPING_LIST) ?: "No name"
+            menuId = getLong(MENU_ID_FOR_SHOPPING_LIST)
+        }
+        App.shoppingListComponent?.inject(this)
     }
 
     override fun onCreateView(
@@ -29,20 +34,17 @@ class PurchaseListFragment : BaseFragment(), PurchaseListContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_purchase_list, container, false)
+        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.run {
-            presenter.bindView(this@PurchaseListFragment, getLong(MENU_ID_FOR_PURCHASE_LIST))
-            menuName = getString(MENU_NAME_FOR_PURCHASE_LIST) ?: "No name"
-        }
+        presenter.bindView(this@ShoppingListFragment, menuId)
     }
 
     override fun builder(): FragmentToolbar {
         val menuItemClick = MenuItem.OnMenuItemClickListener {
-            presenter.onSavePurchaseListToPDF(menuName)
+            presenter.onSaveShoppingListToPDF(menuId, menuName)
             true
         }
         return FragmentToolbar.Builder()
@@ -55,16 +57,16 @@ class PurchaseListFragment : BaseFragment(), PurchaseListContract.View {
     }
 
     override fun initViews() {
-        adapter = PurchaseListItemAdapter(::onItemClicked)
-        purchaseListItemsRecyclerView.layoutManager =
-            LinearLayoutManager(purchaseListItemsRecyclerView.context)
-        purchaseListItemsRecyclerView.adapter = adapter
+        adapter = ShoppingListItemAdapter(::onItemClicked)
+        shoppingListItemsRecyclerView.layoutManager =
+            LinearLayoutManager(shoppingListItemsRecyclerView.context)
+        shoppingListItemsRecyclerView.adapter = adapter
     }
 
-    private fun onItemClicked(itemView: PurchaseListItemView) {}
+    private fun onItemClicked(itemView: ShoppingListItemView) {}
 
-    override fun showPurchaseList(items: List<PurchaseListItemView>) {
-        adapter.purchaseListItems = items.toMutableList()
+    override fun showShoppingList(items: List<ShoppingListItemView>) {
+        adapter.shoppingListItems = items.toMutableList()
     }
 
     override fun showMessage(message: String) {
@@ -72,7 +74,7 @@ class PurchaseListFragment : BaseFragment(), PurchaseListContract.View {
     }
 
     override fun onDestroyView() {
-        purchaseListItemsRecyclerView.adapter = null
+        shoppingListItemsRecyclerView.adapter = null
         super.onDestroyView()
     }
 
@@ -91,15 +93,15 @@ class PurchaseListFragment : BaseFragment(), PurchaseListContract.View {
 
     companion object {
 
-        private const val MENU_ID_FOR_PURCHASE_LIST = "MENU_ID_FOR_PURCHASE_LIST"
+        private const val MENU_ID_FOR_SHOPPING_LIST = "MENU_ID_FOR_SHOPPING_LIST"
 
-        private const val MENU_NAME_FOR_PURCHASE_LIST = "MENU_NAME_FOR_PURCHASE_LIST"
+        private const val MENU_NAME_FOR_SHOPPING_LIST = "MENU_NAME_FOR_SHOPPING_LIST"
 
-        fun getInstance(menuId: Long, menuName: String): PurchaseListFragment =
-            PurchaseListFragment().apply {
+        fun getInstance(menuId: Long, menuName: String): ShoppingListFragment =
+            ShoppingListFragment().apply {
                 arguments = Bundle().apply {
-                    putLong(MENU_ID_FOR_PURCHASE_LIST, menuId)
-                    putString(MENU_NAME_FOR_PURCHASE_LIST, menuName)
+                    putLong(MENU_ID_FOR_SHOPPING_LIST, menuId)
+                    putString(MENU_NAME_FOR_SHOPPING_LIST, menuName)
                 }
             }
     }

@@ -62,7 +62,7 @@ class MenuFragment : BaseFragment(), MenuContract.View {
         arguments?.getLong(MENU_ID)?.let { presenter.initFragment(it) }
 
         btnGetPurchaseList.setOnClickListener {
-            presenter.onShowPurchaseList()
+            presenter.onShowShoppingList()
         }
     }
 

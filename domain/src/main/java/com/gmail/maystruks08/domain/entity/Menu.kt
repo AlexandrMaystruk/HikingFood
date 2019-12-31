@@ -12,37 +12,30 @@ class Menu private constructor(
     var startFrom: TypeOfMeal,
     val defaultProductList: MutableList<Product> = mutableListOf(),
     val days: MutableList<Day> = mutableListOf(),
-    var purchaseList: PurchaseList,
     var totalWeight: Int = 0
 ) {
 
     fun deleteDay(day: Day) {
         days.remove(day)
-        purchaseList = PurchaseList.generatePurchaseList(days)
         totalWeight -= day.getDayTotalWeightForAll()
     }
 
     fun deleteProductFromAllDays(product: Product) {
         defaultProductList.remove(product)
-        days.forEach { it.removeProductFromDay(product) }
-        totalWeight -= purchaseList.removeItem(product)
+        days.forEach { totalWeight -= it.removeProductFromDay(product) }
     }
 
     fun deleteProductFromDayByTypeOfMeal(dayNumber: Int, typeOfMeal: TypeOfMeal, product: Product) {
         days.find { it.number == dayNumber }?.let {
             val index = days.indexOf(it)
-            days[index].removeProductFromMeal(typeOfMeal, product)
-            totalWeight -= purchaseList.decreaseProduct(product)
+            totalWeight -= days[index].removeProductFromMeal(typeOfMeal, product)
         }
     }
 
     fun deleteProductFromDay(dayNumber: Int, product: Product) {
         days.find { it.number == dayNumber }?.let {
             val index = days.indexOf(it)
-            days[index].removeProductFromDay(product)
-            for (count in 0..it.getDayMealCount()) {
-                totalWeight -= purchaseList.decreaseProduct(product)
-            }
+            totalWeight -= days[index].removeProductFromDay(product)
         }
     }
 
@@ -145,7 +138,6 @@ class Menu private constructor(
                     startFrom = inquirerInfo.timeOfStartMenu,
                     defaultProductList = inquirerInfo.products,
                     days = dayList,
-                    purchaseList = PurchaseList.generatePurchaseList(dayList),
                     totalWeight = totalWeight
                 )
             }
