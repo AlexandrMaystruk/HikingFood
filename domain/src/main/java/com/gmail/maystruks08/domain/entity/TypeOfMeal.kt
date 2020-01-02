@@ -12,14 +12,16 @@ enum class TypeOfMeal(val type: Int, val title: String) {
             return values().firstOrNull { it.type == position }?:BREAKFAST
         }
 
-        fun getNextValue(type: Int): TypeOfMeal{
-            val nextPosition = type  + 1
-            return if(nextPosition > 2){
+        fun getNextMeal(currentMeal: TypeOfMeal): TypeOfMeal {
+            val nextPosition = currentMeal.type + 1
+            return if (nextPosition > 2) {
                 BREAKFAST
             } else {
                 fromValue(nextPosition)
             }
-
         }
     }
+
+
+
 }

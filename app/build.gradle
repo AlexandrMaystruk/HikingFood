@@ -31,13 +31,16 @@ android {
         }
 
         debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -60,27 +63,21 @@ dependencies {
     implementation presentationDependencies.supportAndroid
     implementation presentationDependencies.supportAppCompat
     implementation presentationDependencies.supportDesign
-    implementation presentationDependencies.cardView
-    implementation presentationDependencies.recyclerView
     implementation presentationDependencies.circleImageView
     implementation presentationDependencies.androidCoreKTX
-
-
     implementation presentationDependencies.rxJava
     implementation presentationDependencies.rxAndroid
-
+    implementation presentationDependencies.numberPicker
+    implementation presentationDependencies.cicerone
+    implementation presentationDependencies.arcLayout
     implementation presentationDependencies.dagger
     kapt presentationDependencies.daggerCompiler
 
-    implementation presentationDependencies.cicerone
-
-    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
+    debugImplementation presentationDependencies.leakcanary
 
     testImplementation presentationTestDependencies.junit
     testImplementation presentationTestDependencies.mockito
+
     androidTestImplementation presentationTestDependencies.espresso
     androidTestImplementation presentationTestDependencies.testingSupportLib
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
-
-    implementation 'com.shawnlin:number-picker:2.4.8'
 }
