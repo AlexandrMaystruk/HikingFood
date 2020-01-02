@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_xs">10sp</dimen>
-    <dimen name="text_s">14sp</dimen>
-    <dimen name="text_m">18sp</dimen>
+    <dimen name="text_s">12sp</dimen>
+    <dimen name="text_m">16sp</dimen>
     <dimen name="text_l">20sp</dimen>
     <dimen name="text_xl">32sp</dimen>
-    <dimen name="tab_size">32dp</dimen>
 
     <dimen name="margin_min">4dp</dimen>
     <dimen name="margin_xs">8dp</dimen>
@@ -30,7 +29,7 @@
 
     <!--Launcher size-->
     <dimen name="button_width">270dp</dimen>
-    <dimen name="button_height">35dp</dimen>
+    <dimen name="button_height">40dp</dimen>
     <dimen name="button_margin_bottom">130dp</dimen>
 
     <dimen name="number_spinner_width">80dp</dimen>

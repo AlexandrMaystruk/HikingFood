@@ -1,24 +1,23 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
 import com.gmail.maystruks08.hikingfood.utils.GridSpacingItemDecoration
- import kotlinx.android.synthetic.main.fragment_menu.*
+import com.gmail.maystruks08.hikingfood.utils.extensions.toast
+import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
 
-class MenuFragment : Fragment(), MenuContract.View {
+class MenuFragment : BaseFragment(), MenuContract.View {
 
     @Inject
     lateinit var presenter: MenuContract.Presenter
-
-    @Inject
-    lateinit var controller: ToolBarController
 
     private lateinit var daysAdapter: DayAdapter
 
@@ -34,30 +33,22 @@ class MenuFragment : Fragment(), MenuContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        init()
     }
-
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Выбранная раскладка")
-                .build(),
-            activity as ConfigToolbar
-        )
-    }
-
-    private fun init() {
-        setAdapter()
-        arguments?.getLong(MENU_ID)?.let { presenter.initFragment(it) }
-
-        btnGetPurchaseList.setOnClickListener {
-            presenter.onShowPurchaseList()
+    override fun builder(): FragmentToolbar {
+        val menuItemClick = MenuItem.OnMenuItemClickListener {
+            presenter.onSaveMenuToPDF()
+            true
         }
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbarMenu)
+            .withTitle( R.string.fragment_menu_name)
+            .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
+            .withMenu(R.menu.menu_food_menu)
+            .withMenuItems(listOf(R.id.action_save_menu_to_pdf), listOf(menuItemClick))
+            .build()
     }
 
-    private fun setAdapter() {
+    override fun initViews() {
         daysAdapter = DayAdapter { dayItemClicked(it) }
         daysRecyclerView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
         daysRecyclerView.adapter = daysAdapter
@@ -68,6 +59,11 @@ class MenuFragment : Fragment(), MenuContract.View {
                 ), resources.getInteger(R.integer.dayPageItemsCount)
             )
         )
+        arguments?.getLong(MENU_ID)?.let { presenter.initFragment(it) }
+
+        btnGetPurchaseList.setOnClickListener {
+            presenter.onShowShoppingList()
+        }
     }
 
     private fun dayItemClicked(day: DayView) {
@@ -76,6 +72,10 @@ class MenuFragment : Fragment(), MenuContract.View {
 
     override fun showFoodDays(days: List<DayView>) {
         daysAdapter.dayList = days.toMutableList()
+    }
+
+    override fun showMessage(message: String) {
+        context?.toast(message)
     }
 
     override fun onDestroyView() {

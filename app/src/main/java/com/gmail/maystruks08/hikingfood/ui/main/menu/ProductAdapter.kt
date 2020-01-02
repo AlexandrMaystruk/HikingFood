@@ -10,44 +10,52 @@ import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.SetProductView
 import kotlinx.android.synthetic.main.item_product.view.*
+import kotlinx.android.synthetic.main.item_product.view.ivProductSetIcon
+import kotlinx.android.synthetic.main.item_product.view.tvProductName
+import kotlinx.android.synthetic.main.item_product.view.tvProductWeightForAllPeople
+import kotlinx.android.synthetic.main.item_product.view.tvProductWeightForOnePeople
 import kotlin.properties.Delegates
 
-class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
-    RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private var hasCheckbox: Boolean = false, private val clickListener: (ProductView) -> Unit) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     var productList: MutableList<ProductView> by Delegates.observable(mutableListOf()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
+    fun getSelectedItems() = productList.filter { it.isSelected }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_product, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindHolder(
-            productList[holder.adapterPosition],
-            holder.adapterPosition,
-            clickListener
-        )
+        holder.bindHolder(productList[holder.adapterPosition], holder.adapterPosition, clickListener)
     }
 
     override fun getItemCount(): Int = productList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindHolder(
-            product: ProductView,
-            position: Int,
-            clickListener: (ProductView) -> Unit
-        ) {
+        fun bindHolder(product: ProductView, position: Int, clickListener: (ProductView) -> Unit) {
+            itemView.setOnLongClickListener {
+                hasCheckbox = true
+                true
+            }
             itemView.tvProductName.text = product.name
             itemView.tvProductWeightForOnePeople.text = product.portionForOnePeople.toString()
             itemView.tvProductWeightForAllPeople.text = product.portionForAllPeople.toString()
+            itemView.cbSelectedState.visibility = if (hasCheckbox && !product.isChild) {
+                itemView.tvPosition.visibility = View.GONE
+                itemView.cbSelectedState.isChecked = product.isSelected
+                View.VISIBLE
+            } else {
+                itemView.tvPosition.visibility = View.VISIBLE
+                View.GONE
+            }
 
             itemView.background = if (product is SetProductView) {
-                itemView.cbPurchaseState.text = (position + 1).toString()
+                itemView.tvPosition.text = (position + 1).toString()
                 itemView.ivProductSetIcon.visibility = View.VISIBLE
                 itemView.tvProductName.setTypeface(null, Typeface.BOLD)
                 itemView.tvProductWeightForOnePeople.setTypeface(null, Typeface.BOLD)
@@ -70,7 +78,7 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
 
                 ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_set)
             } else {
-                itemView.cbPurchaseState.text = ""
+                itemView.tvPosition.text = ""
                 itemView.ivProductSetIcon.visibility = View.GONE
                 if (product.isChild) {
                     itemView.tvProductName.setTypeface(null, Typeface.ITALIC)
@@ -81,11 +89,11 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
                     itemView.tvProductName.typeface = Typeface.DEFAULT
                     itemView.tvProductWeightForOnePeople.typeface = Typeface.DEFAULT
                     itemView.tvProductWeightForAllPeople.typeface = Typeface.DEFAULT
-                    itemView.cbPurchaseState.text = (position + 1).toString()
+                    itemView.tvPosition.text = (position + 1).toString()
                     if (position % 2 == 0) {
-                        ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_dark)
-                    } else {
                         ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_light)
+                    } else {
+                        ContextCompat.getDrawable(itemView.context, R.drawable.bg_item_dark)
                     }
                 }
             }
@@ -101,7 +109,14 @@ class ProductAdapter(private val clickListener: (ProductView) -> Unit) :
                     notifyDataSetChanged()
                 }
             } else {
-                itemView.setOnClickListener { clickListener(product) }
+                itemView.setOnClickListener {
+                    if (hasCheckbox && !product.isChild) {
+                        val state = !product.isSelected
+                        itemView.cbSelectedState.isChecked = state
+                        productList[position].isSelected = state
+                    }
+                    clickListener(product)
+                }
             }
         }
     }

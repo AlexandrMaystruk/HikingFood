@@ -9,6 +9,8 @@ interface MenuContract {
     interface View : IView {
 
         fun showFoodDays(days: List<DayView>)
+
+        fun showMessage(message: String)
     }
 
     interface Presenter : IPresenter<View> {
@@ -17,6 +19,8 @@ interface MenuContract {
 
         fun dayItemClicked(day: DayView)
 
-        fun onShowPurchaseList()
+        fun onShowShoppingList()
+
+        fun onSaveMenuToPDF()
     }
 }

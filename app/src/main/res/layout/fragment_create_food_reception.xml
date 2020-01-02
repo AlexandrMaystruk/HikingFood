@@ -2,196 +2,226 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
-        android:id="@+id/vStepProgress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="@dimen/margin_xs"
-        app:arcPadding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:nodeHeight="35dp"
-        app:stepsCount="3"
-        app:textNodeColor="@color/colorGreen"
-        app:textNodeSize="18sp"
-        app:textNodeTitleSize="14sp" />
-
-    <LinearLayout
-        android:id="@+id/layoutCreateFoodReceptionDefHeader"
-        style="@style/ComponentBarLayout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_min"
-        android:orientation="horizontal"
+        android:layout_height="120dp"
+        android:background="@null"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vStepProgress">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            style="@style/TextOrderItemTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="start"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Продукты по умолчанию"
-            android:textColor="@color/colorOrange" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_coordinator_create" />
 
-        <TextView
-            style="@style/TextOrderItemTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.27"
-            android:gravity="end"
-            android:paddingEnd="@dimen/margin_min"
-            android:text="На 1 ч"
-            android:textColor="@color/colorOrange" />
+            <com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
+                android:id="@+id/vStepProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_m"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="@dimen/margin_m"
+                app:arcPadding="5dp"
+                app:nodeHeight="35dp"
+                app:stepsCount="1"
+                app:textNodeColor="@color/colorWhite"
+                app:textNodeSize="@dimen/text_l" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarCreateReception"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="top"
+                android:background="@null"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            style="@style/TextOrderItemTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.26"
-            android:gravity="end"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Вес"
-            android:textColor="@color/colorOrange" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/fabNewDefaultProduct"
-        android:layout_width="@dimen/size_fab_min"
-        android:layout_height="@dimen/size_fab_min"
-        android:layout_marginEnd="@dimen/margin_m"
-        android:layout_marginBottom="@dimen/margin_m"
-        android:background="@drawable/bg_circle"
-        android:foreground="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@+id/layoutCreateFoodReceptionHeader"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/staticProductsRecyclerView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_min"
-        android:layout_marginEnd="@dimen/margin_min"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutCreateFoodReceptionDefHeader"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal"
-        style="@style/GuidelineHorizontalComponent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:id="@+id/layoutCreateFoodReceptionHeader"
-        style="@style/ComponentBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_min"
-        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/margin_m"
+        android:layout_marginEnd="@dimen/margin_m"
+        android:layout_marginBottom="@dimen/margin_xs"
+        android:background="@drawable/bg_layout"
+        android:focusableInTouchMode="true"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateFoodReceiptNextStep"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal">
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            style="@style/TextOrderItemTitle"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/layoutCreateFoodReceptionDefHeader"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="start"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Изменяющиеся"
-            android:textColor="@color/colorOrange" />
+            android:layout_marginTop="115dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/TextM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Постоянные продукты" />
+
+            <TextView
+                style="@style/TextM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.27"
+                android:gravity="end"
+                android:text="На 1" />
+
+            <TextView
+                style="@style/TextM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.35"
+                android:gravity="end"
+                android:text="На всех" />
+        </LinearLayout>
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            android:id="@+id/viewSeparatorDefaultProduct"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/margin_min"
+            android:background="@color/colorWhite"
+            app:layout_constraintTop_toBottomOf="@+id/layoutCreateFoodReceptionDefHeader" />
 
-        <TextView
-            style="@style/TextOrderItemTitle"
+        <Button
+            android:id="@+id/fabNewDefaultProduct"
+            android:layout_width="@dimen/size_fab_min"
+            android:layout_height="@dimen/size_fab_min"
+            android:layout_marginEnd="@dimen/margin_m"
+            android:layout_marginBottom="@dimen/margin_m"
+            android:background="@drawable/bg_circle"
+            android:foreground="@drawable/ic_add"
+            app:layout_constraintBottom_toTopOf="@+id/layoutCreateFoodReceptionHeader"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/staticProductsRecyclerView"
             android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/margin_xs"
+            android:background="@drawable/bg_layout"
+            app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewSeparatorDefaultProduct"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineHorizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.27"
-            android:gravity="end"
-            android:paddingEnd="@dimen/margin_min"
-            android:text="На 1 ч"
-            android:textColor="@color/colorOrange" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey_700" />
+            android:id="@+id/viewSeparatorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_xs"
+            android:layout_marginTop="@dimen/margin_min"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal" />
 
-        <TextView
-            style="@style/TextOrderItemTitle"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/layoutCreateFoodReceptionHeader"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.27"
-            android:gravity="end"
-            android:paddingEnd="@dimen/margin_s"
-            android:text="Вес"
-            android:textColor="@color/colorOrange" />
-    </LinearLayout>
+            android:layout_margin="@dimen/margin_min"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewSeparatorPrimary">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/loopProductRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_min"
-        android:layout_marginEnd="@dimen/margin_min"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateFoodReceiptNextStep"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutCreateFoodReceptionHeader"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                style="@style/TextM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Чередующиеся продукты" />
 
-    <Button
-        android:id="@+id/fabAddLoopProducts"
-        android:layout_width="@dimen/size_fab_min"
-        android:layout_height="@dimen/size_fab_min"
-        android:layout_marginEnd="@dimen/margin_m"
-        android:layout_marginBottom="@dimen/margin_m"
-        android:background="@drawable/bg_circle"
-        android:foreground="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@id/btnCreateFoodReceiptNextStep"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                style="@style/TextM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.27"
+                android:gravity="end"
+                android:text="На 1" />
+
+            <TextView
+                style="@style/TextM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.35"
+                android:gravity="end"
+                android:text="На всех" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/margin_min"
+            android:background="@color/colorWhite"
+            app:layout_constraintTop_toBottomOf="@+id/layoutCreateFoodReceptionHeader" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/loopProductRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorCard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewSeparator"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/fabAddLoopProducts"
+            android:layout_width="@dimen/size_fab_min"
+            android:layout_height="@dimen/size_fab_min"
+            android:layout_marginEnd="@dimen/margin_m"
+            android:layout_marginBottom="@dimen/margin_m"
+            android:background="@drawable/bg_circle"
+            android:foreground="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnCreateFoodReceiptNextStep"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/button_height"
-        android:layout_margin="@dimen/margin_min"
-        android:background="@color/colorPrimary"
+        style="@style/MainButton"
         android:text="Далее"
-        android:textColor="@color/textWhiteSelected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loopProductRecyclerView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

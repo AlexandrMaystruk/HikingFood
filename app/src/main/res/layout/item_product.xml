@@ -10,25 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/margin_xs"
         android:paddingTop="@dimen/margin_xs"
-        android:paddingEnd="@dimen/margin_xs"
         android:paddingBottom="@dimen/margin_xs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <CheckBox
+            android:id="@+id/cbSelectedState"
+            style="@style/TextOrderItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:clickable="false"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_min" />
+
         <TextView
-            android:id="@+id/cbPurchaseState"
+            android:id="@+id/tvPosition"
             style="@style/TextOrderItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_min"
             android:layout_weight="0.11"
-            android:gravity="center"
-            android:textColor="@color/colorOrange" />
-
+            android:gravity="center" />
 
         <ImageView
             android:id="@+id/ivProductSetIcon"
@@ -37,7 +43,6 @@
             android:src="@drawable/ic_arrow_right"
             android:visibility="gone" />
 
-
         <TextView
             android:id="@+id/tvProductName"
             style="@style/TextOrderItemTitle"
@@ -45,10 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.9"
-            android:gravity="start"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:gravity="start" />
 
         <TextView
             android:id="@+id/tvProductWeightForOnePeople"
@@ -57,10 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.3"
-            android:gravity="end"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:gravity="end" />
 
         <TextView
             android:id="@+id/tvProductWeightForAllPeople"
@@ -68,11 +67,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:gravity="end"
-            android:paddingStart="@dimen/margin_s"
-            android:paddingEnd="@dimen/margin_s"
-            android:textColor="@color/colorOrange" />
+            android:layout_weight="0.35"
+            android:paddingEnd="@dimen/margin_xs"
+            android:gravity="end" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

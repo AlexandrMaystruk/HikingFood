@@ -8,11 +8,7 @@ import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsFo
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class ProductPortionForOnePeoplePresenter @Inject constructor(
-    private val interactor: ProductPortionInteractor,
-    private val router: Router
-) :
-    PortionContract.Presenter, BasePresenter<PortionContract.View>() {
+class ProductPortionForOnePeoplePresenter @Inject constructor(private val interactor: ProductPortionInteractor) : PortionContract.Presenter, BasePresenter<PortionContract.View>() {
 
     private var products = mutableListOf<Product>()
 

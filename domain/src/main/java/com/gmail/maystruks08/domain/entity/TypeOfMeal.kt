@@ -7,18 +7,21 @@ enum class TypeOfMeal(val type: Int, val title: String) {
 
     companion object {
 
-        fun fromValue(value: Int): TypeOfMeal {
-            return values().firstOrNull { it.type == value }?:BREAKFAST
+        fun fromValue(value: Int, shift: Int = 0): TypeOfMeal {
+            val position = (value + shift) % 3
+            return values().firstOrNull { it.type == position }?:BREAKFAST
         }
 
-        fun getNextValue(type: Int): TypeOfMeal{
-            val nextPosition = type  + 1
-            return if(nextPosition > 2){
+        fun getNextMeal(currentMeal: TypeOfMeal): TypeOfMeal {
+            val nextPosition = currentMeal.type + 1
+            return if (nextPosition > 2) {
                 BREAKFAST
             } else {
                 fromValue(nextPosition)
             }
-
         }
     }
+
+
+
 }

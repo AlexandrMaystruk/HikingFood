@@ -1,5 +1,6 @@
 package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception
 
+import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.hikingfood.core.base.IPresenter
 import com.gmail.maystruks08.hikingfood.core.base.IView
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
@@ -12,7 +13,7 @@ interface CreateFoodReceptionContract {
 
         fun showFinishButton()
 
-        fun showSelectProductFragment(products: List<ProductView>)
+        fun showSelectProductFragment(products: List<ProductView>, isStaticProducts: Boolean)
 
         fun showStaticProducts(products: List<ProductView>)
 
@@ -20,19 +21,21 @@ interface CreateFoodReceptionContract {
 
         fun showStaticProductInserted(product: ProductView)
 
-        fun showVariableProductInserted(product: ProductView)
+        fun showLoopProductInserted(product: ProductView)
 
         fun showStaticProductRemoved(position: Int)
 
         fun showVariableProductRemoved(position: Int)
+
+        fun showStepProgressView(stepCount: Int, startFrom: TypeOfMeal)
     }
 
 
     interface Presenter : IPresenter<View> {
 
-        fun initFragment()
+        fun onAddStaticProductClicked()
 
-        fun onAddVariableProductClicked()
+        fun onAddLoopProductClicked()
 
         fun onFoodReceptionCreationComplete(staticProductList: List<ProductView>, loopProductList: List<ProductView>)
 
@@ -42,7 +45,9 @@ interface CreateFoodReceptionContract {
 
         fun onFinishClicked()
 
-        fun onVariableProductsSelected(products: List<ProductView>)
+        fun onStaticProductsSelected(products: List<ProductView>)
+
+        fun onLoopProductsSelected(products: List<ProductView>)
 
         fun onDeleteStaticProductClicked(position: Int, productView: ProductView)
 

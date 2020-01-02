@@ -12,10 +12,33 @@
         <attr name="arcPadding" format="dimension" />
         <attr name="arcColor" format="color" />
         <!-- Text customization -->
-        <attr name="textTitlePadding" format="dimension" />
         <attr name="textNodeSize" format="dimension" />
         <attr name="textNodeColor" format="color" />
-        <attr name="textNodeTitleSize" format="dimension" />
-        <attr name="textNodeTitleColor" format="color" />
+        <!-- Text customization -->
+    </declare-styleable>
+
+    <declare-styleable name="CustomCircleProgress">
+        <attr name="sunriseIcon" format="integer"/>
+        <attr name="sunsetIcon" format="integer"/>
+        <attr name="min" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="colorProgress" format="integer"/>
+        <attr name="stokeWidth" format="dimension"/>
+        <attr name="sunClockProgress" format="integer"/>
+        <attr name="startAngle" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="ArcLayout">
+        <attr name="arc_height" format="dimension" />
+        <attr name="arc_position">
+            <enum name="bottom" value="1"/>
+            <enum name="top" value="2"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="4"/>
+        </attr>
+        <attr name="arc_cropDirection" format="enum">
+            <enum name="cropInside" value="1"/>
+            <enum name="cropOutside" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

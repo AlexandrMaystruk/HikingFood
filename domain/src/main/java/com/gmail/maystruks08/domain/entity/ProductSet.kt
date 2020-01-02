@@ -1,6 +1,6 @@
 package com.gmail.maystruks08.domain.entity
 
-class ProductSet private constructor(id: Int, name: String, portion: Portion, val products: List<Product>) : Product(id, name, portion, listOf(Category.SOUP)) {
+class ProductSet private constructor(id: Int, name: String, portion: Portion, val products: List<Product>) : Product(id, name, portion, null) {
 
     override fun calculatePortionForAllPeople(peopleCount: Int) {
         products.forEach { it.calculatePortionForAllPeople(peopleCount) }

@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#300606</color>
-    <color name="colorPrimaryInactive">#8F300606</color>
-    <color name="colorPrimaryDark">#310303</color>
-    <color name="colorHint">#FFEB3B</color>
-    <color name="colorAccent">#0BB10E</color>
+    <color name="colorPrimary">#262143</color>
+    <color name="colorPrimaryInactive">#9A262143</color>
+    <color name="colorPrimaryDark">#000300</color>
+    <color name="colorAccent">#C6BCFF</color>
     <color name="colorGreen">#00A018</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#BD1515</color>
-    <color name="colorOrange">#FF5722</color>
-    <color name="colorOrangeInactive">#B2FF5722</color>
-    <color name="colorOrange40">#65FF5722</color>
-
     <color name="colorGrey">#cb444869</color>
-    <color name="colorGrey_700">#616161</color>
+    <color name="colorGrey700">#616161</color>
+    <color name="colorLightItem">#494561</color>
+    <color name="colorProductSet">#75494561</color>
 
-    <color name="background">#D9DDFF</color>
-    <color name="backgroundHeader">#9ca1c9</color>
-    <color name="bottomNavigationViewColor">#bf3d4269</color>
-    <color name="hintColor">#77FFFFFF</color>
+<!--Text-->
+    <color name="colorText">@color/colorWhite</color>
+    <color name="colorTextInactive">#8E8E8E</color>
     <color name="textWhiteUnselected">#A3FFFFFF</color>
     <color name="textWhiteSelected">#ffffff</color>
-
-    <color name="colorMainRoute">#D27787E7</color>
-    <color name="colorSpareRoute">#B92196F3</color>
-
-    <color name="colorGreyDarkItem">#E0D4D4</color>
-    <color name="colorGreyLightItem">#F3EAEA</color>
-    <color name="colorProductSet">#DBCECE</color>
-    <color name="colorProductSetChild">#99DBCECE</color>
-
+    <color name="colorHint">#FFEB3B</color>
+    <color name="colorCard">#332E4E</color>
+    <color name="colorDivider">#808E8E8E</color>
 
 </resources>

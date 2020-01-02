@@ -4,32 +4,38 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.hikingfood.*
+import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.calendar.SelectDateDialog
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_create_menu.*
 import java.util.*
 import javax.inject.Inject
+import android.widget.ArrayAdapter
+import com.gmail.maystruks08.domain.CalendarHelper
+import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor
+import kotlinx.android.synthetic.main.fragment_create_menu.btnCreateMenuNextStep
+import kotlinx.android.synthetic.main.fragment_create_menu.inputLayout
+import kotlinx.android.synthetic.main.fragment_create_menu.npPeopleCountValue
+import kotlinx.android.synthetic.main.fragment_create_menu.npReceptionCountValue
+import kotlinx.android.synthetic.main.fragment_create_menu.npRelaxDayCountValue
+import kotlinx.android.synthetic.main.fragment_create_menu.tvDateOfStartMenu
 
-class CreateMenuFragment : Fragment(), CreateMenuContract.View {
+class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
 
     @Inject
     lateinit var presenter: CreateMenuContract.Presenter
 
     @Inject
-    lateinit var controller: ToolBarController
+    lateinit var calendarHelper: CalendarHelper
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         App.createMenuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_create_menu, container, false)
     }
@@ -37,21 +43,29 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.bindView(this)
-        init()
     }
 
-    override fun configToolbar() {
-        controller.configure(
-            ToolbarDescriptor.Builder()
-                .visibility(true)
-                .navigationIcon(R.drawable.ic_arrow_back)
-                .title("Создание раскладки")
-                .build(),
-            activity as ConfigToolbar
-        )
+    override fun builder(): FragmentToolbar {
+        return FragmentToolbar.Builder()
+            .withId(R.id.toolbarCreate)
+            .withTitle(R.string.fragment_create_menu_name)
+            .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
+            .build()
     }
 
-    private fun init() {
+    @SuppressLint("SetTextI18n")
+    override fun showInitInfo(config: CreateMenuInteractor.Config) {
+        config.run {
+            etMenuName.setText(name)
+            npPeopleCountValue.value = peopleCount
+            npReceptionCountValue.value = receptionCount
+            npRelaxDayCountValue.value = relaxDayCount
+            rgStartReception.setSelection(timeOfStartMenu.type)
+            tvDateOfStartMenu.text = "${getString(R.string.date_of_start)} ${calendarHelper.format(dateOfStartMenu, CalendarHelper.DATE_FORMAT)}"
+        }
+    }
+
+    override fun initViews() {
         btnCreateMenuNextStep.setOnClickListener {
             if (etMenuName.text.isNotEmpty()) {
                 presenter.createNewMenuClicked()
@@ -60,11 +74,13 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
             }
         }
 
+        inputLayout.requestFocus()
         etMenuName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-            enableNextStepButton(s.isNotEmpty())
+                enableNextStepButton(s.isNotEmpty())
                 presenter.onNameMenuChanged(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -77,7 +93,7 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
 
         npReceptionCountValue.setOnValueChangedListener { picker, _, _ ->
             if (picker.value >= 0) {
-                presenter.onDayCountChanged(picker.value)
+                presenter.onReceptionCountCountChanged(picker.value)
             }
         }
 
@@ -87,14 +103,15 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
             }
         }
 
-        rgStartReception.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbBreakfast -> presenter.onTimeMenuStartChanged(0)
-                R.id.rbLunch -> presenter.onTimeMenuStartChanged(1)
-                R.id.rbDinner -> presenter.onTimeMenuStartChanged(2)
-            }
+        rgStartReception.adapter = ArrayAdapter(context!!, R.layout.spinner_item, context!!.resources.getTextArray(R.array.menu_start)).apply {
+            setDropDownViewResource(R.layout.spinner_drop_down)
         }
-
+        rgStartReception.onItemSelectedListener = (object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.onTimeMenuStartChanged(position)
+            }
+        })
         tvDateOfStartMenu.setOnClickListener {
             presenter.onSetDateStartMenuClicked()
         }
@@ -120,14 +137,13 @@ class CreateMenuFragment : Fragment(), CreateMenuContract.View {
         super.onDestroy()
     }
 
-    private fun enableNextStepButton(enable: Boolean){
+    private fun enableNextStepButton(enable: Boolean) {
         context?.let {
-            val background = if (enable) {
-                ContextCompat.getColor(it, R.color.colorPrimary)
+            btnCreateMenuNextStep.background = if (enable) {
+                ContextCompat.getDrawable(it, R.drawable.bg_main_btn)
             } else {
-                ContextCompat.getColor(it, R.color.colorPrimaryInactive)
+                ContextCompat.getDrawable(it, R.drawable.bg_main_inactive_btn)
             }
-            btnCreateMenuNextStep.setBackgroundColor(background)
         }
     }
 

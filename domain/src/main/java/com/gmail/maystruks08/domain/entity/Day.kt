@@ -55,20 +55,32 @@ open class Day(
         updateTotalWeight(typeOfMeal)
     }
 
-    fun removeProductFromMeal(typeOfMeal: TypeOfMeal, product: Product) {
+    /** Return removed product weight */
+    fun removeProductFromMeal(typeOfMeal: TypeOfMeal, product: Product): Int {
         products[typeOfMeal]?.remove(product)
         updateTotalWeight(typeOfMeal)
+        return product.portion.value
     }
 
-    fun removeProductFromDay(product: Product) {
-        removeProductFromMeal(TypeOfMeal.BREAKFAST, product)
-        removeProductFromMeal(TypeOfMeal.LUNCH, product)
-        removeProductFromMeal(TypeOfMeal.DINNER, product)
+    /** Return product total weight from all meal */
+    fun removeProductFromDay(product: Product): Int {
+        var totalRemovedWeight = 0
+        totalRemovedWeight += removeProductFromMeal(TypeOfMeal.BREAKFAST, product)
+        totalRemovedWeight += removeProductFromMeal(TypeOfMeal.LUNCH, product)
+        totalRemovedWeight += removeProductFromMeal(TypeOfMeal.DINNER, product)
+        return totalRemovedWeight
     }
-
-    fun removeProductsFromMeal(typeOfMeal: TypeOfMeal, productsList: List<Product>) {
-        products[typeOfMeal]?.removeAll(productsList)
+    /** Return product total weight from meal */
+    fun removeProductsFromMeal(typeOfMeal: TypeOfMeal, productsList: List<Product>): Int {
+        var totalRemovedWeight = 0
+        productsList.forEach { product ->
+           val isDeleted =  products[typeOfMeal]?.removeAll { it.id == product.id }?:false
+            if(isDeleted){
+                totalRemovedWeight  += product.portion.value
+            }
+        }
         updateTotalWeight(typeOfMeal)
+        return totalRemovedWeight
     }
 
     private fun updateTotalWeight(typeOfMeal: TypeOfMeal) {

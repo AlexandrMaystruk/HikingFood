@@ -6,9 +6,8 @@ import com.gmail.maystruks08.hikingfood.ui.main.menu.portion.ProductPortionForOn
 import com.gmail.maystruks08.hikingfood.ui.main.menu.MenuFragment
 import com.gmail.maystruks08.hikingfood.ui.main.AllMenuFragment
 import com.gmail.maystruks08.hikingfood.ui.main.menu.day.pager.DayPagerFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.purchase.PurchaseListFragment
+import com.gmail.maystruks08.hikingfood.ui.main.menu.shopping.ShoppingListFragment
 import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.PurchaseListItemView
 
 object Screens {
 
@@ -33,8 +32,8 @@ object Screens {
         override fun getFragment() = ProductPortionForOnePeopleFragment()
     }
 
-    class PurchaseListScreen(private val purchaseListItems: List<PurchaseListItemView>) : AppScreen() {
-        override fun getFragment() = PurchaseListFragment.getInstance(purchaseListItems)
+    class ShoppingListScreen(private val menuId: Long, private val menuName: String) : AppScreen() {
+        override fun getFragment() = ShoppingListFragment.getInstance(menuId, menuName)
     }
 
     class DayPagerScreen(private val dayViews: List<DayView>, private val position: Int) : AppScreen() {
