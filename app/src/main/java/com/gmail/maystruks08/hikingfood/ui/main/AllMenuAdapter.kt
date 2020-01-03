@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gmail.maystruks08.hikingfood.R
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.MenuView
 import kotlinx.android.synthetic.main.item_menu.view.*
 import java.text.SimpleDateFormat
 import java.util.*

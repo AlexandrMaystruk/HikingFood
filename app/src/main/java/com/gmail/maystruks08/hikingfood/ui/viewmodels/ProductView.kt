@@ -1,8 +1,10 @@
-package com.gmail.maystruks08.hikingfood.ui.viewmodel
+package com.gmail.maystruks08.hikingfood.ui.viewmodels
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.gmail.maystruks08.domain.entity.Unit
+import com.gmail.maystruks08.hikingfood.core.base.adapter.TypesFactory
+import com.gmail.maystruks08.hikingfood.core.base.adapter.ViewModel
 
 open class ProductView(
     val id: Int,
@@ -12,7 +14,8 @@ open class ProductView(
     val unit: Unit,
     val isChild: Boolean = false,
     var isSelected: Boolean = false
-) : Parcelable {
+) : Parcelable, ViewModel() {
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
@@ -46,4 +49,7 @@ open class ProductView(
             return arrayOfNulls(size)
         }
     }
+
+    override fun type(typesFactory: TypesFactory): Int = typesFactory.type(this)
+
 }

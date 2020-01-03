@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.DayView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ProductView
 import kotlinx.android.synthetic.main.fragment_day.*
 
 class DayFragment : Fragment() {

@@ -4,24 +4,25 @@ import android.util.Log
 import com.gmail.maystruks08.domain.entity.GroupType
 import com.gmail.maystruks08.domain.interactor.shoppinglist.ShoppingListInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ShoppingListItemView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.ShoppingListItemViewMapper
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ShoppingListItemView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.toShoppingListItemView
 import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
 import javax.inject.Inject
 
 class ShoppingListPresenter @Inject constructor(
-    private val shoppingListItemViewMapper: ShoppingListItemViewMapper,
     private val interactor: ShoppingListInteractor
 ) :
     ShoppingListContract.Presenter, BasePresenter<ShoppingListContract.View>() {
 
     private var items = mutableListOf<ShoppingListItemView>()
 
+    private var currentGroupType = GroupType.BY_STORE_DEPARTMENT
+
     override fun bindView(view: ShoppingListContract.View, menuId: Long) {
         super.bindView(view)
         compositeDisposable.add(
-            interactor.provideShoppingListGroupByProduct(menuId).subscribe({
-                items = shoppingListItemViewMapper.fromShoppingListItems(it)
+            interactor.provideShoppingListGroupByProduct(menuId).subscribe({ list ->
+                items = list.map { it.toShoppingListItemView() }.toMutableList()
                 view.showShoppingList(items)
             }, {
                 it.printStackTrace()
@@ -45,11 +46,15 @@ class ShoppingListPresenter @Inject constructor(
     override fun onItemClicked(item: ShoppingListItemView) {}
 
     override fun onSaveShoppingListToPDF(menuId: Long, menuName: String) {
-        val hardCodeType = GroupType.BY_STORE_DEPARTMENT
         compositeDisposable.add(
-            interactor.exportDataToPDF(menuId, menuName, hardCodeType)
+            interactor.exportDataToPDF(menuId, menuName, currentGroupType)
                 .subscribe(::onExportDataToPDFSuccess, ::onExportDataToPDFError)
         )
+    }
+
+    override fun onSelectNewGroupType(newGroupType: GroupType) {
+        currentGroupType = newGroupType
+        //TODO need to handle this flow
     }
 
     private fun onExportDataToPDFSuccess() {

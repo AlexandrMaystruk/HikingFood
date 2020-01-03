@@ -5,14 +5,12 @@ import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.domain.interactor.createmenu.createbreakfast.CreateReceptionInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.ProductViewMapper
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.toProductViewList
 import javax.inject.Inject
 
 class CreateFoodReceptionPresenter @Inject constructor(
-    private val interactor: CreateReceptionInteractor,
-    private val productViewMapper: ProductViewMapper
-) : CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
+    private val interactor: CreateReceptionInteractor) : CreateFoodReceptionContract.Presenter, BasePresenter<CreateFoodReceptionContract.View>() {
 
     private lateinit var initConfig: CreateReceptionInteractor.Config
     private var shift = 0
@@ -30,8 +28,8 @@ class CreateFoodReceptionPresenter @Inject constructor(
             .doOnSubscribe { view.showLoading() }
             .doAfterTerminate { view.hideLoading() }
             .subscribe({ meal ->
-                staticProducts = productViewMapper.fromProducts(meal.defProducts)
-                loopProducts = productViewMapper.fromProducts(meal.loopProducts)
+                staticProducts = meal.defProducts.toProductViewList().toMutableList()
+                loopProducts = meal.loopProducts.toProductViewList().toMutableList()
                 view.run {
                     val stepCount = if (initConfig.countOfReceipt  > 3) 3 else initConfig.countOfReceipt
                     showStepProgressView(stepCount, initConfig.startFrom)
@@ -50,8 +48,8 @@ class CreateFoodReceptionPresenter @Inject constructor(
                 .doOnSubscribe { view?.showLoading() }
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe({ meal ->
-                    staticProducts = productViewMapper.fromProducts(meal.defProducts)
-                    loopProducts = productViewMapper.fromProducts(meal.loopProducts)
+                    staticProducts = meal.defProducts.toProductViewList().toMutableList()
+                    loopProducts = meal.loopProducts.toProductViewList().toMutableList()
                     view?.run {
                         showStaticProducts(staticProducts)
                         showLoopProducts(loopProducts)
@@ -69,7 +67,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe({ list ->
                     val newProducts =
-                        productViewMapper.fromProducts(list).mapNotNull { productView ->
+                       list.toProductViewList().mapNotNull { productView ->
                             if (staticProducts.find { it.id == productView.id } != null) {
                                 null
                             } else {
@@ -90,7 +88,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
                 .doAfterTerminate { view?.hideLoading() }
                 .subscribe({ list ->
                     val newProducts =
-                        productViewMapper.fromProducts(list).mapNotNull { productView ->
+                        list.toProductViewList().mapNotNull { productView ->
                             if (loopProducts.find { it.id == productView.id } != null) {
                                 null
                             } else {

@@ -14,7 +14,7 @@ import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectProductsDialog
 import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.selectingredient.SelectNewProductsListener
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ProductView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_create_food_reception.*
 import javax.inject.Inject

@@ -3,14 +3,13 @@ package com.gmail.maystruks08.hikingfood.ui.main
 import com.gmail.maystruks08.domain.interactor.allmenu.AllMenuInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.mappers.MenuViewMapper
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.MenuView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.toMenuView
 import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
 import javax.inject.Inject
 
 class AllMenuPresenter @Inject constructor(
-    private val interactor: AllMenuInteractor,
-    private val menuViewMapper: MenuViewMapper
+    private val interactor: AllMenuInteractor
 ) : AllMenuContract.Presenter, BasePresenter<AllMenuContract.View>() {
 
     private var menuViews = mutableListOf<MenuView>()
@@ -22,7 +21,7 @@ class AllMenuPresenter @Inject constructor(
             interactor.provideAllMenuList()
                 .subscribe({ list ->
                     menuViews.clear()
-                    menuViews.addAll(list.map { menuViewMapper.fromMenu(it) })
+                    menuViews.addAll(list.map { it.toMenuView()})
                     view.showNoData(menuViews.isEmpty())
                     view.showAllMenuList(menuViews)
                     view.hideLoading()

@@ -2,7 +2,7 @@ package com.gmail.maystruks08.hikingfood.ui.main
 
 import com.gmail.maystruks08.hikingfood.core.base.IPresenter
 import com.gmail.maystruks08.hikingfood.core.base.IView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.MenuView
 
 interface AllMenuContract {
 

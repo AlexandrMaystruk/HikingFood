@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gmail.maystruks08.hikingfood.R
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ShoppingListItemView
-import kotlinx.android.synthetic.main.item_purchase_list.view.*
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ShoppingListItemView
+import kotlinx.android.synthetic.main.item_shopping_list.view.*
 import kotlin.properties.Delegates
 
 class ShoppingListItemAdapter(private val clickListener: (ShoppingListItemView) -> Unit) :
@@ -18,7 +18,7 @@ class ShoppingListItemAdapter(private val clickListener: (ShoppingListItemView) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_purchase_list, parent, false)
+            .inflate(R.layout.item_shopping_list, parent, false)
         return ViewHolder(view)
     }
 

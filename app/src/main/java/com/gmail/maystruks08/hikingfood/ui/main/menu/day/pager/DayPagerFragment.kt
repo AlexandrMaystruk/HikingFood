@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.DayView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toArrayList
 import kotlinx.android.synthetic.main.fragment_day_tabs.*
 import javax.inject.Inject

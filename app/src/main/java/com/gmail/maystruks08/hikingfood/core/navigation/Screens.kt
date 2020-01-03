@@ -7,7 +7,7 @@ import com.gmail.maystruks08.hikingfood.ui.main.menu.MenuFragment
 import com.gmail.maystruks08.hikingfood.ui.main.AllMenuFragment
 import com.gmail.maystruks08.hikingfood.ui.main.menu.day.pager.DayPagerFragment
 import com.gmail.maystruks08.hikingfood.ui.main.menu.shopping.ShoppingListFragment
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.DayView
 
 object Screens {
 

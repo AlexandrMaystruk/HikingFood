@@ -1,8 +1,10 @@
-package com.gmail.maystruks08.hikingfood.ui.viewmodel
+package com.gmail.maystruks08.hikingfood.ui.viewmodels
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.gmail.maystruks08.domain.entity.TypeOfMeal
+import com.gmail.maystruks08.hikingfood.core.base.adapter.TypesFactory
+import com.gmail.maystruks08.hikingfood.core.base.adapter.ViewModel
 import java.util.*
 
 data class MenuView(
@@ -14,7 +16,7 @@ data class MenuView(
     var dateOfStartMenu: Date,
     var startFrom: TypeOfMeal,
     var totalWeight: Int
-) : Parcelable {
+) : Parcelable , ViewModel() {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString() ?: "",
@@ -50,4 +52,7 @@ data class MenuView(
             return arrayOfNulls(size)
         }
     }
+
+    override fun type(typesFactory: TypesFactory): Int = typesFactory.type(this)
+
 }

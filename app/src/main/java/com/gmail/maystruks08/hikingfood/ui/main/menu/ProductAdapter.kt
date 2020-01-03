@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.gmail.maystruks08.hikingfood.R
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.SetProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.SetProductView
 import kotlinx.android.synthetic.main.item_product.view.*
 import kotlinx.android.synthetic.main.item_product.view.ivProductSetIcon
 import kotlinx.android.synthetic.main.item_product.view.tvProductName

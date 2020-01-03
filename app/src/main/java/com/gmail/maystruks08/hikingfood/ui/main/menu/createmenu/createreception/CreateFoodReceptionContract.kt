@@ -3,7 +3,7 @@ package com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception
 import com.gmail.maystruks08.domain.entity.TypeOfMeal
 import com.gmail.maystruks08.hikingfood.core.base.IPresenter
 import com.gmail.maystruks08.hikingfood.core.base.IView
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ProductView
 
 interface CreateFoodReceptionContract {
 

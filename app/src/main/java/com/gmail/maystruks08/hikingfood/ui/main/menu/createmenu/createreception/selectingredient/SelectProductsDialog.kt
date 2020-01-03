@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.hikingfood.R
 import com.gmail.maystruks08.hikingfood.ui.main.menu.ProductAdapter
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ProductView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ProductView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toArrayList
 import kotlinx.android.synthetic.main.dialog_fragment_select_ingredient.*
 

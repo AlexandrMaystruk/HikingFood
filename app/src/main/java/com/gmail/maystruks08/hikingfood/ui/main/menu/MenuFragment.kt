@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
+import com.gmail.maystruks08.hikingfood.core.base.adapter.Adapter
+import com.gmail.maystruks08.hikingfood.core.base.adapter.TypesFactory
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.DayView
 import com.gmail.maystruks08.hikingfood.utils.GridSpacingItemDecoration
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_menu.*
@@ -19,7 +21,10 @@ class MenuFragment : BaseFragment(), MenuContract.View {
     @Inject
     lateinit var presenter: MenuContract.Presenter
 
-    private lateinit var daysAdapter: DayAdapter
+    @Inject
+    lateinit var typesFactory: TypesFactory
+
+    private lateinit var daysAdapter: Adapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,16 +54,12 @@ class MenuFragment : BaseFragment(), MenuContract.View {
     }
 
     override fun initViews() {
-        daysAdapter = DayAdapter { dayItemClicked(it) }
+        daysAdapter = Adapter(typesFactory) { dayItemClicked(it as DayView) }
         daysRecyclerView.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.dayPageItemsCount))
         daysRecyclerView.adapter = daysAdapter
-        daysRecyclerView.addItemDecoration(
-            GridSpacingItemDecoration(
-                resources.getDimensionPixelSize(
+        daysRecyclerView.addItemDecoration(GridSpacingItemDecoration(resources.getDimensionPixelSize(
                     R.dimen.margin_xs
-                ), resources.getInteger(R.integer.dayPageItemsCount)
-            )
-        )
+                ), resources.getInteger(R.integer.dayPageItemsCount)))
         arguments?.getLong(MENU_ID)?.let { presenter.initFragment(it) }
 
         btnGetPurchaseList.setOnClickListener {
@@ -71,7 +72,7 @@ class MenuFragment : BaseFragment(), MenuContract.View {
     }
 
     override fun showFoodDays(days: List<DayView>) {
-        daysAdapter.dayList = days.toMutableList()
+        daysAdapter.items = days.toMutableList()
     }
 
     override fun showMessage(message: String) {

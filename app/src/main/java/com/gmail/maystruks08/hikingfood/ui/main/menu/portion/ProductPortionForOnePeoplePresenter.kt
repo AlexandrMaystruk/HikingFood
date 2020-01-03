@@ -4,11 +4,12 @@ import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.domain.interactor.dose.ProductPortionInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.toProductPortionViewList
 import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class ProductPortionForOnePeoplePresenter @Inject constructor(private val interactor: ProductPortionInteractor) : PortionContract.Presenter, BasePresenter<PortionContract.View>() {
+class ProductPortionForOnePeoplePresenter @Inject constructor(private val interactor: ProductPortionInteractor) :
+    PortionContract.Presenter, BasePresenter<PortionContract.View>() {
 
     private var products = mutableListOf<Product>()
 
@@ -17,9 +18,9 @@ class ProductPortionForOnePeoplePresenter @Inject constructor(private val intera
         view.showLoading()
         compositeDisposable.add(
             interactor.getProducts()
-                .subscribe({
-                    products = it.toMutableList()
-                    view.showProductPortionList(products)
+                .subscribe({ productList ->
+                    products = productList.toMutableList()
+                    view.showProductPortionList(products.toProductPortionViewList())
                     view.hideLoading()
                 }, {
                     view.hideLoading()
@@ -43,13 +44,13 @@ class ProductPortionForOnePeoplePresenter @Inject constructor(private val intera
     /** Filter by product name */
     override fun onSearchQueryChanged(productName: String) {
         if (productName.isEmpty()) {
-            view?.showProductPortionList(products)
+            view?.showProductPortionList(products.toProductPortionViewList())
         } else {
             view?.showLoading()
             //this pattern use for avoid kotlin crash with regular expression
             val pattern = ".*${productName.isolateSpecialSymbolsForRegex().toLowerCase()}.*".toRegex()
             val filteredProducts = products.filter { pattern.containsMatchIn(it.name.toLowerCase()) }
-            view?.showProductPortionList(filteredProducts)
+            view?.showProductPortionList(filteredProducts.toProductPortionViewList())
         }
     }
 

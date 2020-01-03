@@ -3,14 +3,15 @@ package com.gmail.maystruks08.hikingfood.ui.main.menu.shopping
 import android.os.Bundle
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gmail.maystruks08.domain.entity.GroupType
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.ShoppingListItemView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.ShoppingListItemView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import javax.inject.Inject
 
-class ShoppingListFragment : BaseFragment(), ShoppingListContract.View {
+class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnClickListener{
 
     @Inject
     lateinit var presenter: ShoppingListContract.Presenter
@@ -58,9 +59,12 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View {
 
     override fun initViews() {
         adapter = ShoppingListItemAdapter(::onItemClicked)
-        shoppingListItemsRecyclerView.layoutManager =
-            LinearLayoutManager(shoppingListItemsRecyclerView.context)
+        shoppingListItemsRecyclerView.layoutManager = LinearLayoutManager(shoppingListItemsRecyclerView.context)
         shoppingListItemsRecyclerView.adapter = adapter
+
+        rbSortByProduct.setOnClickListener(this)
+        rbSortByDepartment.setOnClickListener(this)
+        rbSortByFoodMeal.setOnClickListener(this)
     }
 
     private fun onItemClicked(itemView: ShoppingListItemView) {}
@@ -104,5 +108,25 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View {
                     putString(MENU_NAME_FOR_SHOPPING_LIST, menuName)
                 }
             }
+    }
+
+    override fun onClick(v: View) {
+        when(v){
+            rbSortByProduct -> {
+                presenter.onSelectNewGroupType(GroupType.BY_PRODUCT)
+                rbSortByDepartment.isChecked = false
+                rbSortByFoodMeal.isChecked = false
+            }
+            rbSortByDepartment ->  {
+                presenter.onSelectNewGroupType(GroupType.BY_STORE_DEPARTMENT)
+                rbSortByProduct.isChecked = false
+                rbSortByFoodMeal.isChecked = false
+            }
+            rbSortByFoodMeal ->  {
+                presenter.onSelectNewGroupType(GroupType.BY_PRODUCT_AND_STORE_DEPARTMENT)
+                rbSortByDepartment.isChecked = false
+                rbSortByProduct.isChecked = false
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.maystruks08.hikingfood.*
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.MenuView
+import com.gmail.maystruks08.hikingfood.ui.viewmodels.MenuView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_all_menu_list.*
 import javax.inject.Inject
