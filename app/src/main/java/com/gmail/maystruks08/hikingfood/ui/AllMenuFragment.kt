@@ -26,12 +26,8 @@ class AllMenuFragment : BaseFragment(), AllMenuContract.View, AdapterCallbacks.O
 
     private lateinit var allMenuAdapter: FactoryAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        App.allMenuComponent?.inject(this)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        App.allMenuComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_all_menu_list, container, false)
     }
 
@@ -98,16 +94,17 @@ class AllMenuFragment : BaseFragment(), AllMenuContract.View, AdapterCallbacks.O
         }
     }
 
-    override fun onDestroyView() {
-        allMenuRecyclerView.adapter = null
-        App.clearAllMenuComponent()
-        super.onDestroyView()
-    }
-
     override fun showLoading() {}
 
     override fun hideLoading() {}
 
     override fun showError(t: Throwable) {}
+
+    override fun onDestroyView() {
+        presenter.end()
+        allMenuRecyclerView.adapter = null
+        App.clearAllMenuComponent()
+        super.onDestroyView()
+    }
 
 }
