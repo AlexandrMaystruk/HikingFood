@@ -4,12 +4,12 @@ import com.gmail.maystruks08.data.repository.AllMenuRepositoryImpl
 import com.gmail.maystruks08.domain.interactor.allmenu.AllMenuInteractor
 import com.gmail.maystruks08.domain.interactor.allmenu.AllMenuInteractorImpl
 import com.gmail.maystruks08.domain.repository.AllMenuRepository
-import com.gmail.maystruks08.hikingfood.core.base.adapter.TypesFactory
-import com.gmail.maystruks08.hikingfood.core.base.adapter.TypesFactoryImpl
+import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
+import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactoryImpl
 import dagger.Module
 import dagger.Provides
-import com.gmail.maystruks08.hikingfood.ui.main.AllMenuContract
-import com.gmail.maystruks08.hikingfood.ui.main.AllMenuPresenter
+import com.gmail.maystruks08.hikingfood.ui.AllMenuContract
+import com.gmail.maystruks08.hikingfood.ui.AllMenuPresenter
 
 @Module
 class AllMenuModule {

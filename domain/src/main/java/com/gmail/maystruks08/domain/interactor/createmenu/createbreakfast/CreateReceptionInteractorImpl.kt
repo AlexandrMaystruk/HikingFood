@@ -19,7 +19,7 @@ class CreateReceptionInteractorImpl @Inject constructor(
         }
     }
 
-    override fun getProductById(productId: Int): Product? {
+    override fun getProductById(productId: Long): Product? {
         return repository.getProductById(productId)
     }
 
@@ -63,37 +63,35 @@ class CreateReceptionInteractorImpl @Inject constructor(
             .observeOn(executor.postExecutor)
     }
 
-    override fun onStaticProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable {
+    override fun onStaticProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Long>): Completable {
         return Completable.fromAction {
             val startInfo = repository.getStartInquirerInfo().blockingGet()
             val products = productIds.mapNotNull { id ->
-                repository.getProductById(id)
-                    ?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
+                repository.getProductById(id)?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
             }
             startInfo.foodMeals[typeOfMeal]?.defProducts?.addAll(products)
         }
     }
 
-    override fun onLoopProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Int>): Completable {
+    override fun onLoopProductsAdded(typeOfMeal: TypeOfMeal, productIds: List<Long>): Completable {
         return Completable.fromAction {
             val startInfo = repository.getStartInquirerInfo().blockingGet()
             val products = productIds.mapNotNull { id ->
-                repository.getProductById(id)
-                    ?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
+                repository.getProductById(id)?.apply { this.calculatePortionForAllPeople(startInfo.peopleCount) }
             }
             startInfo.foodMeals[typeOfMeal]?.loopProducts?.addAll(products)
         }
     }
 
-    override fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
-        return repository.removeLoopProduct(typeOfMeal, productId)
+    override fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Long, parentId: Long? ): Completable {
+        return repository.removeLoopProduct(typeOfMeal, productId, parentId)
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
 
     }
 
-    override fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
-        return repository.removeStaticProduct(typeOfMeal, productId)
+    override fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Long,  parentId: Long?): Completable {
+        return repository.removeStaticProduct(typeOfMeal, productId, parentId)
             .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
@@ -106,17 +104,16 @@ class CreateReceptionInteractorImpl @Inject constructor(
     ): Completable {
         return if (defaultProductList.isNotEmpty() && variableProductList.isNotEmpty()) {
             repository.getStartInquirerInfo().flatMapCompletable {
-                val foodMeal =
-                    FoodMeal(
-                        defaultProductList.toMutableList(),
-                        variableProductList.toMutableList()
-                    )
-                        .apply { this.calculatePortionForAllPeople(it.peopleCount) }
+                val foodMeal = FoodMeal(
+                    defaultProductList.toMutableList(),
+                    variableProductList.toMutableList()
+                ).apply { this.calculatePortionForAllPeople(it.peopleCount) }
                 repository.saveFoodMeal(mealType, foodMeal)
             }
         } else {
             Completable.error(FieldNotFillException())
-        }.subscribeOn(executor.mainExecutor)
+        }
+            .subscribeOn(executor.mainExecutor)
             .observeOn(executor.postExecutor)
     }
 

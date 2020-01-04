@@ -26,7 +26,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/bg_coordinator_create" />
 
-            <com.gmail.maystruks08.hikingfood.ui.view.stepprogress.StepProgressView
+            <com.gmail.maystruks08.hikingfood.ui.customviews.stepprogress.StepProgressView
                 android:id="@+id/vStepProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

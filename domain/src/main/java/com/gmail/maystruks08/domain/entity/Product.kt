@@ -1,7 +1,7 @@
 package com.gmail.maystruks08.domain.entity
 
 open class Product(
-    val id: Int,
+    val id: Long,
     val name: String,
     var portion: Portion,
     val storeDepartment: StoreDepartment ? = null,

@@ -10,8 +10,8 @@ import javax.inject.Inject
 class CreateReceptionRepositoryImpl @Inject constructor(private val menuInfo: MenuInfo) :
     CreateReceptionRepository {
 
-    override fun getProductById(id: Int): Product? {
-        return menuInfo.startInquirerInfo?.getProduct(id)
+    override fun getProductById(productId: Long): Product? {
+        return menuInfo.startInquirerInfo?.getProduct(productId)
     }
 
     override fun getDefaultMealProducts(typeOfMeal: TypeOfMeal): Single<FoodMeal> {
@@ -52,17 +52,27 @@ class CreateReceptionRepositoryImpl @Inject constructor(private val menuInfo: Me
         }
     }
 
-    override fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
+    override fun removeLoopProduct(typeOfMeal: TypeOfMeal, productId: Long, parentId: Long?): Completable {
         return Completable.fromAction {
-            menuInfo.startInquirerInfo?.foodMeals?.get(typeOfMeal)
-                ?.loopProducts?.removeAll { it.id == productId }
+            val loopProducts = menuInfo.startInquirerInfo?.foodMeals?.get(typeOfMeal)?.loopProducts
+            loopProducts?.removeAll {
+                if(it is ProductSet && parentId == it.id){
+                    it.removeProduct(productId)
+                }
+                it.id == productId
+            }
         }
     }
 
-    override fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Int): Completable {
+    override fun removeStaticProduct(typeOfMeal: TypeOfMeal, productId: Long, parentId: Long?): Completable {
         return Completable.fromAction {
-            menuInfo.startInquirerInfo?.foodMeals?.get(typeOfMeal)
-                ?.defProducts?.removeAll { it.id == productId }
+            val defProducts = menuInfo.startInquirerInfo?.foodMeals?.get(typeOfMeal)?.defProducts
+            defProducts?.removeAll {
+                if(it is ProductSet && parentId == it.id){
+                    it.removeProduct(productId)
+                }
+                it.id == productId
+            }
         }
     }
 
