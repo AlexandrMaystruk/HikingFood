@@ -26,6 +26,7 @@ class ShoppingListPresenter @Inject constructor(
     }
 
     override fun onSelectNewGroupType(newGroupType: GroupType) {
+        currentGroupType = newGroupType
         provideShoppingList(newGroupType)
     }
 
