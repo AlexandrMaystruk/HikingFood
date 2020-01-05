@@ -10,17 +10,11 @@ class ShoppingItemHolder(itemView: View, onCLickListenerListener: AdapterCallbac
     override fun bind(item: ShoppingListItemView) {
         itemView.tvProductName.text = item.name
         itemView.tvTotalWeight.text = item.totalWeight.toString()
-        itemView.tvUnit.text = item.unit.type
+        itemView.tvUnit.text = item.unit
         itemView.tvPosition.isChecked = item.isPurchased
 
         itemView.setOnClickListener {
             onCLickListenerListener?.onClicked(item)
         }
-
-//         val index = shoppingListItems.indexOf(item)
-//            if (index != -1) {
-//                shoppingListItems[index].isPurchased = !item.isPurchased
-//                itemView.tvPosition.isChecked = !itemView.tvPosition.isChecked
-//            }
     }
 }

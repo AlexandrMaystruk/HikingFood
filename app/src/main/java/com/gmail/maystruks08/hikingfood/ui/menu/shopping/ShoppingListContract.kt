@@ -3,6 +3,7 @@ package com.gmail.maystruks08.hikingfood.ui.menu.shopping
 import com.gmail.maystruks08.domain.entity.GroupType
 import com.gmail.maystruks08.hikingfood.core.base.IPresenter
 import com.gmail.maystruks08.hikingfood.core.base.IView
+import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.BaseViewModel
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ShoppingListItemView
 
 interface ShoppingListContract {
@@ -10,6 +11,10 @@ interface ShoppingListContract {
     interface View : IView {
 
         fun showShoppingList(items: List<ShoppingListItemView>)
+
+        fun showShoppingListGroupByStoreDepartment(items: List<BaseViewModel>)
+
+        fun showShoppingLisItemUpdated(item: ShoppingListItemView)
 
         fun showMessage(message: String)
     }

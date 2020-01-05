@@ -5,29 +5,61 @@ import com.gmail.maystruks08.domain.entity.GroupType
 import com.gmail.maystruks08.domain.interactor.shoppinglist.ShoppingListInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ShoppingListItemView
-import com.gmail.maystruks08.hikingfood.ui.adapter.toShoppingListItemView
+import com.gmail.maystruks08.hikingfood.ui.adapter.toShoppingListItemViewList
+import com.gmail.maystruks08.hikingfood.ui.adapter.toStoreDepartmentView
+import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.BaseViewModel
 import com.gmail.maystruks08.hikingfood.utils.extensions.isolateSpecialSymbolsForRegex
 import javax.inject.Inject
 
 class ShoppingListPresenter @Inject constructor(
     private val interactor: ShoppingListInteractor
-) :
-    ShoppingListContract.Presenter, BasePresenter<ShoppingListContract.View>() {
+) : ShoppingListContract.Presenter, BasePresenter<ShoppingListContract.View>() {
 
     private var items = mutableListOf<ShoppingListItemView>()
-
-    private var currentGroupType = GroupType.BY_STORE_DEPARTMENT
+    private var currentGroupType = GroupType.BY_PRODUCT
+    private var menuId = -1L
 
     override fun bindView(view: ShoppingListContract.View, menuId: Long) {
         super.bindView(view)
-        compositeDisposable.add(
-            interactor.provideShoppingListGroupByProduct(menuId).subscribe({ list ->
-                items = list.map { it.toShoppingListItemView() }.toMutableList()
-                view.showShoppingList(items)
-            }, {
-                it.printStackTrace()
-            })
-        )
+        this.menuId = menuId
+        provideShoppingList(currentGroupType)
+    }
+
+    override fun onSelectNewGroupType(newGroupType: GroupType) {
+        provideShoppingList(newGroupType)
+    }
+
+    private fun provideShoppingList(groupType: GroupType) {
+       val shoppingListDisposable =  when (groupType) {
+            GroupType.BY_PRODUCT -> {
+                    interactor.provideShoppingListGroupByProduct(menuId).subscribe({ list ->
+                        view?.showShoppingList(list.toShoppingListItemViewList())
+                    }, { it.printStackTrace() })
+            }
+            GroupType.BY_STORE_DEPARTMENT -> {
+                interactor.providePurchaseListGroupByStoreDepartment(menuId).subscribe({
+                    val shoppingListGroupByStoreDepartment = mutableListOf<BaseViewModel>().apply {
+                        it.forEach { (storeDepartment, itemList) ->
+                            this.add(storeDepartment.toStoreDepartmentView())
+                            this.addAll(itemList.toShoppingListItemViewList().sortedBy { it.name })
+                        }
+                    }
+                    view?.showShoppingListGroupByStoreDepartment(shoppingListGroupByStoreDepartment)
+                }, { it.printStackTrace() })
+            }
+            else -> {
+                interactor.providePurchaseListGroupByProductAndStoreDepartment(menuId).subscribe({
+                    val shoppingListGroupByProductAndStoreDepartment = mutableListOf<BaseViewModel>().apply {
+                        it.forEach { (storeDepartment, itemList) ->
+                            this.add(storeDepartment.toStoreDepartmentView())
+                            this.addAll(itemList.toShoppingListItemViewList().sortedBy { it.name })
+                        }
+                    }
+                    view?.showShoppingListGroupByStoreDepartment(shoppingListGroupByProductAndStoreDepartment)
+                }, { it.printStackTrace() })
+            }
+        }
+        compositeDisposable.add(shoppingListDisposable)
     }
 
     /** Filter by product name */
@@ -43,7 +75,11 @@ class ShoppingListPresenter @Inject constructor(
         }
     }
 
-    override fun onItemClicked(item: ShoppingListItemView) {}
+    override fun onItemClicked(item: ShoppingListItemView) {
+        //TODO save changes to db and storage
+        val updatedItem = item.apply { isPurchased = !isPurchased }
+        view?.showShoppingLisItemUpdated(updatedItem)
+    }
 
     override fun onSaveShoppingListToPDF(menuId: Long, menuName: String) {
         compositeDisposable.add(
@@ -52,14 +88,8 @@ class ShoppingListPresenter @Inject constructor(
         )
     }
 
-    override fun onSelectNewGroupType(newGroupType: GroupType) {
-        currentGroupType = newGroupType
-        //TODO need to handle this flow
-    }
-
     private fun onExportDataToPDFSuccess() {
         view?.showMessage("Экспорт файла завершен")
-        //TODO show notification
     }
 
     private fun onExportDataToPDFError(t: Throwable) {

@@ -22,7 +22,7 @@ interface CreateReceptionRepository {
 
     fun saveFoodMeal(typeOfMeal: TypeOfMeal, foodMeal: FoodMeal): Completable
 
-    fun getProductById(productId: Long): Product?
+    fun getProductById(productId: Long, menuId: Long? = null): Product?
 
     fun saveMenu(menu: Menu): Completable
 }

@@ -6,14 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.maystruks08.domain.entity.GroupType
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
+import com.gmail.maystruks08.hikingfood.ui.adapter.AdapterCallbacks
 import com.gmail.maystruks08.hikingfood.ui.adapter.FactoryAdapter
 import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
+import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.BaseViewModel
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ShoppingListItemView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import javax.inject.Inject
 
-class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnClickListener{
+class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnClickListener, AdapterCallbacks.OnClickListener<ShoppingListItemView>{
 
     @Inject
     lateinit var presenter: ShoppingListContract.Presenter
@@ -64,50 +66,13 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnC
     }
 
     override fun initViews() {
-        adapter = FactoryAdapter(typeFactory)
+        adapter = FactoryAdapter(typeFactory, onClickListener = this)
         shoppingListItemsRecyclerView.layoutManager = LinearLayoutManager(shoppingListItemsRecyclerView.context)
         shoppingListItemsRecyclerView.adapter = adapter
 
         rbSortByProduct.setOnClickListener(this)
         rbSortByDepartment.setOnClickListener(this)
         rbSortByFoodMeal.setOnClickListener(this)
-    }
-
-    override fun showShoppingList(items: List<ShoppingListItemView>) {
-        adapter.items = items.toMutableList()
-    }
-
-    override fun showMessage(message: String) {
-        context?.toast(message)
-    }
-
-    override fun onDestroyView() {
-        shoppingListItemsRecyclerView.adapter = null
-        presenter.end()
-        App.clearPurchaseListComponent()
-        super.onDestroyView()
-    }
-
-    override fun showLoading() {}
-
-    override fun hideLoading() {}
-
-    override fun showError(t: Throwable) {}
-
-
-    companion object {
-
-        private const val MENU_ID_FOR_SHOPPING_LIST = "MENU_ID_FOR_SHOPPING_LIST"
-
-        private const val MENU_NAME_FOR_SHOPPING_LIST = "MENU_NAME_FOR_SHOPPING_LIST"
-
-        fun getInstance(menuId: Long, menuName: String): ShoppingListFragment =
-            ShoppingListFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(MENU_ID_FOR_SHOPPING_LIST, menuId)
-                    putString(MENU_NAME_FOR_SHOPPING_LIST, menuName)
-                }
-            }
     }
 
     override fun onClick(v: View) {
@@ -128,5 +93,53 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnC
                 rbSortByProduct.isChecked = false
             }
         }
+    }
+
+    override fun onClicked(item: ShoppingListItemView) {
+        presenter.onItemClicked(item)
+    }
+
+    override fun showShoppingList(items: List<ShoppingListItemView>) {
+        adapter.items = items.toMutableList()
+    }
+
+    override fun showShoppingListGroupByStoreDepartment(items: List<BaseViewModel>) {
+        adapter.items = items.toMutableList()
+    }
+
+    override fun showShoppingLisItemUpdated(item: ShoppingListItemView) {
+        adapter.updateItem(item)
+    }
+
+    override fun showMessage(message: String) {
+        context?.toast(message)
+    }
+
+    override fun onDestroyView() {
+        shoppingListItemsRecyclerView.adapter = null
+        presenter.end()
+        App.clearPurchaseListComponent()
+        super.onDestroyView()
+    }
+
+    override fun showLoading() {}
+
+    override fun hideLoading() {}
+
+    override fun showError(t: Throwable) {}
+
+    companion object {
+
+        private const val MENU_ID_FOR_SHOPPING_LIST = "MENU_ID_FOR_SHOPPING_LIST"
+
+        private const val MENU_NAME_FOR_SHOPPING_LIST = "MENU_NAME_FOR_SHOPPING_LIST"
+
+        fun getInstance(menuId: Long, menuName: String): ShoppingListFragment =
+            ShoppingListFragment().apply {
+                arguments = Bundle().apply {
+                    putLong(MENU_ID_FOR_SHOPPING_LIST, menuId)
+                    putString(MENU_NAME_FOR_SHOPPING_LIST, menuName)
+                }
+            }
     }
 }

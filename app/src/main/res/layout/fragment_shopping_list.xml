@@ -43,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_s"
+        android:checked="true"
         app:layout_constraintBottom_toTopOf="@+id/tvSortByProduct"
         app:layout_constraintEnd_toEndOf="@+id/tvSortByProduct"
         app:layout_constraintStart_toStartOf="@+id/tvSortByProduct" />
@@ -51,7 +52,6 @@
         android:id="@+id/rbSortByDepartment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
         app:layout_constraintBottom_toTopOf="@+id/tvSortByDepartment"
         app:layout_constraintEnd_toEndOf="@+id/tvSortByDepartment"
         app:layout_constraintStart_toStartOf="@+id/tvSortByDepartment" />
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="-15"
-        android:text="по сумме"
+        android:text="по продуктам"
         app:layout_constraintBottom_toBottomOf="@+id/tvSortByDepartment"
         app:layout_constraintCircle="@id/appBarLayout"
         app:layout_constraintCircleAngle="255"

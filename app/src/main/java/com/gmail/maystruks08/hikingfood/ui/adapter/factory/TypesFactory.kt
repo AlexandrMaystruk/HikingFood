@@ -16,6 +16,7 @@ interface TypesFactory {
 
     fun type(day: DayView): Int
 
+    fun type(storeDepartmentView: StoreDepartmentView): Int
     fun type(shoppingListItem: ShoppingListItemView): Int
 
     fun holder(type: Int, view: View, onCLickListenerListener: AdapterCallbacks.OnClickListener<*>?, onItemChangeListenerListener: AdapterCallbacks.OnItemChangeListener<*>?): BaseViewHolder<*>

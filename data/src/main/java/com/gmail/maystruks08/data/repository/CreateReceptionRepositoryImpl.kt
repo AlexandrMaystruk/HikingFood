@@ -10,7 +10,12 @@ import javax.inject.Inject
 class CreateReceptionRepositoryImpl @Inject constructor(private val menuInfo: MenuInfo) :
     CreateReceptionRepository {
 
-    override fun getProductById(productId: Long): Product? {
+    override fun getProductById(productId: Long, menuId: Long?): Product? {
+       if(menuId != null){
+           menuInfo.menuList.find { it.id == menuId }?.let {
+             return  it.getProductById(productId)
+           }
+       }
         return menuInfo.startInquirerInfo?.getProduct(productId)
     }
 

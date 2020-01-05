@@ -10,7 +10,7 @@ data class StartInquirerInfo(
     var dateOfStartMenu: Date,
     var timeOfStartMenu: TypeOfMeal,
     val products: MutableList<Product>,
-    val productSets: List<ProductSet>,
+    val productSets: MutableList<ProductSet>,
     val foodMeals: MutableMap<TypeOfMeal, FoodMeal>
 ) {
 

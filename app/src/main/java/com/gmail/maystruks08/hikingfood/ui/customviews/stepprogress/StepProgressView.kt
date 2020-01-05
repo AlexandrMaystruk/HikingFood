@@ -462,16 +462,8 @@ class StepProgressView : ViewGroup, View.OnClickListener {
             val oldStep = currentStep
             currentStep = stepNumber
             val currentStepState = stepsStates[currentStep]
-            val newOldStepState = if (isStepDone(oldStep)) {
-                StepState.DONE
-            } else {
-                StepState.UNDONE
-            }
-            val newCurrentStepState = if (currentStepState == StepState.DONE) {
-                StepState.SELECTED_DONE
-            } else {
-                StepState.SELECTED_UNDONE
-            }
+            val newOldStepState = if (isStepDone(oldStep)) StepState.DONE else StepState.UNDONE
+            val newCurrentStepState = if (currentStepState == StepState.DONE) StepState.SELECTED_DONE else StepState.SELECTED_UNDONE
             changeStepState(oldStep, newOldStepState)
             changeStepState(currentStep, newCurrentStepState)
         }
@@ -486,19 +478,11 @@ class StepProgressView : ViewGroup, View.OnClickListener {
             }
             if (nextStep < stepsCount) {
                 val nextStepState = stepsStates[nextStep]
-                val newNextStepState = if (nextStepState == StepState.DONE) {
-                    StepState.SELECTED_DONE
-                } else {
-                    StepState.SELECTED_UNDONE
-                }
+                val newNextStepState = if (nextStepState == StepState.DONE) StepState.SELECTED_DONE else StepState.SELECTED_UNDONE
                 changeStepState(nextStep, newNextStepState)
                 currentStep = nextStep
             }
-            return if (isAllDone()) {
-                1
-            } else {
-                0
-            }
+            return if (isAllDone()) 1 else 0
         }
 
         fun markCurrentStepDone() {

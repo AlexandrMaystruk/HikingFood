@@ -19,8 +19,8 @@ class CreateReceptionInteractorImpl @Inject constructor(
         }
     }
 
-    override fun getProductById(productId: Long): Product? {
-        return repository.getProductById(productId)
+    override fun getProductById(productId: Long, menuId: Long?): Product? {
+        return repository.getProductById(productId, menuId)
     }
 
     override fun getAllDefaultProducts(typeOfMeal: TypeOfMeal): Single<FoodMeal> {

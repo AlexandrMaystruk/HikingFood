@@ -8,8 +8,7 @@ import com.gmail.maystruks08.hikingfood.ui.adapter.viewholders.*
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.*
 import javax.inject.Inject
 
-class TypesFactoryImpl @Inject constructor():
-    TypesFactory {
+class TypesFactoryImpl @Inject constructor(): TypesFactory {
 
     override fun type(menu: MenuView): Int = R.layout.item_menu
 
@@ -21,6 +20,8 @@ class TypesFactoryImpl @Inject constructor():
 
     override fun type(productPortion: ProductPortionView): Int = R.layout.item_product_portion
 
+    override fun type(storeDepartmentView: StoreDepartmentView): Int = R.layout.item_store_department
+
     override fun type(shoppingListItem: ShoppingListItemView): Int = R.layout.item_shopping_list
 
     @Suppress("UNCHECKED_CAST")
@@ -31,6 +32,7 @@ class TypesFactoryImpl @Inject constructor():
             R.layout.item_product -> ProductHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<ProductView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<ProductView>?)
             R.layout.item_product_set -> ProductSetHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<SetProductView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<SetProductView>?)
             R.layout.item_product_portion -> ProductPortionHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<ProductPortionView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<ProductPortionView>?)
+            R.layout.item_store_department -> StoreDepartmentHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<StoreDepartmentView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<StoreDepartmentView>?)
             R.layout.item_shopping_list -> ShoppingItemHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<ShoppingListItemView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<ShoppingListItemView>?)
             else -> throw RuntimeException("Illegal view type")
         }

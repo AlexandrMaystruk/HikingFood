@@ -10,12 +10,13 @@ import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.DayView
 import com.gmail.maystruks08.hikingfood.utils.extensions.toArrayList
 import kotlinx.android.synthetic.main.fragment_day_tabs.*
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class DayPagerFragment : BaseFragment(), DayPagerContract.View {
+class DayPagerFragment : BaseFragment(){
 
     @Inject
-    lateinit var presenter: DayPagerContract.Presenter
+    lateinit var router: Router
 
     private lateinit var dayFragmentPagerAdapter: DayFragmentPagerAdapter
 
@@ -29,21 +30,20 @@ class DayPagerFragment : BaseFragment(), DayPagerContract.View {
         arguments?.run {
             val list = getParcelableArrayList<DayView>(DAYS) as List<DayView>
             val position = getInt(SELECTED_DAY_NUMBER)
-            presenter.bindView(this@DayPagerFragment, list, position)
+            setupViewPager(list, position)
         }
     }
 
-    override fun builder(): FragmentToolbar {
-        return FragmentToolbar.Builder()
+    override fun builder(): FragmentToolbar =
+        FragmentToolbar.Builder()
             .withId(R.id.toolbar)
-            .withTitle( R.string.fragment_create_menu_name)
-            .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
+            .withTitle(R.string.day)
+            .withNavigationIcon(R.drawable.ic_arrow_back) { router.exit() }
             .build()
-    }
 
     override fun initViews() {}
 
-    override fun setupViewPager(days: List<DayView>, selectedPosition: Int) {
+    private fun setupViewPager(days: List<DayView>, selectedPosition: Int) {
         dayFragmentPagerAdapter = DayFragmentPagerAdapter(childFragmentManager, days)
         dayViewPager?.adapter = dayFragmentPagerAdapter
         dayViewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -58,17 +58,10 @@ class DayPagerFragment : BaseFragment(), DayPagerContract.View {
     }
 
     override fun onDestroyView() {
-        presenter.end()
         dayViewPager.adapter = null
         App.clearDayComponent()
         super.onDestroyView()
     }
-
-    override fun showLoading() {}
-
-    override fun hideLoading() {}
-
-    override fun showError(t: Throwable) {}
 
     companion object {
 

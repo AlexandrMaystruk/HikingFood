@@ -2,23 +2,21 @@ package com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.gmail.maystruks08.domain.entity.Unit
 import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
 
 class ShoppingListItemView(
     id: Long,
     val name: String,
     val totalWeight: Int,
-    val price: Double = 0.0,
-    val unit: Unit,
+    val unit: String,
     var isPurchased: Boolean = false
 ) : Parcelable, BaseViewModel(id) {
+
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readInt(),
-        parcel.readDouble(),
-        Unit.fromValue(parcel.readString() ?: ""),
+        parcel.readString() ?: "",
         parcel.readByte() != 0.toByte()
     )
 
@@ -26,8 +24,7 @@ class ShoppingListItemView(
         parcel.writeLong(id)
         parcel.writeString(name)
         parcel.writeInt(totalWeight)
-        parcel.writeDouble(price)
-        parcel.writeString(unit.type)
+        parcel.writeString(unit)
         parcel.writeByte(if (isPurchased) 1 else 0)
     }
 

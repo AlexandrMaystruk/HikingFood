@@ -14,4 +14,6 @@ interface ShoppingListInteractor {
 
     fun providePurchaseListGroupByStoreDepartment(menuId: Long): Single<Map<StoreDepartment, List<ShoppingListItem>>>
 
+    fun providePurchaseListGroupByProductAndStoreDepartment(menuId: Long): Single<Map<StoreDepartment, List<ShoppingListItem>>>
+
 }

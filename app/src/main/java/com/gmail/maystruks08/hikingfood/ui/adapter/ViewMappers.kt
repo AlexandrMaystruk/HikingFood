@@ -75,9 +75,18 @@ fun Day.toDayView(menuId: Long): DayView {
 
 fun ShoppingListItem.toShoppingListItemView(): ShoppingListItemView =
     ShoppingListItemView(
-        this.product.id,
+        this.id,
         this.product.name,
         this.totalWeight,
-        this.price,
-        this.product.portion.unit
+        this.product.portion.unit.type
     )
+
+fun StoreDepartment.toStoreDepartmentView(): StoreDepartmentView =
+    StoreDepartmentView(
+        this.ordinal.toLong(),
+        this.type
+    )
+
+fun List<ShoppingListItem>?.toShoppingListItemViewList(): MutableList<ShoppingListItemView> {
+    return this?.map { it.toShoppingListItemView() }?.toMutableList() ?: mutableListOf()
+}

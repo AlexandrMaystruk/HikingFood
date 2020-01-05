@@ -4,18 +4,17 @@ import com.gmail.maystruks08.domain.entity.FoodMeal
 import com.gmail.maystruks08.domain.entity.Product
 import com.gmail.maystruks08.domain.entity.ProductSet
 import com.gmail.maystruks08.domain.entity.TypeOfMeal
+import com.gmail.maystruks08.domain.interactor.ProductProvider
 import io.reactivex.Completable
 import io.reactivex.Single
 
-interface CreateReceptionInteractor {
+interface CreateReceptionInteractor: ProductProvider {
 
     fun getAllDefaultProducts(typeOfMeal: TypeOfMeal): Single<FoodMeal>
 
     fun getDefaultStaticProducts(): Single<List<Product>>
 
     fun getDefaultLoopProducts(): Single<List<Product>>
-
-    fun getProductById(productId: Long): Product?
 
     fun getSoupSets(typeOfMeal: TypeOfMeal): Single<List<ProductSet>>
 
