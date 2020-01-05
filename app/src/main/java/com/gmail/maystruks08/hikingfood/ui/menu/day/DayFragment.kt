@@ -133,6 +133,8 @@ class DayFragment : BaseFragment(), DayContract.View {
         rvBreakfast.adapter = null
         rvLunch.adapter = null
         rvDinner.adapter = null
+        presenter.end()
+        App.clearDayComponent()
     }
 
     companion object {

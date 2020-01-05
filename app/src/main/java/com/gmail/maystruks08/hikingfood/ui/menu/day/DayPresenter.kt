@@ -56,10 +56,10 @@ class DayPresenter @Inject constructor(private val menuInfo: MenuInfo) : DayCont
 
     override fun onProductClicked(productView: ProductView, typeOfMeal: TypeOfMeal) {
         if (productView is SetProductView) {
-            val productList = when(typeOfMeal){
+            val productList = when (typeOfMeal) {
                 TypeOfMeal.BREAKFAST -> dayView.breakfastProducts
-                TypeOfMeal.LUNCH ->  dayView.lunchProducts
-                else ->  dayView.dinnerProducts
+                TypeOfMeal.LUNCH -> dayView.lunchProducts
+                else -> dayView.dinnerProducts
             }
             val position = productList.indexOfFirst { it.id == productView.id }
             val productSetView = (productList[position] as SetProductView)
