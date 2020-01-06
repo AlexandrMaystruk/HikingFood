@@ -152,5 +152,4 @@ class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
         App.clearCreateMenuComponent()
         super.onDestroyView()
     }
-
 }

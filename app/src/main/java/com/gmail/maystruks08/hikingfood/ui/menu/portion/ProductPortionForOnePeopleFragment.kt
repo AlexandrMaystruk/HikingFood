@@ -16,8 +16,7 @@ import kotlinx.android.synthetic.main.fragment_portions.*
 import javax.inject.Inject
 
 
-class ProductPortionForOnePeopleFragment
-    : BaseFragment(), PortionContract.View,
+class ProductPortionForOnePeopleFragment : BaseFragment(), PortionContract.View,
     AdapterCallbacks.OnItemChangeListener<ProductPortionView> {
 
     @Inject

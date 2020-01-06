@@ -11,6 +11,7 @@ import com.gmail.maystruks08.hikingfood.ui.adapter.FactoryAdapter
 import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.BaseViewModel
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ShoppingListItemView
+import com.gmail.maystruks08.hikingfood.utils.extensions.argument
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import javax.inject.Inject
@@ -25,16 +26,12 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnC
 
     private lateinit var adapter: FactoryAdapter
 
-    private lateinit var menuName: String
+    private var menuName: String by argument()
 
-    private var menuId: Long = -1
+    private var menuId: Long by argument()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.run {
-            menuName = getString(MENU_NAME_FOR_SHOPPING_LIST) ?: "No name"
-            menuId = getLong(MENU_ID_FOR_SHOPPING_LIST)
-        }
         App.shoppingListComponent?.inject(this)
     }
 
@@ -130,16 +127,10 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnC
 
     companion object {
 
-        private const val MENU_ID_FOR_SHOPPING_LIST = "MENU_ID_FOR_SHOPPING_LIST"
-
-        private const val MENU_NAME_FOR_SHOPPING_LIST = "MENU_NAME_FOR_SHOPPING_LIST"
-
         fun getInstance(menuId: Long, menuName: String): ShoppingListFragment =
             ShoppingListFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(MENU_ID_FOR_SHOPPING_LIST, menuId)
-                    putString(MENU_NAME_FOR_SHOPPING_LIST, menuName)
-                }
+                this.menuId = menuId
+                this.menuName = menuName
             }
     }
 }

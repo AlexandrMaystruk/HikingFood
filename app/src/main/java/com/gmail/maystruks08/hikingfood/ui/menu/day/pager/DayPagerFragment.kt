@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.gmail.maystruks08.hikingfood.*
 import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.DayView
-import com.gmail.maystruks08.hikingfood.utils.extensions.toArrayList
+import com.gmail.maystruks08.hikingfood.utils.extensions.argument
 import kotlinx.android.synthetic.main.fragment_day_tabs.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -20,6 +20,9 @@ class DayPagerFragment : BaseFragment(){
 
     private lateinit var dayFragmentPagerAdapter: DayFragmentPagerAdapter
 
+    var position: Int by argument()
+    var days: List<DayView> by argument()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         App.dayComponent?.inject(this)
         return inflater.inflate(R.layout.fragment_day_tabs, container, false)
@@ -27,11 +30,7 @@ class DayPagerFragment : BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.run {
-            val list = getParcelableArrayList<DayView>(DAYS) as List<DayView>
-            val position = getInt(SELECTED_DAY_NUMBER)
-            setupViewPager(list, position)
-        }
+        setupViewPager(days, position)
     }
 
     override fun builder(): FragmentToolbar =
@@ -65,16 +64,10 @@ class DayPagerFragment : BaseFragment(){
 
     companion object {
 
-        private const val DAYS = "DAYS"
-
-        private const val SELECTED_DAY_NUMBER = "SELECTED_DAY_NUMBER"
-
         fun getInstance(days: List<DayView>, position: Int) =
             DayPagerFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelableArrayList(DAYS, days.toArrayList())
-                    putInt(SELECTED_DAY_NUMBER, position)
-                }
+                this.position = position
+                this.days = days
             }
     }
 }

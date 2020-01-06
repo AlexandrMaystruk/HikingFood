@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.gmail.maystruks08.hikingfood.R
+import com.gmail.maystruks08.hikingfood.utils.extensions.argument
 import kotlinx.android.synthetic.main.dialog_select_date.*
 import java.util.*
 
 class SelectDateDialog : DialogFragment() {
 
     private lateinit var listener: (Date) -> Unit
+
+    private var headerText: String by argument()
 
     private val calendar: Calendar = GregorianCalendar()
 
@@ -29,10 +32,7 @@ class SelectDateDialog : DialogFragment() {
     }
 
     private fun initView() {
-        arguments?.getString(CALENDAR)?.let {
-            tvCalendarHeader.text = it
-        }
-
+        tvCalendarHeader.text = headerText
         cvDate.setOnDateChangeListener { _, year, month, dayOfMonth ->
             calendar.set(year, month, dayOfMonth)
         }
@@ -51,14 +51,10 @@ class SelectDateDialog : DialogFragment() {
 
     companion object {
 
-        const val CALENDAR = "calendar_header_text"
-
         fun getInstance(headerText: String, listener: (Date) -> Unit) =
             SelectDateDialog().apply {
                 this.listener = listener
-                arguments?.apply {
-                    arguments?.putString(CALENDAR, headerText)
-                }
+                this.headerText = headerText
             }
     }
 }

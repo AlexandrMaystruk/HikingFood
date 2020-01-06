@@ -204,19 +204,17 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
         adapterStaticProducts.removeItems(startPosition, count)
     }
 
-    override fun onDestroyView() {
-        presenter.end()
-        staticProductsRecyclerView.adapter = null
-        loopProductRecyclerView.adapter = null
-        App.clearCreateReceptionComponent()
-
-        super.onDestroyView()
-    }
-
     override fun showLoading() {}
 
     override fun hideLoading() {}
 
     override fun showError(t: Throwable) {}
 
+    override fun onDestroyView() {
+        presenter.end()
+        staticProductsRecyclerView.adapter = null
+        loopProductRecyclerView.adapter = null
+        App.clearCreateReceptionComponent()
+        super.onDestroyView()
+    }
 }

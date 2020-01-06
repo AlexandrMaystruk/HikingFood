@@ -13,6 +13,7 @@ import com.gmail.maystruks08.hikingfood.ui.adapter.FactoryAdapter
 import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.DayView
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ProductView
+import com.gmail.maystruks08.hikingfood.utils.extensions.argument
 import kotlinx.android.synthetic.main.fragment_day.*
 import javax.inject.Inject
 
@@ -28,12 +29,12 @@ class DayFragment : BaseFragment(), DayContract.View {
     private lateinit var lunchAdapter: FactoryAdapter
     private lateinit var dinnerAdapter: FactoryAdapter
 
+    private var dayView: DayView by argument()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         App.dayComponent?.inject(this)
-        arguments?.getParcelable<DayView>(DAY)?.let {
-            presenter.bindView(this, it)
-        }
+        presenter.bindView(this, dayView)
         return inflater.inflate(R.layout.fragment_day, container, false)
     }
 
@@ -139,12 +140,7 @@ class DayFragment : BaseFragment(), DayContract.View {
 
     companion object {
 
-        private const val DAY = "day"
-
-        fun getInstance(day: DayView): DayFragment =
-            DayFragment().apply {
-                arguments = Bundle().apply { putParcelable(DAY, day) }
-            }
+        fun getInstance(day: DayView): DayFragment = DayFragment().apply { this.dayView = day }
     }
 }
 

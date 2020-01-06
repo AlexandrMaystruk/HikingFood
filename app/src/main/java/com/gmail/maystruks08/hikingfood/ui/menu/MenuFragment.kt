@@ -13,6 +13,7 @@ import com.gmail.maystruks08.hikingfood.ui.adapter.AdapterCallbacks
 import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.DayView
 import com.gmail.maystruks08.hikingfood.utils.GridSpacingItemDecoration
+import com.gmail.maystruks08.hikingfood.utils.extensions.argument
 import com.gmail.maystruks08.hikingfood.utils.extensions.toast
 import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
@@ -27,15 +28,10 @@ class MenuFragment : BaseFragment(), MenuContract.View, AdapterCallbacks.OnClick
 
     private lateinit var daysAdapter: FactoryAdapter
 
-    private var menuId : Long = -1
+    private var menuId: Long by argument()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         App.menuComponent?.inject(this)
-        arguments?.getLong(MENU_ID)?.let { menuId = it }
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
 
@@ -90,25 +86,15 @@ class MenuFragment : BaseFragment(), MenuContract.View, AdapterCallbacks.OnClick
         super.onDestroyView()
     }
 
-    override fun showLoading() {
-    }
+    override fun showLoading() {}
 
-    override fun hideLoading() {
-    }
+    override fun hideLoading() {}
 
-    override fun showError(t: Throwable) {
-    }
+    override fun showError(t: Throwable) {}
 
     companion object {
 
-        private const val MENU_ID = "menuId"
-
-        fun getInstance(menuId: Long): MenuFragment =
-            MenuFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(MENU_ID, menuId)
-                }
-            }
+        fun getInstance(menuId: Long): MenuFragment = MenuFragment().apply { this.menuId = menuId }
     }
 }
 
