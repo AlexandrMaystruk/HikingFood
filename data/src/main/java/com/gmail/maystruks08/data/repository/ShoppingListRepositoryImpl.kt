@@ -10,22 +10,24 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ShoppingListRepositoryImpl @Inject constructor(private val menuInfo: MenuInfo,
-                                                     private val pdfHelper: PDFHelper) :
-    ShoppingListRepository {
+class ShoppingListRepositoryImpl @Inject constructor(
+    private val menuInfo: MenuInfo,
+    private val pdfHelper: PDFHelper
+) : ShoppingListRepository {
 
     override fun getDataForGeneratePurchaseList(menuId: Long): Single<List<Day>> {
         return Single.fromCallable {
-            return@fromCallable menuInfo.menuList.find { it.id == menuId }?.days ?: return@fromCallable
+            return@fromCallable menuInfo.menuList.find { it.id == menuId }?.days
+                ?: return@fromCallable
         }
     }
 
-    override fun exportDataGroupByStoreDepartmentToPDF(menuName: String, data: Map<StoreDepartment, List<ShoppingListItem>>): Completable {
+    override fun exportDataToPDF(menuName: String, data: Map<StoreDepartment, List<ShoppingListItem>>): Completable {
         return Completable.fromAction { pdfHelper.exportPurchaseListGroupByStoreDepartment(menuName, data) }
     }
 
-    override fun exportDataGroupByProductToPDF(menuName: String, data: List<ShoppingListItem>): Completable {
-       return Completable.fromAction { pdfHelper.exportPurchaseListGroupByProduct(menuName, data) }
-  }
+    override fun exportDataToPDF(menuName: String, data: List<ShoppingListItem>): Completable {
+        return Completable.fromAction { pdfHelper.exportPurchaseListGroupByProduct(menuName, data) }
+    }
 }
 

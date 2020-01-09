@@ -1,13 +1,13 @@
 package com.gmail.maystruks08.hikingfood.core.navigation
 
-import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.CreateMenuFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.createreception.CreateFoodReceptionFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.portion.ProductPortionForOnePeopleFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.MenuFragment
-import com.gmail.maystruks08.hikingfood.ui.main.AllMenuFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.day.pager.DayPagerFragment
-import com.gmail.maystruks08.hikingfood.ui.main.menu.shopping.ShoppingListFragment
-import com.gmail.maystruks08.hikingfood.ui.viewmodel.DayView
+import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.CreateMenuFragment
+import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.createreception.CreateFoodReceptionFragment
+import com.gmail.maystruks08.hikingfood.ui.menu.portion.ProductPortionForOnePeopleFragment
+import com.gmail.maystruks08.hikingfood.ui.menu.MenuFragment
+import com.gmail.maystruks08.hikingfood.ui.AllMenuFragment
+import com.gmail.maystruks08.hikingfood.ui.menu.day.pager.DayPagerFragment
+import com.gmail.maystruks08.hikingfood.ui.menu.shopping.ShoppingListFragment
+import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.DayView
 
 object Screens {
 

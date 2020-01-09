@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <dimen name="text_xs">10sp</dimen>
     <dimen name="text_s">12sp</dimen>
     <dimen name="text_m">16sp</dimen>
@@ -24,24 +25,14 @@
     <dimen name="size_xxl">44sp</dimen>
     <dimen name="size_xxxl">56sp</dimen>
 
-
     <dimen name="size_fab_min">32dp</dimen>
-
-    <!--Launcher size-->
     <dimen name="button_width">270dp</dimen>
     <dimen name="button_height">40dp</dimen>
-    <dimen name="button_margin_bottom">130dp</dimen>
 
     <dimen name="number_spinner_width">80dp</dimen>
     <dimen name="number_spinner_height">24dp</dimen>
 
-    <dimen name="mainCardCornerRadius">4dp</dimen>
-    <dimen name="mainButtonCornerRadius">4dp</dimen>
-
     <!--Widget size-->
-    <dimen name="tabs_height">26dp</dimen>
-
     <item name="mainVerticalGuideline" format="float" type="dimen">0.5</item>
-
 
 </resources>

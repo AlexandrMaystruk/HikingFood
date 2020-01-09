@@ -10,8 +10,8 @@ interface ShoppingListRepository {
 
     fun getDataForGeneratePurchaseList(menuId: Long): Single<List<Day>>
 
-    fun exportDataGroupByStoreDepartmentToPDF(menuName: String, data: Map<StoreDepartment, List<ShoppingListItem>>): Completable
+    fun exportDataToPDF(menuName: String, data: Map<StoreDepartment, List<ShoppingListItem>>): Completable
 
-    fun exportDataGroupByProductToPDF(menuName: String, data: List<ShoppingListItem>): Completable
+    fun exportDataToPDF(menuName: String, data: List<ShoppingListItem>): Completable
 
 }

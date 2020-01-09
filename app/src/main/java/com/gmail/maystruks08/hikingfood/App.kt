@@ -51,14 +51,14 @@ class App : Application() {
         var shoppingListComponent: ShoppingListComponent? = null
             get() {
                 if (field == null)
-                    field = menuComponent?.purchaseListComponent()
+                    field = allMenuComponent?.purchaseListComponent()
                 return field
             }
 
         var dayComponent: DayComponent? = null
             get() {
                 if (field == null)
-                    field = menuComponent?.dayComponent()
+                    field = allMenuComponent?.dayComponent()
                 return field
             }
 

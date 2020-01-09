@@ -18,7 +18,7 @@ class ProductPortionInteractorImpl @Inject constructor(
             .observeOn(executor.postExecutor)
     }
 
-    override fun onPortionValueChanged(newValue: Int, productId: Int): Completable {
+    override fun onPortionValueChanged(newValue: Int, productId: Long): Completable {
         return repository.getStartInquirerInfo().flatMapCompletable { startInquirerInfo ->
             Completable.fromAction {
                 startInquirerInfo.changePortionValue(newValue, productId)

@@ -15,6 +15,8 @@ class Menu private constructor(
     var totalWeight: Int = 0
 ) {
 
+    fun getProductById(id: Long): Product? = defaultProductList.find { it.id == id }
+
     fun deleteDay(day: Day) {
         days.remove(day)
         totalWeight -= day.getDayTotalWeightForAll()
@@ -90,7 +92,7 @@ class Menu private constructor(
                     restDayCount = inquirerInfo.relaxDayCount,
                     dateOfStartMenu = inquirerInfo.dateOfStartMenu,
                     startFrom = inquirerInfo.timeOfStartMenu,
-                    defaultProductList = inquirerInfo.products,
+                    defaultProductList = inquirerInfo.products.plus(inquirerInfo.productSets).toMutableList(),
                     days = dayList,
                     totalWeight = totalWeight
                 )

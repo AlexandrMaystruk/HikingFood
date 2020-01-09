@@ -1,9 +1,6 @@
 package com.gmail.maystruks08.domain.interactor.shoppinglist
 
-import com.gmail.maystruks08.domain.entity.GroupType
-import com.gmail.maystruks08.domain.entity.ShoppingListGenerator
-import com.gmail.maystruks08.domain.entity.ShoppingListItem
-import com.gmail.maystruks08.domain.entity.StoreDepartment
+import com.gmail.maystruks08.domain.entity.*
 import com.gmail.maystruks08.domain.executor.ThreadExecutor
 import com.gmail.maystruks08.domain.repository.ShoppingListRepository
 import io.reactivex.Completable
@@ -34,24 +31,31 @@ class ShoppingListInteractorImpl @Inject constructor(
             .observeOn(executor.postExecutor)
     }
 
+    override fun providePurchaseListGroupByProductAndStoreDepartment(menuId: Long): Single<Map<StoreDepartment, List<ShoppingListItem>>> {
+        return repository.getDataForGeneratePurchaseList(menuId)
+            .map {
+                shoppingListGenerator.groupShoppingListByProductAndStoreDepartment(it)
+            }
+            .subscribeOn(executor.mainExecutor)
+            .observeOn(executor.postExecutor)
+    }
+
     override fun exportDataToPDF(menuId: Long, menuName: String, type: GroupType): Completable {
         return repository.getDataForGeneratePurchaseList(menuId)
             .flatMapCompletable {
+                val fileName = "${menuName}_${type.name}"
                 when (type) {
                     GroupType.BY_PRODUCT -> {
                         val dataForExport = shoppingListGenerator.groupShoppingListByProduct(it)
-                        return@flatMapCompletable repository.exportDataGroupByProductToPDF(
-                            menuName,
-                            dataForExport
-                        )
+                        return@flatMapCompletable repository.exportDataToPDF(fileName, dataForExport)
                     }
-                    else -> {
-                        val dataForExport =
-                            shoppingListGenerator.groupShoppingListByStoreDepartment(it)
-                        return@flatMapCompletable repository.exportDataGroupByStoreDepartmentToPDF(
-                            menuName,
-                            dataForExport
-                        )
+                    GroupType.BY_STORE_DEPARTMENT-> {
+                        val dataForExport = shoppingListGenerator.groupShoppingListByStoreDepartment(it)
+                        return@flatMapCompletable repository.exportDataToPDF(fileName, dataForExport)
+                    }
+                    GroupType.BY_PRODUCT_AND_STORE_DEPARTMENT-> {
+                        val dataForExport = shoppingListGenerator.groupShoppingListByProductAndStoreDepartment(it)
+                        return@flatMapCompletable repository.exportDataToPDF(fileName, dataForExport)
                     }
                 }
             }

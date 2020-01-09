@@ -26,7 +26,7 @@ class ProductPortionRepositoryImpl @Inject constructor(private val menuInfo: Men
                 dateOfStartMenu = Date(),
                 timeOfStartMenu = TypeOfMeal.BREAKFAST,
                 products = menuInfo.productPortionList.toMutableList(),
-                productSets = menuInfo.soupSetList,
+                productSets = menuInfo.soupSetList.toMutableList(),
                 foodMeals = menuInfo.defaultFoodMeals.toMutableMap()
             )
         )

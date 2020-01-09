@@ -8,7 +8,9 @@ abstract class BasePresenter<T : IView> : IPresenter<T> {
 
     @Inject
     lateinit var router: Router
+
     override var view: T? = null
+
     override val compositeDisposable = CompositeDisposable()
 
     override fun bindView(view: T) {

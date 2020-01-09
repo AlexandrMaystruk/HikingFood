@@ -7,7 +7,6 @@ data class Portion(
     var portionForAllPeople: Int = value,
     val unit: Unit = Unit.GRAM
 ) {
-
     fun updatePortionForAllPeople(peopleCount: Int) {
         portionForAllPeople = value * peopleCount
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLayoutShoppingList"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,6 +37,70 @@
         </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <RadioButton
+        android:id="@+id/rbSortByProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_s"
+        android:checked="true"
+        app:layout_constraintBottom_toTopOf="@+id/tvSortByProduct"
+        app:layout_constraintEnd_toEndOf="@+id/tvSortByProduct"
+        app:layout_constraintStart_toStartOf="@+id/tvSortByProduct" />
+
+    <RadioButton
+        android:id="@+id/rbSortByDepartment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tvSortByDepartment"
+        app:layout_constraintEnd_toEndOf="@+id/tvSortByDepartment"
+        app:layout_constraintStart_toStartOf="@+id/tvSortByDepartment" />
+
+    <RadioButton
+        android:id="@+id/rbSortByFoodMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_s"
+        app:layout_constraintBottom_toTopOf="@+id/tvSortByFoodMeal"
+        app:layout_constraintEnd_toEndOf="@+id/tvSortByFoodMeal"
+        app:layout_constraintStart_toStartOf="@+id/tvSortByFoodMeal" />
+
+    <TextView
+        android:id="@+id/tvSortByProduct"
+        style="@style/TextS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="-15"
+        android:text="по продуктам"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSortByDepartment"
+        app:layout_constraintCircle="@id/appBarLayout"
+        app:layout_constraintCircleAngle="255"
+        app:layout_constraintCircleRadius="150dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvSortByDepartment" />
+
+    <TextView
+        android:id="@+id/tvSortByDepartment"
+        style="@style/TextS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_xxl"
+        android:text="по отделам"
+        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSortByFoodMeal"
+        style="@style/TextS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="15"
+        android:text="по приёмам"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSortByDepartment"
+        app:layout_constraintCircle="@id/appBarLayout"
+        app:layout_constraintCircleAngle="105"
+        app:layout_constraintCircleRadius="150dp"
+        app:layout_constraintStart_toEndOf="@+id/rbSortByDepartment" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

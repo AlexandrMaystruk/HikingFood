@@ -18,7 +18,6 @@ import com.itextpdf.text.Phrase
 
 class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) {
 
-
     fun exportMenu(menu: Menu) {
         val document = createDocument("Раскладка_" + menu.name)
         try {
@@ -41,7 +40,7 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
     }
 
     fun exportPurchaseListGroupByProduct(fileName: String, data: List<ShoppingListItem>) {
-        val document = createDocument("Список_$fileName")
+        val document = createDocument("Закупка_$fileName")
         try {
             val table = PdfPTable(2)
             table.setWidths(intArrayOf(2, 1))
@@ -60,7 +59,7 @@ class PDFHelper @Inject constructor(private val calendarHelper: CalendarHelper) 
     }
 
     fun exportPurchaseListGroupByStoreDepartment(fileName: String, data: Map<StoreDepartment, List<ShoppingListItem>>) {
-        val document = createDocument("Список_$fileName")
+        val document = createDocument("Закупка_$fileName")
         try {
             val table = PdfPTable(2)
             table.setWidths(intArrayOf(2, 1))

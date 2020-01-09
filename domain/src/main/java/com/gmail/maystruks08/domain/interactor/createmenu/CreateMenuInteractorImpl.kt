@@ -71,7 +71,7 @@ class CreateMenuInteractorImpl @Inject constructor(
                             dateOfStartMenu = initialConfig.dateOfStartMenu,
                             timeOfStartMenu = initialConfig.timeOfStartMenu,
                             products = defaultProducts.toMutableList(),
-                            productSets = defaultSoupSets,
+                            productSets = defaultSoupSets.toMutableList(),
                             foodMeals = defaultFoodMeals.toMutableMap()
                         ).apply {
                             this.updatePortionValue()

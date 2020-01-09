@@ -15,13 +15,8 @@ class MenuRepositoryImpl @Inject constructor(
 ) : MenuRepository {
 
     override fun getMenu(menuId: Long): Single<Menu> {
-        return Single.create {
-            val menu = menuInfo.menuList.find { it.id == menuId }
-            if (menu != null) {
-                it.onSuccess(menu)
-            } else {
-                it.onError(MenuNotFoundException())
-            }
+        return Single.fromCallable {
+            menuInfo.menuList.find { it.id == menuId } ?: throw MenuNotFoundException()
         }
     }
 
