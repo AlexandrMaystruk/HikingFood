@@ -7,6 +7,7 @@ import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.DayView
 import com.gmail.maystruks08.hikingfood.ui.adapter.toDayView
+import com.gmail.maystruks08.hikingfood.ui.adapter.toMenuView
 import javax.inject.Inject
 
 class MenuPresenter @Inject constructor(private val interactor: MenuInteractor) :
@@ -22,6 +23,7 @@ class MenuPresenter @Inject constructor(private val interactor: MenuInteractor) 
                 this.menu = menu
                 actualFoodDays.clear()
                 actualFoodDays.addAll(menu.days.map { it.toDayView(menuId) })
+                view?.showMenuInfo(menu.toMenuView())
                 view?.showFoodDays(actualFoodDays)
             }, {
                 it.printStackTrace()
@@ -48,7 +50,7 @@ class MenuPresenter @Inject constructor(private val interactor: MenuInteractor) 
 
     private fun onExportDataToPDFSuccess() {
         view?.showMessage("Экспорт раскладки в PDF файл завершен")
-        //TODO show notification
+        Log.d("TAGG", "onExportDataToPDFSuccess")
     }
 
     private fun onExportDataToPDFError(t: Throwable) {

@@ -23,14 +23,15 @@ fun Product.toProductView(parentId: Long? = null): ProductView =
         parentId = parentId
     )
 
+fun ProductView.toSelectableProductView() = ProductViewSelectable(productView = this)
+
 
 fun ProductSet.toSetProductView(): SetProductView =
     SetProductView(
         id = this.id,
         name = this.name,
         portionForOnePeople = this.portion.value,
-        portionForAllPeople = this.portion.portionForAllPeople,
-        isSelected = false
+        portionForAllPeople = this.portion.portionForAllPeople
     )
 
 fun List<Product>?.toProductViewList(): List<ProductView> {

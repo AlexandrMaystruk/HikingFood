@@ -8,23 +8,22 @@ class SetProductView(
     id: Long,
     name: String,
     portionForOnePeople: Int,
-    portionForAllPeople: Int,
-    var isSelected: Boolean) : ProductView(id, name, portionForOnePeople, portionForAllPeople), Parcelable {
+    portionForAllPeople: Int
+) : ProductView(id, name, portionForOnePeople, portionForAllPeople), Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readInt(),
-        parcel.readInt(),
-        parcel.readByte() != 0.toByte()
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
         parcel.writeLong(id)
         parcel.writeString(name)
         parcel.writeInt(portionForOnePeople)
         parcel.writeInt(portionForAllPeople)
-        parcel.writeByte(if (isSelected) 1 else 0)
     }
 
     override fun describeContents(): Int {

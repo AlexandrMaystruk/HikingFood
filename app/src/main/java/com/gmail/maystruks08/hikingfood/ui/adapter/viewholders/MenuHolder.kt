@@ -3,7 +3,7 @@ package com.gmail.maystruks08.hikingfood.ui.adapter.viewholders
 import android.view.View
 import com.gmail.maystruks08.hikingfood.ui.adapter.AdapterCallbacks
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.MenuView
-import kotlinx.android.synthetic.main.item_menu.view.*
+import kotlinx.android.synthetic.main.layout_menu.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 

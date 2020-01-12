@@ -3,7 +3,7 @@ package com.gmail.maystruks08.hikingfood.ui.menu.createmenu.createreception
 import android.util.Log
 import com.gmail.maystruks08.domain.entity.ProductSet
 import com.gmail.maystruks08.domain.entity.TypeOfMeal
-import com.gmail.maystruks08.domain.interactor.createmenu.createbreakfast.CreateReceptionInteractor
+import com.gmail.maystruks08.domain.interactor.createmenu.createreception.CreateReceptionInteractor
 import com.gmail.maystruks08.hikingfood.core.base.BasePresenter
 import com.gmail.maystruks08.hikingfood.core.navigation.Screens
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ProductView
@@ -188,7 +188,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
                             productView
                         }
                     }
-                    view?.showSelectProductFragment(newProducts, true)
+                    router.navigateTo(Screens.AddProductsScreen(newProducts, true, ::onProductsSelected))
                 }, { it.printStackTrace() })
         )
     }
@@ -206,12 +206,20 @@ class CreateFoodReceptionPresenter @Inject constructor(
                             productView
                         }
                     }
-                    view?.showSelectProductFragment(newProducts, false)
+                    router.navigateTo(Screens.AddProductsScreen(newProducts, false, ::onProductsSelected))
                 }, { it.printStackTrace() })
         )
     }
 
-    override fun onAddStaticProducts(products: List<ProductView>) {
+    private fun onProductsSelected(products: List<ProductView>, isDefProducts: Boolean){
+        if(isDefProducts){
+            onAddStaticProducts(products)
+        } else {
+            onAddLoopProducts(products)
+        }
+    }
+
+    private fun onAddStaticProducts(products: List<ProductView>) {
         compositeDisposable.add(
             interactor.onStaticProductsAdded(
                 config.currentMeal,
@@ -224,7 +232,7 @@ class CreateFoodReceptionPresenter @Inject constructor(
         )
     }
 
-    override fun onAddLoopProducts(products: List<ProductView>) {
+    private fun onAddLoopProducts(products: List<ProductView>) {
         compositeDisposable.add(
             interactor.onLoopProductsAdded(
                 config.currentMeal,

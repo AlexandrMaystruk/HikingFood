@@ -13,16 +13,12 @@ import com.gmail.maystruks08.hikingfood.core.base.BaseFragment
 import com.gmail.maystruks08.hikingfood.ui.adapter.FactoryAdapter
 import com.gmail.maystruks08.hikingfood.ui.adapter.AdapterCallbacks
 import com.gmail.maystruks08.hikingfood.ui.adapter.factory.TypesFactory
-import com.gmail.maystruks08.hikingfood.core.navigation.Screens
-import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.createreception.selectingredient.SelectProductsDialog
-import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.createreception.selectingredient.SelectNewProductsListener
 import com.gmail.maystruks08.hikingfood.ui.adapter.viewmodels.ProductView
 import com.gmail.maystruks08.hikingfood.utils.SwipeActionHelper
 import kotlinx.android.synthetic.main.fragment_create_food_reception.*
 import javax.inject.Inject
 
-class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.View,
-    SelectNewProductsListener {
+class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.View{
 
     @Inject
     lateinit var presenter: CreateFoodReceptionContract.Presenter
@@ -50,7 +46,7 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
 
     override fun builder(): FragmentToolbar {
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbarCreateReception)
+            .withId(R.id.toolbar)
             .withTitle(R.string.fragment_create_food_reception_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()
@@ -142,11 +138,6 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
         adapterLoopProducts.items = products.toMutableList()
     }
 
-    override fun showSelectProductFragment(products: List<ProductView>, isStaticProducts: Boolean) {
-        SelectProductsDialog.getInstance(products, isStaticProducts)
-            .show(childFragmentManager, Screens.SELECT_PRODUCTS_DIALOG)
-    }
-
     override fun markCurrentStepAsComplete() {
         val isFinished = vStepProgress.nextStep(true)
         if (isFinished) {
@@ -170,14 +161,6 @@ class CreateFoodReceptionFragment : BaseFragment(), CreateFoodReceptionContract.
 
     override fun showStaticProductRemoved(position: Int) {
         adapterStaticProducts.removeItem(position)
-    }
-
-    override fun onStaticProductsSelected(products: List<ProductView>) {
-        presenter.onAddStaticProducts(products)
-    }
-
-    override fun onLoopProductsSelected(products: List<ProductView>) {
-        presenter.onAddLoopProducts(products)
     }
 
     override fun showLoopProductInserted(product: ProductView, position: Int?) {

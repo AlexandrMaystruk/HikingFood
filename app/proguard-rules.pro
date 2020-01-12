@@ -29,14 +29,6 @@
   public *;
 }
 
--keepnames class com.amazonaws.**
--keepnames class com.amazon.**
--keep class com.amazonaws.services.**.*Handler
--dontwarn com.fasterxml.jackson.**
--dontwarn org.apache.commons.logging.**
--dontwarn org.apache.http.**
--dontwarn com.amazonaws.http.**
--dontwarn com.amazonaws.metrics.**
 
 -dontwarn android.arch.util.paging.CountedDataSource
 -dontwarn android.arch.persistence.room.paging.LimitOffsetDataSource
@@ -59,21 +51,6 @@
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
-
-# Prevent proguard from stripping interface information from TypeAdapterFactory,
-# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
-
-
-### OkHttp3
--dontwarn okhttp3.**
--dontwarn okio.**
--dontwarn javax.annotation.**
-# A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
--dontwarn com.squareup.okhttp.**
 
 ### Kotlin
 -keepclassmembers class **$WhenMappings {

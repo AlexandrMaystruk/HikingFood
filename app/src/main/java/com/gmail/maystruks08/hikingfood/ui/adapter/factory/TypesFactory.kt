@@ -10,6 +10,7 @@ interface TypesFactory {
     fun type(productPortion: ProductPortionView): Int
 
     fun type(product: ProductView): Int
+    fun type(productSelectable: ProductViewSelectable): Int
     fun type(productSet: SetProductView): Int
 
     fun type(menu: MenuView): Int

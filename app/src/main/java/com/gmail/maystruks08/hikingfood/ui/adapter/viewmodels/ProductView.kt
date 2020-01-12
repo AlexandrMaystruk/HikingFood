@@ -10,7 +10,7 @@ open class ProductView(
     val portionForOnePeople: Int,
     val portionForAllPeople: Int,
     val parentId: Long? = null
-) : Parcelable, BaseViewModel(id) {
+) : Parcelable, BaseSelectableViewModel(id) {
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),

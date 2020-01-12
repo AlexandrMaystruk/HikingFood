@@ -11,7 +11,7 @@ class ShoppingItemHolder(itemView: View, onCLickListenerListener: AdapterCallbac
         itemView.tvProductName.text = item.name
         itemView.tvTotalWeight.text = item.totalWeight.toString()
         itemView.tvUnit.text = item.unit
-        itemView.tvPosition.isChecked = item.isPurchased
+        itemView.cdIsPurchased.isChecked = item.isSelected
 
         itemView.setOnClickListener {
             onCLickListenerListener?.onClicked(item)

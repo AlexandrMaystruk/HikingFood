@@ -13,8 +13,6 @@ interface CreateFoodReceptionContract {
 
         fun showFinishButton()
 
-        fun showSelectProductFragment(products: List<ProductView>, isStaticProducts: Boolean)
-
         fun showStaticProducts(products: List<ProductView>)
         fun showLoopProducts(products: List<ProductView>)
 
@@ -51,10 +49,6 @@ interface CreateFoodReceptionContract {
         fun onStaticProductClicked(productView: ProductView)
 
         fun onLoopProductClicked(productView: ProductView)
-
-        fun onAddStaticProducts(products: List<ProductView>)
-
-        fun onAddLoopProducts(products: List<ProductView>)
 
         fun onDeleteStaticProductClicked(position: Int, productView: ProductView)
 

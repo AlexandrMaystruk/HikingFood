@@ -47,7 +47,7 @@ class CreateMenuFragment : BaseFragment(), CreateMenuContract.View {
 
     override fun builder(): FragmentToolbar {
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbarCreate)
+            .withId(R.id.toolbar)
             .withTitle(R.string.fragment_create_menu_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .build()

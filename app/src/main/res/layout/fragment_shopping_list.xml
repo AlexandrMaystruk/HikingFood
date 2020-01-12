@@ -27,13 +27,10 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/bg_coordinator_create" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarPurchaseList"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="top"
-                android:background="@null"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <include
+                layout="@layout/layout_toolbar"
+                android:fitsSystemWindows="true" />
+
         </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

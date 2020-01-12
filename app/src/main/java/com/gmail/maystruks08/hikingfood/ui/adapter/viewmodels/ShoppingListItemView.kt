@@ -8,24 +8,20 @@ class ShoppingListItemView(
     id: Long,
     val name: String,
     val totalWeight: Int,
-    val unit: String,
-    var isPurchased: Boolean = false
-) : Parcelable, BaseViewModel(id) {
+    val unit: String
+) : Parcelable, BaseSelectableViewModel(id) {
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readInt(),
-        parcel.readString() ?: "",
-        parcel.readByte() != 0.toByte()
-    )
+        parcel.readString() ?: "")
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
         parcel.writeString(name)
         parcel.writeInt(totalWeight)
         parcel.writeString(unit)
-        parcel.writeByte(if (isPurchased) 1 else 0)
     }
 
     override fun describeContents(): Int {

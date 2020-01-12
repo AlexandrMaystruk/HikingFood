@@ -1,4 +1,4 @@
-package com.gmail.maystruks08.domain.interactor.createmenu.createbreakfast
+package com.gmail.maystruks08.domain.interactor.createmenu.createreception
 
 import com.gmail.maystruks08.domain.entity.FoodMeal
 import com.gmail.maystruks08.domain.entity.Product

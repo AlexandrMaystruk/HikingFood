@@ -11,11 +11,13 @@
     <string name="relax_day">Днёвка</string>
     <string name="day">День</string>
     <string name="all_menu_fragment_name">Раскладка</string>
+    <string name="fragment_create_product">Создать продукт</string>
     <string name="fragment_create_menu_name">Создание раскладки</string>
     <string name="fragment_purchase_list_name">Закупочный лист</string>
     <string name="fragment_create_food_reception_name">Создание приемов пищи</string>
     <string name="fragment_portions_name">Грамовка</string>
     <string name="fragment_menu_name">Выбранная раскладка</string>
+    <string name="fragment_add_products_to_meal">Добавить продукты</string>
 
     <string-array name="menu_start">
         <item>заврак</item>

@@ -35,11 +35,7 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnC
         App.shoppingListComponent?.inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_shopping_list, container, false)
     }
 
@@ -54,7 +50,7 @@ class ShoppingListFragment : BaseFragment(), ShoppingListContract.View, View.OnC
             true
         }
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbarPurchaseList)
+            .withId(R.id.toolbar)
             .withTitle(R.string.fragment_purchase_list_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .withMenu(R.menu.menu_purchase_list)

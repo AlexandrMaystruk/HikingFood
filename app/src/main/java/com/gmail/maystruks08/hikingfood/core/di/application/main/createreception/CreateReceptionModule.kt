@@ -1,8 +1,8 @@
 package com.gmail.maystruks08.hikingfood.core.di.application.main.createreception
 
 import com.gmail.maystruks08.data.repository.CreateReceptionRepositoryImpl
-import com.gmail.maystruks08.domain.interactor.createmenu.createbreakfast.CreateReceptionInteractor
-import com.gmail.maystruks08.domain.interactor.createmenu.createbreakfast.CreateReceptionInteractorImpl
+import com.gmail.maystruks08.domain.interactor.createmenu.createreception.CreateReceptionInteractor
+import com.gmail.maystruks08.domain.interactor.createmenu.createreception.CreateReceptionInteractorImpl
 import com.gmail.maystruks08.domain.repository.CreateReceptionRepository
 import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.createreception.CreateFoodReceptionContract
 import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.createreception.CreateFoodReceptionPresenter

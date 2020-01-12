@@ -12,7 +12,6 @@ class ProductPortionView(
     val portionValue: Int
 ) : Parcelable, BaseViewModel(id) {
 
-
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString() ?: "",

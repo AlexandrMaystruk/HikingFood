@@ -8,7 +8,9 @@ import com.gmail.maystruks08.hikingfood.core.di.application.AppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.DaggerAppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.allmenu.AllMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.createmenu.CreateMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createproduct.CreateProductComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception.CreateReceptionComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception.add.AddProductComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.portion.ProductPortionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.day.DayComponent
@@ -31,6 +33,13 @@ class App : Application() {
             get() {
                 if (field == null)
                     field = allMenuComponent?.createMenuComponent()
+                return field
+            }
+
+        var createProductComponent: CreateProductComponent? = null
+            get() {
+                if (field == null)
+                    field = allMenuComponent?.createProductComponent()
                 return field
             }
 
@@ -69,9 +78,20 @@ class App : Application() {
                 return field
             }
 
+        var addProductComponent: AddProductComponent? = null
+            get() {
+                if (field == null)
+                    field = createReceptionComponent?.addProductComponent()
+                return field
+            }
+
 
         fun clearMenuComponent() {
             menuComponent = null
+        }
+
+        fun clearCreateProductComponent() {
+            createProductComponent = null
         }
 
         fun clearCreateMenuComponent() {
@@ -96,6 +116,10 @@ class App : Application() {
 
         fun clearCreateReceptionComponent() {
             createReceptionComponent = null
+        }
+
+        fun clearAddProductComponent() {
+            addProductComponent = null
         }
     }
 

@@ -32,11 +32,7 @@ class ProductPortionForOnePeopleFragment : BaseFragment(), PortionContract.View,
         App.portionComponent?.inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_portions, container, false)
     }
 
@@ -47,7 +43,7 @@ class ProductPortionForOnePeopleFragment : BaseFragment(), PortionContract.View,
 
     override fun builder(): FragmentToolbar {
         return FragmentToolbar.Builder()
-            .withId(R.id.toolbarPortion)
+            .withId(R.id.toolbar)
             .withTitle(R.string.fragment_portions_name)
             .withNavigationIcon(R.drawable.ic_arrow_back) { presenter.onBackClicked() }
             .withMenu(R.menu.menu_search)

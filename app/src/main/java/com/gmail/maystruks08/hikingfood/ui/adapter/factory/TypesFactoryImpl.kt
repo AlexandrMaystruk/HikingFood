@@ -16,6 +16,8 @@ class TypesFactoryImpl @Inject constructor(): TypesFactory {
 
     override fun type(product: ProductView): Int = R.layout.item_product
 
+    override fun type(productSelectable: ProductViewSelectable): Int = R.layout.item_product_selectable
+
     override fun type(productSet: SetProductView): Int = R.layout.item_product_set
 
     override fun type(productPortion: ProductPortionView): Int = R.layout.item_product_portion
@@ -29,6 +31,7 @@ class TypesFactoryImpl @Inject constructor(): TypesFactory {
         return when (type) {
             R.layout.item_menu -> MenuHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<MenuView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<MenuView>?)
             R.layout.item_day -> DayHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<DayView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<DayView>?)
+            R.layout.item_product_selectable -> SelectableProductHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<ProductViewSelectable>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<ProductViewSelectable>?)
             R.layout.item_product -> ProductHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<ProductView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<ProductView>?)
             R.layout.item_product_set -> ProductSetHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<SetProductView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<SetProductView>?)
             R.layout.item_product_portion -> ProductPortionHolder(view, onCLickListenerListener as? AdapterCallbacks.OnClickListener<ProductPortionView>?, onItemChangeListenerListener as? AdapterCallbacks.OnItemChangeListener<ProductPortionView>?)

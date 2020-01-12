@@ -78,7 +78,7 @@ class ShoppingListPresenter @Inject constructor(
 
     override fun onItemClicked(item: ShoppingListItemView) {
         //TODO save changes to db and storage
-        val updatedItem = item.apply { isPurchased = !isPurchased }
+        val updatedItem = item.apply { isSelected = !isSelected }
         view?.showShoppingLisItemUpdated(updatedItem)
     }
 

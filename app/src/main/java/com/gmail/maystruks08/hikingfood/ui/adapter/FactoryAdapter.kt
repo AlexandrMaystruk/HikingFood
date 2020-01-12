@@ -19,6 +19,8 @@ class FactoryAdapter @Inject constructor(
         notifyDataSetChanged()
     }
 
+    inline fun <reified T> getItems() = items as T
+
     fun insertItem(item: BaseViewModel, position: Int? = null) {
         if(position!= null){
             items.add(position, item)
