@@ -13,14 +13,14 @@
 
     <CheckBox
         android:id="@+id/cbIsSelected"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false" />
 
     <TextView
         android:id="@+id/tvProductName"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_marginStart="@dimen/margin_xs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/tvProductWeightForOnePeople"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/tvProductWeightForAllPeople"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

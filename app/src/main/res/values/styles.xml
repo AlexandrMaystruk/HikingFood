@@ -72,33 +72,10 @@
         <item name="android:background">@drawable/bg_circle_avatar</item>
     </style>
 
-    <style name="ComponentBarLayout">
-        <item name="android:background">@drawable/bg_corner_layout</item>
-        <item name="android:paddingTop">@dimen/margin_min</item>
-        <item name="android:paddingBottom">@dimen/margin_min</item>
-        <item name="android:paddingStart">@dimen/margin_min</item>
-        <item name="android:paddingEnd">@dimen/margin_min</item>
-    </style>
 
-    <style name="TextOrderItemTitle">
+    <style name="TextTitle">
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textSize">@dimen/margin_s</item>
-    </style>
-
-
-    <style name="TextOrderItem" parent="@android:style/Widget.TextView">
-        <item name="android:textSize">@dimen/text_m</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:paddingTop">@dimen/margin_xs</item>
-        <item name="android:paddingBottom">@dimen/margin_xs</item>
-        <item name="android:paddingStart">@dimen/margin_m</item>
-        <item name="android:paddingEnd">@dimen/margin_s</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="TextBottomNavigation">
-        <item name="android:textSize">@dimen/text_xs</item>
-        <item name="android:textColor">@color/textWhiteUnselected</item>
     </style>
 
     <style name="TextXS">

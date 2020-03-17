@@ -27,7 +27,6 @@ import com.gmail.maystruks08.hikingfood.utils.extensions.visible
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.layout_menu.*
-import kotlinx.android.synthetic.main.layout_menu.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject

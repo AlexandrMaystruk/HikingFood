@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/tvProductSetName"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/tvProductWeightForOnePeople"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/tvProductWeightForAllPeople"
-        style="@style/TextOrderItemTitle"
+        style="@style/TextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
