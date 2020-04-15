@@ -8,119 +8,118 @@ import javax.inject.Singleton
 class MenuInfo @Inject constructor() {
 
     val productPortionList = listOf(
-        Product(0, "Гречка", Portion(85, 75, 100), listOf(Category.PORRIDGE)),
-        Product(1, "Рис", Portion(85, 75, 100), listOf(Category.PORRIDGE)),
-        Product(2, "Макароны", Portion(85, 75, 100), listOf(Category.PORRIDGE)),
-        Product(3, "Крупы в суп", Portion(20, 20, 20), listOf(Category.PORRIDGE)),
-        Product(4, "Соль", Portion(3, 2, 4), listOf(Category.ADDITIONALLY)),
-        Product(5, "Сахар", Portion(12, 8, 15), listOf(Category.ADDITIONALLY)),
-        Product(6, "Чай", Portion(3, 2, 4), listOf(Category.ADDITIONALLY)),
-        Product(7, "Печенье", Portion(40, 35, 50), listOf(Category.SWEET)),
-        Product(8, "Колбаса", Portion(50, 50, 50), listOf(Category.DRY_LUNCH)),
-        Product(9, "Сыр", Portion(50, 40, 60), listOf(Category.PORRIDGE, Category.DRY_LUNCH, Category.SOUP)),
-        Product(10, "Сало", Portion(50, 40, 60), listOf(Category.PORRIDGE)),
-        Product(11, "Пашетет", Portion(50, 40, 60), listOf(Category.DRY_LUNCH)),
-        Product(12, "Рыбные консервы", Portion(50, 40, 60), listOf(Category.DRY_LUNCH)),
-        Product(13, "Мясо(в мокром виде)", Portion(20, 15, 25), listOf(Category.ADDITIONALLY)),
-        Product(14, "Сухари/галеты", Portion(25, 20, 30), listOf(Category.ADDITIONALLY)),
-        Product(15, "Картошка(в мокром виде)", Portion(20, 15, 25), listOf(Category.SOUP)),
-        Product(16, "Капуста(в мокром виде)", Portion(20, 15, 25), listOf(Category.SOUP)),
-        Product(17, "Морковка(в мокром виде)", Portion(10, 7, 13), listOf(Category.SOUP)),
-        Product(18, "Зелень(в мокром виде)", Portion(2, 2, 4), listOf(Category.SOUP)),
-        Product(18, "Лук", Portion(2, 2, 4), listOf(Category.SOUP)),
-        Product(19, "Хлеб(в мокром виде)", Portion(170, 150, 220), listOf(Category.ADDITIONALLY)),
-        Product(20, "Сладкое", Portion(40, 30, 50), listOf(Category.SWEET)),
-        Product(21, "Привальные", Portion(75, 70, 80), listOf(Category.CAMP)),
-        Product(22, "Грибы в суп", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(23, "Заправка борщ", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(24, "Заправка рассольник", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(25, "Сосиски в солянку", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(26, "Заправка харчо", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(27, "Гороховые брикеты", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(28, "Чечевица в суп", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(29, "Гречка в суп", Portion(15, 10, 25), listOf(Category.SOUP)),
-        Product(30, "Сыр в суп", Portion(15, 10, 25), listOf(Category.SOUP))
+        Product(0, "Гречка", Portion(85, 75, 100), StoreDepartment.CEREALS),
+        Product(1, "Рис", Portion(85, 75, 100), StoreDepartment.CEREALS),
+        Product(2, "Макароны", Portion(85, 75, 100), StoreDepartment.CEREALS),
+        Product(3, "Крупы в суп", Portion(20, 20, 20), StoreDepartment.CEREALS),
+        Product(4, "Соль", Portion(3, 2, 4), StoreDepartment.CEREALS),
+        Product(5, "Сахар", Portion(12, 8, 15), StoreDepartment.CEREALS),
+        Product(6, "Чай", Portion(3, 2, 4),  StoreDepartment.CEREALS),
+        Product(7, "Печенье", Portion(40, 35, 50), StoreDepartment.SWEET),
+        Product(8, "Колбаса", Portion(50, 40, 60), StoreDepartment.SAUSAGE),
+        Product(9, "Сыр", Portion(50, 40, 60),  StoreDepartment.MILK),
+        Product(10, "Сало", Portion(50, 40, 60), StoreDepartment.MEET),
+        Product(11, "Пашетет", Portion(50, 40, 60), StoreDepartment.CONSERVE),
+        Product(12, "Рыбные консервы", Portion(50, 40, 60), StoreDepartment.CONSERVE),
+        Product(13, "Мясо(в мокром виде)", Portion(20, 15, 25), StoreDepartment.MEET),
+        Product(14, "Сухари/галеты", Portion(25, 20, 30), StoreDepartment.BREAD),
+        Product(15, "Картошка(в мокром виде)", Portion(20, 15, 25), StoreDepartment.VEGETABLES),
+        Product(16, "Капуста(в мокром виде)", Portion(20, 15, 25),  StoreDepartment.VEGETABLES),
+        Product(17, "Морковка(в мокром виде)", Portion(10, 7, 13), StoreDepartment.VEGETABLES),
+        Product(18, "Зелень(в мокром виде)", Portion(2, 2, 4), StoreDepartment.VEGETABLES),
+        Product(19, "Лук", Portion(2, 2, 4),  StoreDepartment.VEGETABLES),
+        Product(20, "Хлеб(в мокром виде)", Portion(170, 150, 220),  StoreDepartment.BREAD),
+        Product(21, "Сладкое", Portion(40, 30, 50), StoreDepartment.SWEET),
+        Product(22, "Привальные", Portion(75, 70, 80),  StoreDepartment.SWEET),
+        Product(23, "Грибы в суп", Portion(15, 10, 25), StoreDepartment.VEGETABLES),
+        Product(24, "Заправка борщ", Portion(15, 10, 25), StoreDepartment.CONSERVE),
+        Product(25, "Заправка рассольник", Portion(15, 10, 25), StoreDepartment.CONSERVE),
+        Product(26, "Сосиски в солянку", Portion(15, 10, 25), StoreDepartment.SAUSAGE),
+        Product(27, "Заправка харчо", Portion(15, 10, 25), StoreDepartment.CONSERVE),
+        Product(28, "Гороховые брикеты", Portion(15, 10, 25), StoreDepartment.CONSERVE),
+        Product(29, "Чечевица в суп", Portion(15, 10, 25), StoreDepartment.CEREALS),
+        Product(30, "Гречка в суп", Portion(15, 10, 25), StoreDepartment.CEREALS),
+        Product(31, "Сыр в суп", Portion(15, 10, 25), StoreDepartment.MILK)
     )
 
     val soupSetList = listOf(
         ProductSet.create(101, "Борщ", getDefaultSoupIngredients().apply {
-            this.add(Product(23, "Заправка борщ", Portion(15, 10, 30), listOf(Category.SOUP)))
+            this.add(Product(1010, "Заправка борщ", Portion(15, 10, 30),  StoreDepartment.CONSERVE))
         }),
         ProductSet.create(102, "Рассольник", getDefaultSoupIngredients().apply {
-            this.add(Product(24, "Заправка рассольник", Portion(15, 10, 30), listOf(Category.SOUP)))
+            this.add(Product(1020, "Заправка рассольник", Portion(15, 10, 30), StoreDepartment.CONSERVE))
         }),
         ProductSet.create(103, "Солянка", getDefaultSoupIngredients().apply {
-            this.add(Product(25, "Сосиски в солянку", Portion(15, 10, 30), listOf(Category.SOUP)))
+            this.add(Product(1030, "Сосиски в солянку", Portion(15, 10, 30), StoreDepartment.CEREALS))
         }),
         ProductSet.create(104, "Суп харчо", getDefaultSoupIngredients().apply {
-            this.add(Product(26, "Заправка харчо", Portion(15, 10, 30), listOf(Category.SOUP)))
+            this.add(Product(1040, "Заправка харчо", Portion(15, 10, 30), StoreDepartment.CONSERVE))
         }),
         ProductSet.create(105, "Суп гороховый", getDefaultSoupIngredients().apply {
-            this.add(Product(27, "Гороховые брикеты", Portion(15, 10, 30), listOf(Category.SOUP)))
+            this.add(Product(1050, "Гороховые брикеты", Portion(15, 10, 30), StoreDepartment.CONSERVE))
         }),
         ProductSet.create(106, "Суп чечевичный", getDefaultSoupIngredients().apply {
-            this.add(Product(28, "Чечевица в суп", Portion(15, 10, 30), listOf(Category.SOUP)))
+            this.add(Product(1060, "Чечевица в суп", Portion(15, 10, 30), StoreDepartment.CEREALS))
         }),
         ProductSet.create(107, "Суп гречневый", getDefaultSoupIngredients().apply {
-            this.add(Product(29, "Гречка в суп", Portion(20, 20, 20), listOf(Category.SOUP)))
+            this.add(Product(1070, "Гречка в суп", Portion(20, 20, 20), StoreDepartment.CEREALS))
         }),
         ProductSet.create(108, "Сырный суп", getDefaultSoupIngredients().apply {
-            this.add(Product(30, "Сыр в суп", Portion(20, 20, 20), listOf(Category.SOUP)))
+            this.add(Product(1080, "Сыр в суп", Portion(20, 20, 20),  StoreDepartment.MILK))
         }),
         ProductSet.create(109, "Суп грибной", getDefaultSoupIngredients().apply {
-            this.add(Product(22, "Грибы в суп", Portion(20, 20, 20), listOf(Category.SOUP)))
-            this.add(Product(29, "Гречка в суп", Portion(20, 20, 20), listOf(Category.SOUP)))
+            this.add(Product(1090, "Грибы в суп", Portion(20, 20, 20), StoreDepartment.VEGETABLES))
         })
     )
 
     private fun getDefaultSoupIngredients(): MutableList<Product> {
         return mutableListOf(
-            Product(15, "Картошка(в мокром виде)", Portion(20, 15, 25), listOf(Category.SOUP)),
-            Product(16, "Капуста(в мокром виде)", Portion(20, 15, 25), listOf(Category.SOUP)),
-            Product(17, "Морковка(в мокром виде)", Portion(10, 7, 13), listOf(Category.SOUP)),
-            Product(18, "Зелень(в мокром виде)", Portion(2, 2, 4), listOf(Category.SOUP)),
-            Product(18, "Лук", Portion(2, 2, 4), listOf(Category.SOUP))
+            Product(15, "Картошка(в мокром виде)", Portion(20, 15, 25), StoreDepartment.VEGETABLES),
+            Product(16, "Капуста(в мокром виде)", Portion(20, 15, 25),  StoreDepartment.VEGETABLES),
+            Product(17, "Морковка(в мокром виде)", Portion(10, 7, 13), StoreDepartment.VEGETABLES),
+            Product(18, "Зелень(в мокром виде)", Portion(2, 2, 4), StoreDepartment.VEGETABLES),
+            Product(19, "Лук", Portion(2, 2, 4),  StoreDepartment.VEGETABLES)
         )
     }
 
     val defaultFoodMeals = mapOf(
         TypeOfMeal.BREAKFAST to FoodMeal(
             mutableListOf(
-                Product(4, "Соль", Portion(3, 2, 4), listOf(Category.ADDITIONALLY)),
-                Product(5, "Сахар", Portion(35, 30, 40), listOf(Category.ADDITIONALLY)),
-                Product(6, "Чай", Portion(3, 2, 4), listOf(Category.ADDITIONALLY)),
-                Product(7, "Печенье", Portion(40, 35, 50), listOf(Category.SWEET)),
-                Product(9, "Сыр", Portion(50, 50, 50), listOf(Category.PORRIDGE, Category.DRY_LUNCH, Category.SOUP)),
-                Product(14, "Сухари/галеты", Portion(25, 20, 30), listOf(Category.ADDITIONALLY)),
-                Product(19, "Хлеб(в мокром виде)", Portion(170, 150, 220), listOf(Category.ADDITIONALLY))
+                Product(4, "Соль", Portion(3, 2, 4), StoreDepartment.CEREALS),
+                Product(5, "Сахар", Portion(12, 8, 15), StoreDepartment.CEREALS),
+                Product(6, "Чай", Portion(3, 2, 4),  StoreDepartment.CEREALS),
+                Product(7, "Печенье", Portion(40, 35, 50), StoreDepartment.SWEET),
+                Product(9, "Сыр", Portion(50, 50, 50),  StoreDepartment.MILK),
+                Product(14, "Сухари/галеты", Portion(25, 20, 30), StoreDepartment.BREAD),
+                Product(20, "Хлеб(в мокром виде)", Portion(170, 150, 220),  StoreDepartment.BREAD)
             ), mutableListOf(
-                Product(0, "Гречка", Portion(85, 75, 100), listOf(Category.PORRIDGE)),
-                Product(1, "Рис", Portion(85, 75, 100), listOf(Category.PORRIDGE)),
-                Product(2, "Макароны", Portion(85, 75, 100), listOf(Category.PORRIDGE))
+                Product(0, "Гречка", Portion(85, 75, 100),  StoreDepartment.CEREALS),
+                Product(1, "Рис", Portion(85, 75, 100), StoreDepartment.CEREALS),
+                Product(2, "Макароны", Portion(85, 75, 100),  StoreDepartment.CEREALS)
             )
         ),
         TypeOfMeal.LUNCH to FoodMeal(
             mutableListOf(
-                Product(7, "Печенье", Portion(40, 35, 50), listOf(Category.SWEET)),
-                Product(19, "Хлеб(в мокром виде)", Portion(200, 180, 220), listOf(Category.ADDITIONALLY)),
-                Product(20, "Сладкое", Portion(40, 30, 50), listOf(Category.SWEET)),
-                Product(21, "Привальные", Portion(75, 70, 80), listOf(Category.CAMP))
+                Product(7, "Печенье", Portion(40, 35, 50),  StoreDepartment.SWEET),
+                Product(20, "Хлеб(в мокром виде)", Portion(170, 150, 220),  StoreDepartment.BREAD),
+                Product(21, "Сладкое", Portion(40, 30, 50),  StoreDepartment.SWEET),
+                Product(22, "Привальные", Portion(75, 70, 80), StoreDepartment.SWEET)
             ),
             mutableListOf(
-                Product(8, "Колбаса", Portion(50, 40, 60), listOf(Category.DRY_LUNCH)),
-                Product(10, "Сало", Portion(50, 40, 60), listOf(Category.DRY_LUNCH)),
-                Product(11, "Пашетет", Portion(50, 40, 60), listOf(Category.DRY_LUNCH)),
-                Product(12, "Рыбные консервы", Portion(50, 40, 60), listOf(Category.DRY_LUNCH)),
-                Product(14, "Сухари/галеты", Portion(25, 20, 30), listOf(Category.ADDITIONALLY))
+                Product(8, "Колбаса", Portion(50, 40, 60), StoreDepartment.SAUSAGE),
+                Product(10, "Сало", Portion(50, 40, 60), StoreDepartment.MEET),
+                Product(11, "Пашетет", Portion(50, 40, 60), StoreDepartment.CONSERVE),
+                Product(12, "Рыбные консервы", Portion(50, 40, 60),  StoreDepartment.CONSERVE),
+                Product(14, "Сухари/галеты", Portion(25, 20, 30), StoreDepartment.CEREALS)
             )
         ),
         TypeOfMeal.DINNER to FoodMeal(
             mutableListOf(
-                Product(4, "Соль", Portion(3, 2, 4), listOf(Category.ADDITIONALLY)),
-                Product(6, "Чай", Portion(3, 2, 4), listOf(Category.ADDITIONALLY)),
-                Product(7, "Печенье", Portion(40, 35, 50), listOf(Category.SWEET)),
-                Product(14, "Сухари/галеты", Portion(25, 20, 30), listOf(Category.ADDITIONALLY)),
-                Product(19, "Хлеб(в мокром виде)", Portion(170, 150, 220), listOf(Category.ADDITIONALLY))
+                Product(4, "Соль", Portion(3, 2, 4), StoreDepartment.CEREALS),
+                Product(6, "Чай", Portion(3, 2, 4),  StoreDepartment.CEREALS),
+                Product(7, "Печенье", Portion(40, 35, 50), StoreDepartment.SWEET),
+                Product(14, "Сухари/галеты", Portion(25, 20, 30), StoreDepartment.BREAD),
+                Product(20, "Хлеб(в мокром виде)", Portion(170, 150, 220),  StoreDepartment.BREAD)
             ), soupSetList.toMutableList()
         )
     )

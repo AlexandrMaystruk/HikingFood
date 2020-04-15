@@ -12,37 +12,32 @@ class Menu private constructor(
     var startFrom: TypeOfMeal,
     val defaultProductList: MutableList<Product> = mutableListOf(),
     val days: MutableList<Day> = mutableListOf(),
-    var purchaseList: PurchaseList,
     var totalWeight: Int = 0
 ) {
 
+    fun getProductById(id: Long): Product? = defaultProductList.find { it.id == id }
+
     fun deleteDay(day: Day) {
         days.remove(day)
-        purchaseList = PurchaseList.generatePurchaseList(days)
         totalWeight -= day.getDayTotalWeightForAll()
     }
 
     fun deleteProductFromAllDays(product: Product) {
         defaultProductList.remove(product)
-        days.forEach { it.removeProductFromDay(product) }
-        totalWeight -= purchaseList.removeItem(product)
+        days.forEach { totalWeight -= it.removeProductFromDay(product) }
     }
 
     fun deleteProductFromDayByTypeOfMeal(dayNumber: Int, typeOfMeal: TypeOfMeal, product: Product) {
         days.find { it.number == dayNumber }?.let {
             val index = days.indexOf(it)
-            days[index].removeProductFromMeal(typeOfMeal, product)
-            totalWeight -= purchaseList.decreaseProduct(product)
+            totalWeight -= days[index].removeProductFromMeal(typeOfMeal, product)
         }
     }
 
     fun deleteProductFromDay(dayNumber: Int, product: Product) {
         days.find { it.number == dayNumber }?.let {
             val index = days.indexOf(it)
-            days[index].removeProductFromDay(product)
-            for (count in 0..it.getDayMealCount()) {
-                totalWeight -= purchaseList.decreaseProduct(product)
-            }
+            totalWeight -= days[index].removeProductFromDay(product)
         }
     }
 
@@ -52,76 +47,31 @@ class Menu private constructor(
             return startInfo.let { inquirerInfo ->
                 val countReceptionInDay = 3
                 val dayList = mutableListOf<Day>()
-                var indexBreakfast = 0
-                var indexLunch = 0
-                var indexDinner = 0
                 var dayNumber = 1
                 var totalWeight = 0
                 val relaxDayNumber = if (inquirerInfo.relaxDayCount > 0) inquirerInfo.numberOfReceptions / countReceptionInDay / 2 + 1 else -1
                 var day = Day(dayNumber, inquirerInfo.dateOfStartMenu)
-                for (number in 0 until inquirerInfo.numberOfReceptions) {
-                    //need to shift index if days start from lunch or dinner
-                    val index = if (dayNumber != 1) {
-                        (number + countReceptionInDay) % countReceptionInDay
-                    } else {
-                        (number + inquirerInfo.timeOfStartMenu.ordinal + countReceptionInDay) % countReceptionInDay
-                    }
-                    when (index) {
-                        0 -> {
-                            inquirerInfo.foodMeals[TypeOfMeal.BREAKFAST]?.let { foodMeal ->
-                                day.addProducts(TypeOfMeal.BREAKFAST, foodMeal.defProducts)
-                                if (foodMeal.loopProducts.lastIndex == indexBreakfast) {
-                                    day.addProduct(
-                                        TypeOfMeal.BREAKFAST,
-                                        foodMeal.loopProducts[indexBreakfast]
-                                    )
-                                    indexBreakfast = 0
-                                } else {
-                                    day.addProduct(
-                                        TypeOfMeal.BREAKFAST,
-                                        foodMeal.loopProducts[indexBreakfast]
-                                    )
-                                    indexBreakfast++
-                                }
-                            }
-                        }
-                        1 -> {
-                            inquirerInfo.foodMeals[TypeOfMeal.LUNCH]?.let { foodMeal ->
-                                day.addProducts(TypeOfMeal.LUNCH, foodMeal.defProducts)
-                                if (foodMeal.loopProducts.lastIndex == indexLunch) {
-                                    day.addProduct(
-                                        TypeOfMeal.LUNCH,
-                                        foodMeal.loopProducts[indexLunch]
-                                    )
-                                    indexLunch = 0
-                                } else {
-                                    day.addProduct(
-                                        TypeOfMeal.LUNCH,
-                                        foodMeal.loopProducts[indexLunch]
-                                    )
-                                    indexLunch++
-                                }
-                            }
-                        }
-                        2 -> {
-                            inquirerInfo.foodMeals[TypeOfMeal.DINNER]?.let { foodMeal ->
-                                day.addProducts(TypeOfMeal.DINNER, foodMeal.defProducts)
-                                if (foodMeal.loopProducts.lastIndex == indexDinner) {
-                                    day.addProduct(
-                                        TypeOfMeal.DINNER,
-                                        foodMeal.loopProducts[indexDinner]
-                                    )
-                                    indexDinner = 0
-                                } else {
-                                    day.addProduct(
-                                        TypeOfMeal.DINNER,
-                                        foodMeal.loopProducts[indexDinner]
-                                    )
-                                    indexDinner++
-                                }
-                            }
+                //stores indexes for loop products list,
+                //loopIndexHolder[0] -> indexBreakfast
+                //loopIndexHolder[1] -> indexLunch
+                //loopIndexHolder[2] -> indexDinner
+                val loopIndexHolder = arrayOf(0, 0, 0)
+                var currentTypeOfMeal = inquirerInfo.timeOfStartMenu
+                for (number in 0 until inquirerInfo.numberOfReceptions){
+                    inquirerInfo.foodMeals[currentTypeOfMeal]?.let { foodMeal ->
+                        //add def products
+                        day.addProducts(currentTypeOfMeal, foodMeal.defProducts)
+                        val currentIndex = loopIndexHolder[currentTypeOfMeal.type]
+                        //add loop products
+                        day.addProduct(currentTypeOfMeal, foodMeal.loopProducts[currentIndex])
+                        if (foodMeal.loopProducts.lastIndex == currentIndex) {
+                            loopIndexHolder[currentTypeOfMeal.type] = 0
+                        } else {
+                            loopIndexHolder[currentTypeOfMeal.type]++
                         }
                     }
+                    //get next food meal
+                    currentTypeOfMeal = TypeOfMeal.getNextMeal(currentTypeOfMeal)
 
                     if (day.isDayComplete(startInfo.timeOfStartMenu) || number == inquirerInfo.numberOfReceptions - 1) {
                         totalWeight += day.getDayTotalWeightForAll()
@@ -134,7 +84,6 @@ class Menu private constructor(
                         }
                     }
                 }
-
                 Menu(
                     id = Date().time,
                     name = inquirerInfo.name,
@@ -143,9 +92,8 @@ class Menu private constructor(
                     restDayCount = inquirerInfo.relaxDayCount,
                     dateOfStartMenu = inquirerInfo.dateOfStartMenu,
                     startFrom = inquirerInfo.timeOfStartMenu,
-                    defaultProductList = inquirerInfo.products,
+                    defaultProductList = inquirerInfo.products.plus(inquirerInfo.productSets).toMutableList(),
                     days = dayList,
-                    purchaseList = PurchaseList.generatePurchaseList(dayList),
                     totalWeight = totalWeight
                 )
             }

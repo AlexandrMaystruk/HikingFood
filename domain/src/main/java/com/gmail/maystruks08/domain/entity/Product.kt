@@ -1,11 +1,11 @@
 package com.gmail.maystruks08.domain.entity
 
 open class Product(
-    val id: Int,
+    val id: Long,
     val name: String,
     var portion: Portion,
-    val categories: List<Category>,
-    val unit: Unit = Unit.GRAM 
+    val storeDepartment: StoreDepartment ? = null,
+    val unit: Unit = Unit.GRAM
 ) {
 
    open fun calculatePortionForAllPeople(peopleCount: Int) {

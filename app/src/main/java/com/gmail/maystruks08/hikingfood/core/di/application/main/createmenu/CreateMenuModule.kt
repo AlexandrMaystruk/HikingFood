@@ -4,8 +4,8 @@ import com.gmail.maystruks08.data.repository.CreateMenuRepositoryImpl
 import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractor
 import com.gmail.maystruks08.domain.interactor.createmenu.CreateMenuInteractorImpl
 import com.gmail.maystruks08.domain.repository.CreateMenuRepository
-import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.CreateMenuContract
-import com.gmail.maystruks08.hikingfood.ui.main.menu.createmenu.CreateMenuPresenter
+import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.CreateMenuContract
+import com.gmail.maystruks08.hikingfood.ui.menu.createmenu.CreateMenuPresenter
 import dagger.Module
 import dagger.Provides
 

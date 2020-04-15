@@ -42,7 +42,7 @@ class FragmentToolbar(
             this.searchViewTextChangeListener = searchViewTextChangeListener
         }
 
-        fun withMenuItems(menuItems: MutableList<Int>, menuClicks: MutableList<MenuItem.OnMenuItemClickListener?>) = apply {
+        fun withMenuItems(menuItems: List<Int>, menuClicks: List<MenuItem.OnMenuItemClickListener?>) = apply {
             this.menuItems.addAll(menuItems)
             this.menuClicks.addAll(menuClicks)
         }

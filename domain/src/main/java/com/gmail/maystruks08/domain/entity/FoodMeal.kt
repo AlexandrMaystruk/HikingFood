@@ -8,13 +8,13 @@ data class FoodMeal(val defProducts: MutableList<Product>, val loopProducts: Mut
     }
 
 
-    fun updateProductPortionValue(id: Int, newValue: Int, peopleCount: Int){
-        defProducts.find { it.id == id }?.let { product->
+    fun updateProductPortionValue(newValue: Int, productId: Long, peopleCount: Int){
+        defProducts.find { it.id == productId }?.let { product->
             val position = defProducts.indexOf(product)
             defProducts.remove(product)
             val updatedProduct =
                 if (product is ProductSet) {
-                    product.apply { this.updatePortionValue(newValue, id, peopleCount) }
+                    product.apply { this.updatePortionValue(newValue, productId, peopleCount) }
                 } else {
                     product.apply {
                         this.portion.value = newValue
@@ -24,12 +24,12 @@ data class FoodMeal(val defProducts: MutableList<Product>, val loopProducts: Mut
             defProducts.add(position, updatedProduct)
         }
 
-        loopProducts.find { it.id == id }?.let { product->
+        loopProducts.find { it.id == productId }?.let { product->
             val position = loopProducts.indexOf(product)
             loopProducts.remove(product)
             val updatedProduct =
                 if (product is ProductSet) {
-                    product.apply { this.updatePortionValue(newValue, id, peopleCount) }
+                    product.apply { this.updatePortionValue(newValue, productId, peopleCount) }
                 } else {
                     product.apply {
                         this.portion.value = newValue

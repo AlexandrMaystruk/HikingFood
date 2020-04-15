@@ -1,12 +1,12 @@
 buildscript {
 
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.3.61'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -28,22 +28,27 @@ ext {
     testApplicationId = 'com.gmail.maystruks08.hikingfood'
 
     //Android
-    androidBuildToolsVersion = "28.0.0"
+    androidBuildToolsVersion = "29.0.0"
     androidXToolsVersion = "1.0.0"
-    androidXAppCompatToolsVersion = "1.1.0-alpha03"
+    androidXAppCompatToolsVersion = "1.2.0-alpha01"
     androidMinSdkVersion = 21
-    androidTargetSdkVersion = 28
-    androidCompileSdkVersion = 28
-    androidCoreKTXVersion = "1.0.1"
+    androidTargetSdkVersion = 29
+    androidCompileSdkVersion = 29
+    androidCoreKTXVersion = "1.2.0-rc01"
 
     //{ Libraries }
-
     //Android
-    constraintVersion = '2.0.0-beta2'
-    designVersion = '1.1.0-alpha07'
+    constraintVersion = '2.0.0-beta4'
+    designVersion = '1.2.0-alpha03'
 
     //circle image view
-    circleImageViewVersion = '3.0.0'
+    circleImageViewVersion = '3.0.1'
+
+    //https://github.com/ogaclejapan/ArcLayout
+    arclayoutVersion = '1.1.0@aar'
+
+    //https://github.com/ShawnLin013/NumberPicker
+    numberPickerVersion = '2.4.8'
 
     //RxJava
     rxJavaVersion = '2.1.11'
@@ -54,15 +59,18 @@ ext {
     ankoVersion = '0.10.4'
     ktxVersion = '0.3'
 
+    //pdf
+    textPDFVersion = '5.5.10'
+
     //Dependency Injection
-    daggerVersion = '2.23.2'
+    daggerVersion = '2.25.4'
 
     ciceroneVersion = '4.0.2'
 
     roomVersion = '2.1.0'
 
     //Testing
-    jUnitVersion = '4.13-beta-3'
+    jUnitVersion = '4.13'
     mockitoKotlinVersion = '2.1.0'
     espressoVersion = '3.0.2'
     testingSupportLibVersion = '1.0.2'
@@ -70,6 +78,8 @@ ext {
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
 
+    //LeakCanary version
+    leakCanaryVersion = '2.0-beta-3'
 
     presentationDependencies = [
             kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
@@ -81,7 +91,6 @@ ext {
             javaxInject     : "javax.inject:javax.inject:${javaxInjectVersion}",
             annotations     : "androidx.annotation:annotation:${androidXToolsVersion}",
             constraintLayout: "androidx.constraintlayout:constraintlayout:${constraintVersion}",
-            cardView        : "androidx.cardview:cardview:${androidXToolsVersion}",
             daggerCompiler  : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger          : "com.google.dagger:dagger:${daggerVersion}",
             rxJava          : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
@@ -89,7 +98,11 @@ ext {
             kotlinKtx       : "androidx.core:core-ktx:${androidXToolsVersion}",
             cicerone        : "ru.terrakok.cicerone:cicerone:${ciceroneVersion}",
             circleImageView : "de.hdodenhof:circleimageview:${circleImageViewVersion}",
-            androidCoreKTX : "androidx.core:core-ktx:${androidCoreKTXVersion}"
+            arcLayout       : "com.ogaclejapan.arclayout:library:${arclayoutVersion}",
+            numberPicker    : "com.shawnlin:number-picker:${numberPickerVersion}",
+            androidCoreKTX  : "androidx.core:core-ktx:${androidCoreKTXVersion}",
+            leakcanary      : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+
     ]
 
     presentationTestDependencies = [
@@ -113,20 +126,20 @@ ext {
     ]
 
     dataDependencies = [
-            annotations              : "androidx.annotation:annotation:${androidXToolsVersion}",
-            javaxAnnotation          : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject              : "javax.inject:javax.inject:${javaxInjectVersion}",
-            kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            rxJava                   : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxAndroid                : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            room                     : "androidx.room:room-runtime:$roomVersion",
-            roomCompiler             : "androidx.room:room-compiler:$roomVersion",
-            roomRxJava               : "androidx.room:room-rxjava2:$roomVersion",
+            annotations    : "androidx.annotation:annotation:${androidXToolsVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
+            kotlin         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            room           : "androidx.room:room-runtime:$roomVersion",
+            roomCompiler   : "androidx.room:room-compiler:$roomVersion",
+            roomRxJava     : "androidx.room:room-rxjava2:$roomVersion",
+            itextpdf       : "com.itextpdf:itextg:$textPDFVersion"
     ]
 
     dataTestDependencies = [
             junit  : "junit:junit:${jUnitVersion}",
             mockito: "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}"
     ]
-
 }

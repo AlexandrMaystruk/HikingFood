@@ -11,14 +11,12 @@
     <color name="colorGrey">#cb444869</color>
     <color name="colorGrey700">#616161</color>
     <color name="colorLightItem">#494561</color>
-    <color name="colorProductSet">#75494561</color>
 
-<!--Text-->
+    <!--Text-->
     <color name="colorText">@color/colorWhite</color>
     <color name="colorTextInactive">#8E8E8E</color>
     <color name="textWhiteUnselected">#A3FFFFFF</color>
     <color name="textWhiteSelected">#ffffff</color>
-    <color name="colorHint">#FFEB3B</color>
     <color name="colorCard">#332E4E</color>
     <color name="colorDivider">#808E8E8E</color>
 

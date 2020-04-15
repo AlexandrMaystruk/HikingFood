@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLayoutShoppingList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@null"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_coordinator_create" />
+
+            <include
+                layout="@layout/layout_toolbar"
+                android:fitsSystemWindows="true" />
+
+        </FrameLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RadioButton
+        android:id="@+id/rbSortByProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_s"
+        android:checked="true"
+        app:layout_constraintBottom_toTopOf="@+id/tvSortByProduct"
+        app:layout_constraintEnd_toEndOf="@+id/tvSortByProduct"
+        app:layout_constraintStart_toStartOf="@+id/tvSortByProduct" />
+
+    <RadioButton
+        android:id="@+id/rbSortByDepartment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tvSortByDepartment"
+        app:layout_constraintEnd_toEndOf="@+id/tvSortByDepartment"
+        app:layout_constraintStart_toStartOf="@+id/tvSortByDepartment" />
+
+    <RadioButton
+        android:id="@+id/rbSortByFoodMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_s"
+        app:layout_constraintBottom_toTopOf="@+id/tvSortByFoodMeal"
+        app:layout_constraintEnd_toEndOf="@+id/tvSortByFoodMeal"
+        app:layout_constraintStart_toStartOf="@+id/tvSortByFoodMeal" />
+
+    <TextView
+        android:id="@+id/tvSortByProduct"
+        style="@style/TextS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="-15"
+        android:text="по продуктам"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSortByDepartment"
+        app:layout_constraintCircle="@id/appBarLayout"
+        app:layout_constraintCircleAngle="255"
+        app:layout_constraintCircleRadius="150dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvSortByDepartment" />
+
+    <TextView
+        android:id="@+id/tvSortByDepartment"
+        style="@style/TextS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_xxl"
+        android:text="по отделам"
+        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSortByFoodMeal"
+        style="@style/TextS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="15"
+        android:text="по приёмам"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSortByDepartment"
+        app:layout_constraintCircle="@id/appBarLayout"
+        app:layout_constraintCircleAngle="105"
+        app:layout_constraintCircleRadius="150dp"
+        app:layout_constraintStart_toEndOf="@+id/rbSortByDepartment" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_m"
+        android:layout_marginEnd="@dimen/margin_m"
+        android:layout_marginBottom="@dimen/margin_m"
+        android:background="@drawable/bg_layout"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="@dimen/margin_m"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:id="@+id/layoutCreateFoodReceptionHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_m"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="@dimen/margin_m"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/TextL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Продукт" />
+
+            <TextView
+                style="@style/TextL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Вес" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/margin_m"
+            android:layout_marginTop="@dimen/margin_min"
+            android:layout_marginEnd="@dimen/margin_m"
+            android:background="@color/colorWhite"
+            app:layout_constraintTop_toBottomOf="@+id/layoutCreateFoodReceptionHeader" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shoppingListItemsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_m"
+            android:layout_marginEnd="@dimen/margin_m"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparator" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

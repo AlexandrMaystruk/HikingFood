@@ -8,11 +8,13 @@ import com.gmail.maystruks08.hikingfood.core.di.application.AppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.DaggerAppComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.allmenu.AllMenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.createmenu.CreateMenuComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createproduct.CreateProductComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception.CreateReceptionComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.createreception.add.AddProductComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.portion.ProductPortionComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.menu.MenuComponent
 import com.gmail.maystruks08.hikingfood.core.di.application.main.day.DayComponent
-import com.gmail.maystruks08.hikingfood.core.di.application.main.purchase.PurchaseListComponent
+import com.gmail.maystruks08.hikingfood.core.di.application.main.purchase.ShoppingListComponent
 
 class App : Application() {
 
@@ -34,6 +36,13 @@ class App : Application() {
                 return field
             }
 
+        var createProductComponent: CreateProductComponent? = null
+            get() {
+                if (field == null)
+                    field = allMenuComponent?.createProductComponent()
+                return field
+            }
+
         var menuComponent: MenuComponent? = null
             get() {
                 if (field == null)
@@ -48,17 +57,17 @@ class App : Application() {
                 return field
             }
 
-        var purchaseListComponent: PurchaseListComponent? = null
+        var shoppingListComponent: ShoppingListComponent? = null
             get() {
                 if (field == null)
-                    field = menuComponent?.purchaseListComponent()
+                    field = allMenuComponent?.purchaseListComponent()
                 return field
             }
 
         var dayComponent: DayComponent? = null
             get() {
                 if (field == null)
-                    field = menuComponent?.dayComponent()
+                    field = allMenuComponent?.dayComponent()
                 return field
             }
 
@@ -69,9 +78,20 @@ class App : Application() {
                 return field
             }
 
+        var addProductComponent: AddProductComponent? = null
+            get() {
+                if (field == null)
+                    field = createReceptionComponent?.addProductComponent()
+                return field
+            }
+
 
         fun clearMenuComponent() {
             menuComponent = null
+        }
+
+        fun clearCreateProductComponent() {
+            createProductComponent = null
         }
 
         fun clearCreateMenuComponent() {
@@ -83,7 +103,7 @@ class App : Application() {
         }
 
         fun clearPurchaseListComponent() {
-            purchaseListComponent = null
+            shoppingListComponent = null
         }
 
         fun clearAllMenuComponent() {
@@ -96,6 +116,10 @@ class App : Application() {
 
         fun clearCreateReceptionComponent() {
             createReceptionComponent = null
+        }
+
+        fun clearAddProductComponent() {
+            addProductComponent = null
         }
     }
 
