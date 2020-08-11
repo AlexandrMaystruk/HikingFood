@@ -51,8 +51,8 @@ ext {
     numberPickerVersion = '2.4.8'
 
     //RxJava
-    rxJavaVersion = '2.1.11'
-    rxAndroidVersion = '2.0.2'
+    rxJavaVersion = '2.2.17'
+    rxAndroidVersion = '2.1.1'
 
     //Kotlin
     kotlinVersion = '1.2.50'
